@@ -32,6 +32,7 @@ class GameScreen {
         <div class="game-screen__header">
           <h2 class="game-screen__title"></h2>
           <div class="game-screen__toolbar">
+            <button class="btn btn--icon game-screen__mute-btn" title="Silenciar/activar música"></button>
             <button class="btn btn--icon game-screen__settings-btn" title="Opcions">&#9881;</button>
             <button class="btn btn--icon game-screen__menu-btn" title="Menú principal">&#9776;</button>
           </div>
@@ -46,6 +47,14 @@ class GameScreen {
     container.appendChild(screen);
 
     // Botons de la toolbar
+    const muteBtn = screen.querySelector('.game-screen__mute-btn');
+    this._updateMuteBtn(muteBtn);
+    muteBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const enabled = this._audio.toggleMusic();
+      this._settings.set('musicEnabled', enabled);
+      this._updateMuteBtn(muteBtn);
+    });
     screen.querySelector('.game-screen__settings-btn')
       .addEventListener('click', (e) => {
         e.stopPropagation();
@@ -169,6 +178,14 @@ class GameScreen {
       document.removeEventListener('keydown', this._skipHandler);
       this._skipHandler = null;
     }
+  }
+
+  /** @private — Actualitza la icona del botó mute */
+  _updateMuteBtn(btn) {
+    const enabled = this._audio.getMusicEnabled();
+    // 🔊 altaveu amb so / 🔇 altaveu ratllat
+    btn.textContent = enabled ? '\u{1F50A}' : '\u{1F507}';
+    btn.title = enabled ? 'Silenciar música' : 'Activar música';
   }
 }
 
