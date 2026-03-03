@@ -125,7 +125,7 @@ class GameScreen {
     }
 
     // SFX
-    this._audio.playSFX('audio/sfx/choice.mp3');
+    this._audio.playSFX('audio/sfx/choice.wav');
 
     // Navegar al node següent
     this._engine.selectChoice(index);

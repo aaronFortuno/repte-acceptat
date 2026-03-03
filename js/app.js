@@ -59,11 +59,16 @@ const gameScreen = new GameScreen({
 });
 
 const endScreen = new EndScreen({
+  audioManager: audio,
   onRestart: () => {
     engine.restart();
+    audio.playMusic('audio/music/music_loop.wav');
     screens.showScreen('game');
   },
-  onMenu: () => showMenu()
+  onMenu: () => {
+    audio.stopMusic();
+    showMenu();
+  }
 });
 
 // Registrar pantalles
@@ -98,6 +103,7 @@ async function startAdventure(adv) {
     await engine.loadAdventureFromUrl(`stories/${adv.file}`);
     engine.startGame();
     audio.init();
+    audio.playMusic('audio/music/music_loop.wav');
     screens.showScreen('game');
   } catch (e) {
     console.error('Error carregant aventura:', e);

@@ -3,7 +3,8 @@
  */
 
 class EndScreen {
-  constructor({ onRestart, onMenu }) {
+  constructor({ audioManager, onRestart, onMenu }) {
+    this._audio = audioManager;
     this._onRestart = onRestart;
     this._onMenu = onMenu;
   }
@@ -40,6 +41,12 @@ class EndScreen {
       </div>
     `;
     container.appendChild(screen);
+
+    // SFX de final i aturar música
+    if (this._audio) {
+      this._audio.stopMusic();
+      this._audio.playSFX(isGood ? 'audio/sfx/victory.wav' : 'audio/sfx/death.wav');
+    }
 
     screen.querySelector('.end-screen__restart-btn')
       .addEventListener('click', () => {
