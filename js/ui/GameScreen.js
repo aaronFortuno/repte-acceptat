@@ -167,8 +167,14 @@ class GameScreen {
         this._typewriter.skip();
       }
     };
-    document.addEventListener('click', this._skipHandler);
-    document.addEventListener('keydown', this._skipHandler);
+    // Diferir el registre per evitar que el click actual (selecció d'opció)
+    // dispari immediatament el skip del nou typewriter
+    setTimeout(() => {
+      if (this._skipHandler) {
+        document.addEventListener('click', this._skipHandler);
+        document.addEventListener('keydown', this._skipHandler);
+      }
+    }, 0);
   }
 
   /** @private */

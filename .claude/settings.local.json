@@ -3,7 +3,13 @@
     "allow": [
       "Bash(mkdir:*)",
       "Bash(cp:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(node:*)",
+      "Bash(gh api:*)",
+      "Bash(gh.exe api:*)",
+      "Bash(where gh:*)",
+      "WebFetch(domain:aaronfortuno.github.io)",
+      "WebFetch(domain:github.com)"
     ]
   }
 }
