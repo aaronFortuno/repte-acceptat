@@ -22,11 +22,11 @@ Cada aventura es defineix en un fitxer JSON independent. El motor és genèric i
 
 ## Fase 1 — Motor de Joc (Engine)
 
-- [ ] `js/engine/StoryEngine.js` — Carrega JSON, gestiona estat, navega nodes
-- [ ] `js/engine/TypewriterEffect.js` — Efecte d'escriptura lletra a lletra
-- [ ] `js/engine/AudioManager.js` — Reproducció de música i SFX (Web Audio API)
-- [ ] `js/engine/SettingsManager.js` — Preferències (localStorage només per settings)
-- [ ] Tests unitaris per a StoryEngine (navegació, finals, camins)
+- [x] `js/engine/StoryEngine.js` — Carrega JSON, gestiona estat, navega nodes
+- [x] `js/engine/TypewriterEffect.js` — Efecte d'escriptura lletra a lletra
+- [x] `js/engine/AudioManager.js` — Reproducció de música i SFX (Web Audio API)
+- [x] `js/engine/SettingsManager.js` — Preferències (localStorage només per settings)
+- [x] Tests unitaris per a StoryEngine (navegació, finals, camins)
 
 **Lliurable**: Motor funcional que pot carregar i recórrer qualsevol aventura JSON.
 
