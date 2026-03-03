@@ -24,6 +24,10 @@ const typewriter = new TypewriterEffect();
 // Aplicar preferències visuals guardades
 settings.applyAll();
 
+// Sincronitzar estat d'àudio amb les preferències
+audio.setMusicEnabled(settings.get('musicEnabled'));
+audio.setSFXEnabled(settings.get('sfxEnabled'));
+
 // Contenidor principal
 const appEl = document.getElementById('app');
 const screens = new ScreenManager(appEl);
@@ -36,7 +40,10 @@ let adventures = [];
 // ============================================
 
 const titleScreen = new TitleScreen({
-  onStart: () => showMenu()
+  onStart: () => {
+    audio.init();
+    showMenu();
+  }
 });
 
 const menuScreen = new MenuScreen({
@@ -55,11 +62,12 @@ const gameScreen = new GameScreen({
   typewriterEffect: typewriter,
   settingsManager: settings,
   audioManager: audio,
-  onEnd: (node) => screens.showScreen('end', { node }),
-  onMenu: () => {
-    audio.stopMusic();
-    showMenu();
+  onEnd: (node) => {
+    const type = node.endingType === 'good' ? 'victory' : 'death';
+    audio.playSFXThenMusic(type, type);
+    screens.showScreen('end', { node });
   },
+  onMenu: () => showMenu(),
   onSettings: () => {
     screens.showScreen('settings', {
       onBack: () => screens.showScreen('game'),
@@ -69,16 +77,12 @@ const gameScreen = new GameScreen({
 });
 
 const endScreen = new EndScreen({
-  audioManager: audio,
   onRestart: () => {
     engine.restart();
-    audio.playMusic('audio/music/music_loop.wav');
+    audio.playMusic('adventure');
     screens.showScreen('game');
   },
-  onMenu: () => {
-    audio.stopMusic();
-    showMenu();
-  }
+  onMenu: () => showMenu()
 });
 
 // Registrar pantalles
@@ -105,6 +109,7 @@ async function loadManifest() {
 }
 
 function showMenu() {
+  audio.playMusic('menu');
   screens.showScreen('menu', { adventures });
 }
 
@@ -112,8 +117,7 @@ async function startAdventure(adv) {
   try {
     await engine.loadAdventureFromUrl(`stories/${adv.file}`);
     engine.startGame();
-    audio.init();
-    audio.playMusic('audio/music/music_loop.wav');
+    audio.playMusic('adventure');
     screens.showScreen('game');
   } catch (e) {
     console.error('Error carregant aventura:', e);

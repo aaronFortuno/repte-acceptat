@@ -1,10 +1,10 @@
 /**
  * EndScreen — Pantalla de final: mostra resultat i opcions per continuar.
+ * L'àudio (SFX + música de fons) es gestiona des d'app.js.
  */
 
 class EndScreen {
-  constructor({ audioManager, onRestart, onMenu }) {
-    this._audio = audioManager;
+  constructor({ onRestart, onMenu }) {
     this._onRestart = onRestart;
     this._onMenu = onMenu;
   }
@@ -41,12 +41,6 @@ class EndScreen {
       </div>
     `;
     container.appendChild(screen);
-
-    // SFX de final i aturar música
-    if (this._audio) {
-      this._audio.stopMusic();
-      this._audio.playSFX(isGood ? 'audio/sfx/victory.wav' : 'audio/sfx/death.wav');
-    }
 
     screen.querySelector('.end-screen__restart-btn')
       .addEventListener('click', () => {
