@@ -8,6 +8,15 @@
       "description": "Ets en Baldiri, aventurer de 3a categoria amb llicència caducada. Un mapa trobat en un got de cervesa et porta a una aventura absurda.",
       "difficulty": "fàcil",
       "endings": { "total": 10, "good": 1, "bad": 9 }
+    },
+    {
+      "id": "castell",
+      "file": "castell.json",
+      "title": "El Castell de les Mil Portes",
+      "author": "Equip Repte",
+      "description": "Ets la Bruna, aprenenta de cavalleresca amb assignatures pendents. Rescata el príncep Tomàs d'un castell ple d'enigmes trampa. Llegeix bé cada paraula... o paga les conseqüències!",
+      "difficulty": "difícil",
+      "endings": { "total": 35, "good": 1, "bad": 34 }
     }
   ]
 }
