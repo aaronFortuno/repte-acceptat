@@ -47,8 +47,8 @@ Cada aventura es defineix en un fitxer JSON independent. El motor és genèric i
 
 ## Fase 3 — Primera Aventura (Quest 404)
 
-- [ ] Crear `stories/quest404.json` amb tots els nodes i finals d'EXEMPLE1.md
-- [ ] Adaptar textos i to irònic al format JSON
+- [x] Crear `stories/quest404.json` amb tots els nodes i finals d'EXEMPLE1.md
+- [x] Adaptar textos i to irònic al format JSON
 - [ ] Verificar manualment tots els 10 finals (9 dolents + 1 bo)
 - [ ] Tests automatitzats: tots els camins porten a un final
 
@@ -58,10 +58,11 @@ Cada aventura es defineix en un fitxer JSON independent. El motor és genèric i
 
 ## Fase 4 — Audio
 
-- [ ] Música chiptune de fons en bucle (assets lliures o generats amb BeepBox)
-- [ ] SFX: selecció d'opció, final bo, final dolent, typewriter tick
-- [ ] Integrar amb AudioManager i respectar settings de l'usuari
+- [x] Música chiptune de fons en bucle (generada amb script Python)
+- [x] SFX: selecció d'opció, final bo, final dolent
+- [x] Integrar amb AudioManager i respectar settings de l'usuari
 - [ ] Botó mute/unmute accessible a la UI de joc
+- [ ] SFX typewriter tick (opcional)
 
 **Lliurable**: Experiència sonora completa.
 
