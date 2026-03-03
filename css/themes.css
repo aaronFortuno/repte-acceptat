@@ -55,3 +55,31 @@
   --scanline-opacity: 0.03;
   --crt-vignette-opacity: 0.1;
 }
+
+/* ============================================
+   MIDES DE FONT
+   ============================================ */
+
+[data-font-size="small"] {
+  --font-title: 0.9rem;
+  --font-subtitle: 0.65rem;
+  --font-body: 0.55rem;
+  --font-btn: 0.48rem;
+  --font-muted: 0.42rem;
+}
+
+[data-font-size="medium"] {
+  --font-title: 1.2rem;
+  --font-subtitle: 0.85rem;
+  --font-body: 0.7rem;
+  --font-btn: 0.6rem;
+  --font-muted: 0.55rem;
+}
+
+[data-font-size="large"] {
+  --font-title: 1.5rem;
+  --font-subtitle: 1.05rem;
+  --font-body: 0.88rem;
+  --font-btn: 0.75rem;
+  --font-muted: 0.65rem;
+}

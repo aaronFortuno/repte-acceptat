@@ -10,7 +10,8 @@ const DEFAULTS = {
   musicEnabled: true,
   sfxEnabled: true,
   typewriterEnabled: true,
-  typewriterSpeed: 30
+  typewriterSpeed: 30,
+  fontSize: 'medium'
 };
 
 class SettingsManager {
@@ -64,6 +65,21 @@ class SettingsManager {
    */
   applyTheme() {
     document.body.setAttribute('data-theme', this._settings.theme);
+  }
+
+  /**
+   * Aplica la mida de font al DOM (atribut data-font-size al body).
+   */
+  applyFontSize() {
+    document.body.setAttribute('data-font-size', this._settings.fontSize);
+  }
+
+  /**
+   * Aplica totes les preferències visuals al DOM.
+   */
+  applyAll() {
+    this.applyTheme();
+    this.applyFontSize();
   }
 
   /** @private */

@@ -62,7 +62,7 @@ body {
    ============================================ */
 
 h1 {
-  font-size: 1.2rem;
+  font-size: var(--font-title, 1.2rem);
   color: var(--text-title);
   text-align: center;
   text-shadow: var(--glow-intensity);
@@ -71,14 +71,14 @@ h1 {
 }
 
 h2 {
-  font-size: 0.85rem;
+  font-size: var(--font-subtitle, 0.85rem);
   color: var(--text-accent);
   text-shadow: var(--glow-intensity);
   margin-bottom: 1rem;
 }
 
 p, .narrative-text {
-  font-size: 0.7rem;
+  font-size: var(--font-body, 0.7rem);
   line-height: 2;
   color: var(--text-primary);
   margin-bottom: 1rem;
@@ -86,7 +86,7 @@ p, .narrative-text {
 
 .text-muted {
   color: var(--text-muted);
-  font-size: 0.55rem;
+  font-size: var(--font-muted, 0.55rem);
 }
 
 .text-accent {
@@ -107,7 +107,7 @@ p, .narrative-text {
 
 .btn {
   font-family: 'Press Start 2P', monospace;
-  font-size: 0.6rem;
+  font-size: var(--font-btn, 0.6rem);
   padding: 0.8rem 1.2rem;
   background-color: var(--bg-button);
   color: var(--text-primary);
