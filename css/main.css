@@ -236,6 +236,139 @@ p, .narrative-text {
 .text-center { text-align: center; }
 
 /* ============================================
+   TITLE SCREEN
+   ============================================ */
+
+.title-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  gap: 2rem;
+}
+
+.title-screen__logo {
+  text-align: center;
+}
+
+.title-screen__subtitle {
+  margin-top: 1.5rem;
+}
+
+.title-screen__prompt {
+  animation: blink 1.2s step-end infinite;
+}
+
+.title-screen__version {
+  margin-top: auto;
+}
+
+/* ============================================
+   MENU SCREEN
+   ============================================ */
+
+.menu-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 90vh;
+}
+
+/* ============================================
+   SETTINGS SCREEN
+   ============================================ */
+
+.settings-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 90vh;
+}
+
+.settings-screen__options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.settings-screen__option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.settings-screen__label {
+  font-size: 0.55rem;
+  color: var(--text-primary);
+}
+
+.settings-screen__toggle-btn {
+  min-width: 5rem;
+  text-align: center;
+  font-size: 0.5rem;
+}
+
+/* ============================================
+   GAME SCREEN
+   ============================================ */
+
+.game-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 90vh;
+}
+
+.game-screen__header {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+/* ============================================
+   END SCREEN
+   ============================================ */
+
+.end-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 90vh;
+}
+
+.end-screen__banner {
+  text-align: center;
+  padding: 2rem 1rem;
+  margin-bottom: 1rem;
+  border: 2px solid var(--border-color);
+}
+
+.end-screen__banner--good {
+  border-color: var(--text-success);
+}
+
+.end-screen__banner--bad {
+  border-color: var(--text-danger);
+}
+
+.end-screen__icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.end-screen__banner--good .end-screen__result {
+  color: var(--text-success);
+}
+
+.end-screen__banner--bad .end-screen__result {
+  color: var(--text-danger);
+}
+
+.end-screen__title {
+  color: var(--text-secondary);
+  font-size: 0.65rem;
+  margin-top: 0.5rem;
+}
+
+/* ============================================
    RESPONSIVE
    ============================================ */
 

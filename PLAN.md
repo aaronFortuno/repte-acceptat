@@ -34,12 +34,12 @@ Cada aventura es defineix en un fitxer JSON independent. El motor és genèric i
 
 ## Fase 2 — Interfície d'Usuari
 
-- [ ] Pantalla de títol / splash screen amb animació retro
-- [ ] Menú principal: Triar aventura, Opcions, Crèdits
-- [ ] Pantalla d'opcions: música on/off, SFX on/off, mode clar/fosc, typewriter on/off
-- [ ] Pantalla de joc: àrea de text + botons d'opció
-- [ ] Pantalla de final: missatge + botó reiniciar / tornar al menú
-- [ ] Transicions entre pantalles (fade in/out)
+- [x] Pantalla de títol / splash screen amb animació retro
+- [x] Menú principal: Triar aventura, Opcions, Crèdits
+- [x] Pantalla d'opcions: música on/off, SFX on/off, mode clar/fosc, typewriter on/off
+- [x] Pantalla de joc: àrea de text + botons d'opció
+- [x] Pantalla de final: missatge + botó reiniciar / tornar al menú
+- [x] Transicions entre pantalles (fade in/out)
 
 **Lliurable**: UI completa i navegable amb totes les pantalles.
 

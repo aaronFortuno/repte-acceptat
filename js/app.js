@@ -1,22 +1,117 @@
 /**
- * app.js — Punt d'entrada de l'aplicació
- * Inicialitza el sistema i mostra la pantalla de títol.
+ * app.js — Punt d'entrada de l'aplicació.
+ * Inicialitza tots els components i connecta les pantalles.
  */
 
-const app = document.getElementById('app');
+import ScreenManager from './ui/ScreenManager.js';
+import TitleScreen from './ui/TitleScreen.js';
+import MenuScreen from './ui/MenuScreen.js';
+import SettingsScreen from './ui/SettingsScreen.js';
+import GameScreen from './ui/GameScreen.js';
+import EndScreen from './ui/EndScreen.js';
 
-function showPlaceholder() {
-  app.innerHTML = `
-    <div class="screen screen--active flex-column" style="justify-content: center; align-items: center; min-height: 100vh;">
-      <h1>AVENTURES TEXTUALS<br>RETRO</h1>
-      <p class="text-center text-muted" style="margin-top: 2rem;">
-        Motor en construcció...
-      </p>
-      <p class="text-center text-accent" style="margin-top: 3rem; font-size: 0.55rem;">
-        Fase 0 completada<span class="cursor"></span>
-      </p>
-    </div>
-  `;
+import StoryEngine from './engine/StoryEngine.js';
+import TypewriterEffect from './engine/TypewriterEffect.js';
+import AudioManager from './engine/AudioManager.js';
+import SettingsManager from './engine/SettingsManager.js';
+
+// Instàncies dels serveis (engine)
+const settings = new SettingsManager();
+const audio = new AudioManager();
+const engine = new StoryEngine();
+const typewriter = new TypewriterEffect();
+
+// Aplicar tema guardat
+settings.applyTheme();
+
+// Contenidor principal
+const appEl = document.getElementById('app');
+const screens = new ScreenManager(appEl);
+
+// Manifest d'aventures (es carrega al iniciar)
+let adventures = [];
+
+// ============================================
+// Definició de pantalles
+// ============================================
+
+const titleScreen = new TitleScreen({
+  onStart: () => showMenu()
+});
+
+const menuScreen = new MenuScreen({
+  onSelectAdventure: (adv) => startAdventure(adv),
+  onSettings: () => screens.showScreen('settings')
+});
+
+const settingsScreen = new SettingsScreen({
+  settingsManager: settings,
+  audioManager: audio,
+  onBack: () => showMenu()
+});
+
+const gameScreen = new GameScreen({
+  storyEngine: engine,
+  typewriterEffect: typewriter,
+  settingsManager: settings,
+  audioManager: audio,
+  onEnd: (node) => screens.showScreen('end', { node })
+});
+
+const endScreen = new EndScreen({
+  onRestart: () => {
+    engine.restart();
+    screens.showScreen('game');
+  },
+  onMenu: () => showMenu()
+});
+
+// Registrar pantalles
+screens.registerScreen('title', titleScreen);
+screens.registerScreen('menu', menuScreen);
+screens.registerScreen('settings', settingsScreen);
+screens.registerScreen('game', gameScreen);
+screens.registerScreen('end', endScreen);
+
+// ============================================
+// Funcions de navegació
+// ============================================
+
+async function loadManifest() {
+  try {
+    const response = await fetch('stories/manifest.json');
+    if (!response.ok) throw new Error('Manifest no trobat');
+    const data = await response.json();
+    adventures = data.adventures || [];
+  } catch (e) {
+    console.warn('No s\'ha pogut carregar el manifest:', e.message);
+    adventures = [];
+  }
 }
 
-showPlaceholder();
+function showMenu() {
+  screens.showScreen('menu', { adventures });
+}
+
+async function startAdventure(adv) {
+  try {
+    await engine.loadAdventureFromUrl(`stories/${adv.file}`);
+    engine.startGame();
+    audio.init();
+    screens.showScreen('game');
+  } catch (e) {
+    console.error('Error carregant aventura:', e);
+    alert(`Error carregant l'aventura: ${e.message}`);
+  }
+}
+
+// ============================================
+// Inicialització
+// ============================================
+
+async function init() {
+  await loadManifest();
+  screens.showScreen('title');
+}
+
+init();
