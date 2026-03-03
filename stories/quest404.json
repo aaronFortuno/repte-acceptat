@@ -1,0 +1,128 @@
+{
+  "id": "quest404",
+  "title": "Quest 404: El Tresor del Drac Pàgic",
+  "startNode": "node1",
+  "nodes": {
+    "node1": {
+      "text": "Ets en Baldiri, aventurer de 3a categoria (llicència caducada). Estàs a la taverna menjant un entrepà de llom quan, a la tovallola de paper, hi trobes un mapa del tresor. El mapa fa pudor a cervesa, però les instruccions són clares. Què fas?",
+      "choices": [
+        { "label": "Sortir corrent cap al castell sense pensar-hi dos cops", "nextNode": "node2" },
+        { "label": "Estudiar el mapa detingudament a la biblioteca", "nextNode": "node3" },
+        { "label": "Vendre el mapa al taverner per pagar l'entrepà", "nextNode": "final1" }
+      ]
+    },
+    "node2": {
+      "text": "Surts de la taverna com un llamp i et fiques pel camí del bosc. El GPS del mòbil diu \"Sense connexió\". Genial. Al mig del camí, un llop enorme et mira fixament. No sembla content. De fet, sembla que acaba de rebre una multa d'aparcament.",
+      "choices": [
+        { "label": "Lluitar contra el llop amb les mans nues", "nextNode": "final2" },
+        { "label": "Intentar esquivar-lo pels arbustos", "nextNode": "node4" },
+        { "label": "Fer-li una foto per pujar-la a les xarxes socials", "nextNode": "final3" }
+      ]
+    },
+    "node3": {
+      "text": "Vas a la biblioteca municipal (tenen wifi gratis). Estudiant el mapa amb una lupa que has robat de la secció d'òptica, descobreixes una ruta alternativa que passa per les clavegueres de la ciutat. Fa pudor només de llegir-ho.",
+      "choices": [
+        { "label": "Anar per les clavegueres, com un ninja", "nextNode": "node5" },
+        { "label": "Ignorar-ho i anar pel camí del bosc igualment", "nextNode": "node2" },
+        { "label": "Quedar-te a llegir llibres d'aventures en lloc de viure-les", "nextNode": "final4" }
+      ]
+    },
+    "node4": {
+      "text": "Amb una agilitat que no sabies que tenies (gràcies, ioga dels dimarts), esquives el llop saltant pels arbustos. El castell apareix davant teu, majestuós i una mica abandonat. Un guàrdia dorm profundament recolzat a la seva llança. Ronca tan fort que fa tremolar les fulles.",
+      "choices": [
+        { "label": "Eliminar el guàrdia silenciosament", "nextNode": "final5" },
+        { "label": "Passar de puntetes molt, molt lentament", "nextNode": "node6" },
+        { "label": "Despertar el guàrdia i demanar-li permís educadament", "nextNode": "final6" }
+      ]
+    },
+    "node5": {
+      "text": "Les clavegueres són pitjor del que imaginaves. I el que imaginaves ja era bastant dolent. Les rates d'aquí baix no són rates normals: són rates gegants, organitzades, i tenen sindicat. La seva líder, una rata amb ulleres, et mira de dalt a baix.",
+      "choices": [
+        { "label": "Lluitar contra les rates. Són rates, què pot sortir malament?", "nextNode": "final7" },
+        { "label": "Oferir-los el teu entrepà de llom com a ofrena de pau", "nextNode": "node6" },
+        { "label": "Tornar enrere, les clavegueres no són el teu", "nextNode": "node3" }
+      ]
+    },
+    "node6": {
+      "text": "La sala del tresor! El cofre daurat és allà, brillant com un anunci de loteria. Al costat, un drac ENORME dorm sobre un munt de monedes. Ronca. Fins i tot adormit, fa una pudor que pela. Les monedes li marquen la cara com un gofre gegant.",
+      "choices": [
+        { "label": "Agafar el tresor sense fer el més mínim soroll", "nextNode": "node7" },
+        { "label": "Matar el drac primer, per seguretat", "nextNode": "final8" },
+        { "label": "Despertar el drac per negociar una comissió del 10%", "nextNode": "final9" }
+      ]
+    },
+    "node7": {
+      "text": "Tens el cofre! Pesa com un cotxe petit. Com a mínim. Mentre intentes arrossegar-lo cap a la sortida, l'alarma del castell sona. El drac s'ha despertat. Et mira. Tu el mires. Ell badalla i es veu foc al fons de la gola. Tens uns 10 segons abans que decideixi si ets un lladre o un aperitiu.",
+      "choices": [
+        { "label": "Córrer amb tot el que tens cap a la sortida!", "nextNode": "final10" },
+        { "label": "Tornar a buscar un carretó per no fer-te mal a l'esquena", "nextNode": "final10b" }
+      ]
+    },
+    "final1": {
+      "text": "Vens el mapa al taverner per 3,50€. Just el preu de l'entrepà. El taverner segueix el mapa, troba el tresor i es compra una cadena de restaurants. Tu segueixes menjant entrepans de llom. Almenys no tens deutes.\n\n\"El Millor Negoci\" — Has fet el pitjor negoci de la història de la humanitat. Enhorabona.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "El Millor Negoci"
+    },
+    "final2": {
+      "text": "Decideixes lluitar contra el llop amb les mans nues. El llop, que resulta ser cinturó negre de judo, et derrota per K.O. tècnic en menys de 10 segons. Et desperts tres dies després a la consulta d'un veterinari que et confon amb un gos pelut.\n\n\"Proteïna Natural\" — El llop encara en parla als seus amics.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Proteïna Natural"
+    },
+    "final3": {
+      "text": "Treus el mòbil per fer una foto al llop amb filtre vintage. Mentre busques el millor angle, retrocedint sense mirar, caus per un precipici que no havies vist perquè miraves la pantalla. L'última foto del teu carret és un selfie desenfocat caient.\n\n\"Viral, però Mort\" — La foto es fa viral. 2M de likes pòstums.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Viral, però Mort"
+    },
+    "final4": {
+      "text": "Et quedes a la biblioteca llegint \"1000 Aventures per a Gent que No Surt de Casa\". Cinc anys després, et doctores amb una tesi sobre \"Tresors Hipotètics i la Seva Influència en la Gastronomia Medieval\". Et contracten com a professor. Mors d'avorriment un dimarts.\n\n\"Carrera Acadèmica\" — Almenys tens un despatx amb finestra.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Carrera Acadèmica"
+    },
+    "final5": {
+      "text": "Intentes eliminar el guàrdia silenciosament, però resulta que el guàrdia és el germà bessó del rei. El rei no s'ho pren bé. De fet, s'ho pren tan malament que declara una guerra santa contra tu personalment. Una guerra d'un sol home. Perds.\n\n\"Drama Familiar\" — La guerra dura 3 hores. Tu dures 2.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Drama Familiar"
+    },
+    "final6": {
+      "text": "Despertes el guàrdia educadament: \"Bon dia, podria passar, si us plau?\". El guàrdia, confós per tanta cortesia en un entorn medieval hostil, et denuncia per \"Excés de Cortesia en Zona de Guerra\". T'empresonen. La cel·la és còmoda, però.\n\n\"Sospitós Habitual\" — El teu company de cel·la és un bard que només sap una cançó.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Sospitós Habitual"
+    },
+    "final7": {
+      "text": "Decideixes lluitar contra les rates. Són 47. Tu ets 1. La líder del sindicat convoca una assemblea extraordinària i es vota si et deixen passar o et devoren. Resultat: 47 a 1 en contra teva. La democràcia ha parlat.\n\n\"Derrota Democràtica\" — Almenys ha sigut un procés transparent i auditat.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Derrota Democràtica"
+    },
+    "final8": {
+      "text": "Desembeines la teva espasa (una espàtula de cuina) i mates el drac heroicament! Però... el drac era de peluix encantat. Un peluix gegant amb una maleïm de protecció. En morir, el tresor s'evapora en un núvol de purpurina i confeti. No queda res.\n\n\"Error de Diagnòstic\" — El peluix tenia nom. Es deia Pepet.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Error de Diagnòstic"
+    },
+    "final9": {
+      "text": "Despertes el drac i li proposes un acord comercial: 10% del tresor per a tu, 90% per a ell. El drac, que resulta ser un gastrònom refinat, et proposa un contraacord: tu de primer plat, el cofre de segon, i les teves botes de postres. Accepta unànimement (ell sol vota).\n\n\"Menú Degustació\" — Les botes, curiosament, eren el plat més valorat.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Menú Degustació"
+    },
+    "final10": {
+      "text": "Corres! Corres com mai has corregut! El drac et persegueix, però al girar un passadís, el drac ensopega amb la seva pròpia cua i cau de morros. Surts del castell just a temps, amb el cofre, el tresor, i una història que ningú es creurà.\n\nEts ric. Ets lliure. Ets en Baldiri, aventurer de 3a categoria... ASCENDIT A 2a!\n\n★ VICTÒRIA! ★\n\"Contra Tot Pronòstic\" — El primer aventurer amb llicència caducada que aconsegueix un tresor real.",
+      "isEnding": true,
+      "endingType": "good",
+      "endingTitle": "Contra Tot Pronòstic"
+    },
+    "final10b": {
+      "text": "\"L'esquena primer\", penses, com una persona responsable. Tornes a la sala a buscar un carretó. El drac, que ja estava de mal humor, t'agafa amb una urpa. La seva quiropraxista personal et fa un ajustament vertebral que et deixa com una L.\n\n\"Ergonomia Mortal\" — La quiropraxista t'envia la factura a l'hospital.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Ergonomia Mortal"
+    }
+  }
+}

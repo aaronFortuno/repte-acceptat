@@ -1,0 +1,13 @@
+{
+  "adventures": [
+    {
+      "id": "quest404",
+      "file": "quest404.json",
+      "title": "Quest 404: El Tresor del Drac Pàgic",
+      "author": "Equip Repte",
+      "description": "Ets en Baldiri, aventurer de 3a categoria amb llicència caducada. Un mapa trobat en un got de cervesa et porta a una aventura absurda.",
+      "difficulty": "fàcil",
+      "endings": { "total": 10, "good": 1, "bad": 9 }
+    }
+  ]
+}
