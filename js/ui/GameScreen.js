@@ -3,12 +3,14 @@
  */
 
 class GameScreen {
-  constructor({ storyEngine, typewriterEffect, settingsManager, audioManager, onEnd }) {
+  constructor({ storyEngine, typewriterEffect, settingsManager, audioManager, onEnd, onMenu, onSettings }) {
     this._engine = storyEngine;
     this._typewriter = typewriterEffect;
     this._settings = settingsManager;
     this._audio = audioManager;
     this._onEnd = onEnd;
+    this._onMenu = onMenu;
+    this._onSettings = onSettings;
     this._container = null;
     this._textEl = null;
     this._choicesEl = null;
@@ -29,6 +31,10 @@ class GameScreen {
       <div class="game-screen">
         <div class="game-screen__header">
           <h2 class="game-screen__title"></h2>
+          <div class="game-screen__toolbar">
+            <button class="btn btn--icon game-screen__settings-btn" title="Opcions">&#9881;</button>
+            <button class="btn btn--icon game-screen__menu-btn" title="Menú principal">&#9776;</button>
+          </div>
         </div>
         <div class="narrative">
           <p class="narrative-text game-screen__text"></p>
@@ -38,6 +44,18 @@ class GameScreen {
       </div>
     `;
     container.appendChild(screen);
+
+    // Botons de la toolbar
+    screen.querySelector('.game-screen__settings-btn')
+      .addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (this._onSettings) this._onSettings();
+      });
+    screen.querySelector('.game-screen__menu-btn')
+      .addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (this._onMenu) this._onMenu();
+      });
 
     this._titleEl = screen.querySelector('.game-screen__title');
     this._textEl = screen.querySelector('.game-screen__text');

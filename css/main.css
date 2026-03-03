@@ -154,6 +154,19 @@ p, .narrative-text {
   display: none;
 }
 
+/* Botó icona (toolbar del joc) */
+.btn--icon {
+  padding: 0.4rem 0.6rem;
+  font-size: var(--font-btn, 0.6rem);
+  line-height: 1;
+  min-width: auto;
+  text-align: center;
+}
+
+.btn--icon::before {
+  display: none;
+}
+
 /* Contenidor de botons d'opció */
 .choices {
   display: flex;
@@ -319,9 +332,23 @@ p, .narrative-text {
 }
 
 .game-screen__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   border-bottom: 1px solid var(--border-color);
   padding-bottom: 0.8rem;
   margin-bottom: 1rem;
+  gap: 0.5rem;
+}
+
+.game-screen__header h2 {
+  margin-bottom: 0;
+}
+
+.game-screen__toolbar {
+  display: flex;
+  gap: 0.4rem;
+  flex-shrink: 0;
 }
 
 /* ============================================

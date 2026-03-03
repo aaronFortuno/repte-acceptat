@@ -21,8 +21,8 @@ const audio = new AudioManager();
 const engine = new StoryEngine();
 const typewriter = new TypewriterEffect();
 
-// Aplicar tema guardat
-settings.applyTheme();
+// Aplicar preferències visuals guardades
+settings.applyAll();
 
 // Contenidor principal
 const appEl = document.getElementById('app');
@@ -55,7 +55,17 @@ const gameScreen = new GameScreen({
   typewriterEffect: typewriter,
   settingsManager: settings,
   audioManager: audio,
-  onEnd: (node) => screens.showScreen('end', { node })
+  onEnd: (node) => screens.showScreen('end', { node }),
+  onMenu: () => {
+    audio.stopMusic();
+    showMenu();
+  },
+  onSettings: () => {
+    screens.showScreen('settings', {
+      onBack: () => screens.showScreen('game'),
+      backLabel: 'Tornar al joc'
+    });
+  }
 });
 
 const endScreen = new EndScreen({
