@@ -3,13 +3,11 @@
  * Pot ser cridada des del menú o des del joc (onBack dinàmic).
  */
 
-const FONT_SIZE_LABELS = {
-  small: 'Petita',
-  medium: 'Mitjana',
-  large: 'Gran'
-};
-
-const FONT_SIZE_CYCLE = ['small', 'medium', 'large'];
+const FONT_SIZES = [
+  { key: 'small', css: 'settings-screen__font-btn--small' },
+  { key: 'medium', css: 'settings-screen__font-btn--medium' },
+  { key: 'large', css: 'settings-screen__font-btn--large' }
+];
 
 class SettingsScreen {
   constructor({ settingsManager, audioManager, onBack }) {
@@ -23,7 +21,7 @@ class SettingsScreen {
    * Mostra la pantalla d'opcions.
    * @param {HTMLElement} container
    * @param {object} params
-   * @param {function} [params.onBack] — Callback personalitzat per tornar (ex: tornar al joc)
+   * @param {function} [params.onBack] — Callback personalitzat per tornar
    * @param {string} [params.backLabel] — Text del botó tornar
    */
   show(container, params = {}) {
@@ -38,12 +36,12 @@ class SettingsScreen {
         <h1>OPCIONS</h1>
         <div class="settings-screen__options">
           ${this._renderToggle('theme', 'Tema', s.get('theme') === 'dark' ? 'Fosc' : 'Clar')}
-          ${this._renderToggle('fontSize', 'Mida de lletra', FONT_SIZE_LABELS[s.get('fontSize')])}
+          ${this._renderFontSize(s.get('fontSize'))}
           ${this._renderToggle('musicEnabled', 'Música', s.get('musicEnabled') ? 'ON' : 'OFF')}
           ${this._renderToggle('sfxEnabled', 'Efectes sonors', s.get('sfxEnabled') ? 'ON' : 'OFF')}
           ${this._renderToggle('typewriterEnabled', 'Efecte escriptura', s.get('typewriterEnabled') ? 'ON' : 'OFF')}
         </div>
-        <div class="choices" style="margin-top: 2rem;">
+        <div class="settings-screen__footer">
           <button class="btn btn--center settings-screen__back-btn">${backLabel}</button>
         </div>
       </div>
@@ -53,6 +51,11 @@ class SettingsScreen {
     // Listeners toggles
     screen.querySelectorAll('.settings-screen__toggle-btn').forEach(btn => {
       btn.addEventListener('click', () => this._handleToggle(btn));
+    });
+
+    // Listeners mida de font
+    screen.querySelectorAll('.settings-screen__font-btn').forEach(btn => {
+      btn.addEventListener('click', () => this._handleFontSize(btn, screen));
     });
 
     // Listener tornar
@@ -77,6 +80,36 @@ class SettingsScreen {
     `;
   }
 
+  /** @private — Renderitza els 3 botons "Aa" per a la mida de font */
+  _renderFontSize(currentSize) {
+    const buttons = FONT_SIZES.map(({ key, css }) => {
+      const active = key === currentSize ? ' settings-screen__font-btn--active' : '';
+      return `<button class="settings-screen__font-btn ${css}${active}" data-size="${key}">Aa</button>`;
+    }).join('');
+
+    return `
+      <div class="panel settings-screen__option">
+        <span class="settings-screen__label">Mida de lletra</span>
+        <div class="settings-screen__font-sizes">
+          ${buttons}
+        </div>
+      </div>
+    `;
+  }
+
+  /** @private */
+  _handleFontSize(btn, screen) {
+    const size = btn.dataset.size;
+    this._settings.set('fontSize', size);
+    this._settings.applyFontSize();
+
+    // Actualitzar estat actiu
+    screen.querySelectorAll('.settings-screen__font-btn').forEach(b => {
+      b.classList.remove('settings-screen__font-btn--active');
+    });
+    btn.classList.add('settings-screen__font-btn--active');
+  }
+
   /** @private */
   _handleToggle(btn) {
     const key = btn.dataset.key;
@@ -87,13 +120,6 @@ class SettingsScreen {
       s.set('theme', newTheme);
       s.applyTheme();
       btn.textContent = newTheme === 'dark' ? 'Fosc' : 'Clar';
-    } else if (key === 'fontSize') {
-      const current = s.get('fontSize');
-      const idx = FONT_SIZE_CYCLE.indexOf(current);
-      const next = FONT_SIZE_CYCLE[(idx + 1) % FONT_SIZE_CYCLE.length];
-      s.set('fontSize', next);
-      s.applyFontSize();
-      btn.textContent = FONT_SIZE_LABELS[next];
     } else if (key === 'musicEnabled') {
       const val = !s.get('musicEnabled');
       s.set('musicEnabled', val);

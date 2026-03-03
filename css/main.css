@@ -22,8 +22,9 @@ body {
   min-height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
-  overflow: hidden;
+  align-items: flex-start;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* Contenidor principal */
@@ -62,7 +63,7 @@ body {
    ============================================ */
 
 h1 {
-  font-size: var(--font-title, 1.2rem);
+  font-size: 1.2rem;
   color: var(--text-title);
   text-align: center;
   text-shadow: var(--glow-intensity);
@@ -71,7 +72,7 @@ h1 {
 }
 
 h2 {
-  font-size: var(--font-subtitle, 0.85rem);
+  font-size: 0.85rem;
   color: var(--text-accent);
   text-shadow: var(--glow-intensity);
   margin-bottom: 1rem;
@@ -298,27 +299,91 @@ p, .narrative-text {
 }
 
 .settings-screen__options {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 0.8rem;
+  flex: 1;
 }
 
 .settings-screen__option {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  justify-content: center;
+  text-align: center;
+  gap: 0.8rem;
+  padding: 1rem;
 }
 
 .settings-screen__label {
-  font-size: 0.55rem;
+  font-size: var(--font-muted, 0.55rem);
   color: var(--text-primary);
 }
 
 .settings-screen__toggle-btn {
   min-width: 5rem;
   text-align: center;
-  font-size: 0.5rem;
+  font-size: var(--font-muted, 0.5rem);
+}
+
+/* Selector de mida de font: 3 botons Aa */
+.settings-screen__font-sizes {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.settings-screen__font-btn {
+  padding: 0.5rem 0.7rem;
+  text-align: center;
+  min-width: auto;
+  border: 2px solid var(--border-color);
+  background-color: var(--bg-button);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-family: 'Press Start 2P', monospace;
+  transition: all 0.15s ease;
+}
+
+.settings-screen__font-btn:hover {
+  border-color: var(--text-accent);
+  color: var(--text-accent);
+}
+
+.settings-screen__font-btn--active {
+  border-color: var(--text-accent);
+  background-color: var(--bg-button-active);
+  color: var(--text-accent);
+  box-shadow: var(--glow-intensity);
+}
+
+.settings-screen__font-btn--small {
+  font-size: 0.45rem;
+}
+
+.settings-screen__font-btn--medium {
+  font-size: 0.65rem;
+}
+
+.settings-screen__font-btn--large {
+  font-size: 0.85rem;
+}
+
+/* Botó tornar: sempre visible, ancorat al final */
+.settings-screen__footer {
+  padding-top: 1rem;
+  margin-top: auto;
+  border-top: 1px solid var(--border-color);
+  position: sticky;
+  bottom: 0;
+  background-color: var(--bg-primary);
+  padding-bottom: 0.5rem;
+}
+
+@media (max-width: 500px) {
+  .settings-screen__options {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ============================================
