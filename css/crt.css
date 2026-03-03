@@ -1,0 +1,73 @@
+/* ============================================
+   CRT — Efectes visuals retro
+   ============================================ */
+
+/* Contenidor CRT principal */
+.crt {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Scanlines — línies horitzontals estil monitor CRT */
+.crt::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, var(--scanline-opacity)) 2px,
+    rgba(0, 0, 0, var(--scanline-opacity)) 4px
+  );
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* Vinyeta — enfosquiment als cantons */
+.crt::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 60%,
+    rgba(0, 0, 0, var(--crt-vignette-opacity)) 100%
+  );
+  pointer-events: none;
+  z-index: 1001;
+}
+
+/* Animació subtil de flicker (parpelleig CRT) */
+@keyframes crtFlicker {
+  0% { opacity: 1; }
+  5% { opacity: 0.98; }
+  10% { opacity: 1; }
+  15% { opacity: 0.97; }
+  20% { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+.crt {
+  animation: crtFlicker 8s infinite;
+}
+
+/* Flash de pantalla en seleccionar opció */
+@keyframes screenFlash {
+  0% { background-color: rgba(255, 255, 255, 0.15); }
+  100% { background-color: transparent; }
+}
+
+.screen-flash {
+  animation: screenFlash 0.2s ease-out;
+}

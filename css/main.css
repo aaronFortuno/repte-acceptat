@@ -1,0 +1,259 @@
+/* ============================================
+   MAIN — Estils principals del joc
+   ============================================ */
+
+/* Reset mínim */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Base */
+html {
+  font-size: 16px;
+  height: 100%;
+}
+
+body {
+  font-family: 'Press Start 2P', monospace;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Contenidor principal */
+#app {
+  width: 100%;
+  max-width: 800px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  position: relative;
+}
+
+/* ============================================
+   PANTALLES — Contenidors de cada vista
+   ============================================ */
+
+.screen {
+  display: none;
+  flex-direction: column;
+  flex: 1;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.screen--active {
+  display: flex;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   TIPOGRAFIA
+   ============================================ */
+
+h1 {
+  font-size: 1.2rem;
+  color: var(--text-title);
+  text-align: center;
+  text-shadow: var(--glow-intensity);
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  font-size: 0.85rem;
+  color: var(--text-accent);
+  text-shadow: var(--glow-intensity);
+  margin-bottom: 1rem;
+}
+
+p, .narrative-text {
+  font-size: 0.7rem;
+  line-height: 2;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.text-muted {
+  color: var(--text-muted);
+  font-size: 0.55rem;
+}
+
+.text-accent {
+  color: var(--text-accent);
+}
+
+.text-danger {
+  color: var(--text-danger);
+}
+
+.text-success {
+  color: var(--text-success);
+}
+
+/* ============================================
+   BOTONS
+   ============================================ */
+
+.btn {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.6rem;
+  padding: 0.8rem 1.2rem;
+  background-color: var(--bg-button);
+  color: var(--text-primary);
+  border: 2px solid var(--border-color);
+  cursor: pointer;
+  text-align: left;
+  line-height: 1.8;
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: var(--bg-button-hover);
+  border-color: var(--text-accent);
+  color: var(--text-accent);
+  outline: none;
+  box-shadow: var(--glow-intensity);
+}
+
+.btn:active {
+  background-color: var(--bg-button-active);
+  transform: scale(0.98);
+}
+
+.btn::before {
+  content: '> ';
+  color: var(--text-accent);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.btn:hover::before,
+.btn:focus::before {
+  opacity: 1;
+}
+
+/* Botó centrat (per a accions principals) */
+.btn--center {
+  text-align: center;
+}
+
+.btn--center::before {
+  display: none;
+}
+
+/* Contenidor de botons d'opció */
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: auto;
+  padding-top: 1.5rem;
+}
+
+/* ============================================
+   ÀREA NARRATIVA
+   ============================================ */
+
+.narrative {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1rem 0;
+}
+
+.narrative-text {
+  white-space: pre-wrap;
+}
+
+/* Cursor parpellejant estil terminal */
+.cursor {
+  display: inline-block;
+  width: 0.6rem;
+  height: 1rem;
+  background-color: var(--text-accent);
+  animation: blink 0.8s step-end infinite;
+  vertical-align: middle;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ============================================
+   PANELL / CAPSA
+   ============================================ */
+
+.panel {
+  background-color: var(--bg-panel);
+  border: 2px solid var(--border-color);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* ============================================
+   UTILITATS
+   ============================================ */
+
+.hidden {
+  display: none !important;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.gap-1 { gap: 0.5rem; }
+.gap-2 { gap: 1rem; }
+.gap-3 { gap: 1.5rem; }
+
+.mt-auto { margin-top: auto; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+
+.text-center { text-align: center; }
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 600px) {
+  #app {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 0.9rem;
+  }
+
+  p, .narrative-text {
+    font-size: 0.6rem;
+  }
+
+  .btn {
+    font-size: 0.55rem;
+    padding: 0.7rem 1rem;
+  }
+}

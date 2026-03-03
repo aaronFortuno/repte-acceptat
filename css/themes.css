@@ -1,0 +1,57 @@
+/* ============================================
+   THEMES — Variables CSS per a mode clar/fosc
+   ============================================ */
+
+/* Tema fosc (per defecte) — estètica terminal CRT */
+[data-theme="dark"] {
+  --bg-primary: #0a0a14;
+  --bg-secondary: #12122a;
+  --bg-panel: #1a1a3e;
+  --bg-button: #2a2a5e;
+  --bg-button-hover: #3a3a7e;
+  --bg-button-active: #4a4a9e;
+
+  --text-primary: #e0e0ff;
+  --text-secondary: #a0a0cc;
+  --text-accent: #00ff88;
+  --text-title: #ffcc00;
+  --text-danger: #ff4444;
+  --text-success: #00ff88;
+  --text-muted: #606088;
+
+  --border-color: #3a3a6e;
+  --border-glow: #00ff8844;
+
+  --glow-color: #00ff88;
+  --glow-intensity: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color);
+
+  --scanline-opacity: 0.08;
+  --crt-vignette-opacity: 0.3;
+}
+
+/* Tema clar — estètica paper/llibre */
+[data-theme="light"] {
+  --bg-primary: #f0eadc;
+  --bg-secondary: #e8e0d0;
+  --bg-panel: #faf6ee;
+  --bg-button: #d4cbb8;
+  --bg-button-hover: #c4b8a0;
+  --bg-button-active: #b4a888;
+
+  --text-primary: #2a2420;
+  --text-secondary: #5a5040;
+  --text-accent: #8b4513;
+  --text-title: #6b3000;
+  --text-danger: #cc2200;
+  --text-success: #2e7d32;
+  --text-muted: #9a9080;
+
+  --border-color: #c4b8a0;
+  --border-glow: transparent;
+
+  --glow-color: transparent;
+  --glow-intensity: none;
+
+  --scanline-opacity: 0.03;
+  --crt-vignette-opacity: 0.1;
+}
