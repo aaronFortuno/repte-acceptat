@@ -19,7 +19,8 @@ class TypewriterEffect {
    * @param {number} speed — Mil·lisegons entre caràcters (default: 30)
    */
   start(text, element, speed = 30) {
-    this.stop();
+    this._clearTimer();
+    this._isRunning = false;
     this._text = text;
     this._element = element;
     this._currentIndex = 0;
