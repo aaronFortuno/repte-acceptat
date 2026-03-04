@@ -67,7 +67,10 @@ class MenuScreen {
 
     screen.innerHTML = `
       <div class="menu-screen">
-        <h1>MENÚ PRINCIPAL</h1>
+        <div class="menu-screen__header">
+          <h1>MENÚ PRINCIPAL</h1>
+          <button class="btn btn--icon menu-screen__settings-btn" title="Opcions"><i class="fa-solid fa-gear"></i></button>
+        </div>
         <h2>Tria una aventura</h2>
         ${filterBar}
         <div class="menu-screen__adventures">
@@ -77,9 +80,6 @@ class MenuScreen {
           <button class="menu-screen__submit-btn">
             <i class="fa-solid fa-plus"></i> Envia'ns la teva aventura
           </button>
-        </div>
-        <div class="menu-screen__footer">
-          <button class="btn btn--center menu-screen__settings-btn">Opcions</button>
         </div>
       </div>
     `;
