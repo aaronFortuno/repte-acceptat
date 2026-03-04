@@ -15,7 +15,8 @@ repte-acceptat/
 │   │   ├── StoryEngine.js      # Motor narratiu: càrrega JSON, navega nodes, estat
 │   │   ├── TypewriterEffect.js # Efecte d'escriptura lletra a lletra
 │   │   ├── AudioManager.js     # Gestió d'àudio: música i SFX (Web Audio API)
-│   │   └── SettingsManager.js  # Preferències d'usuari (localStorage)
+│   │   ├── SettingsManager.js  # Preferències d'usuari (localStorage)
+│   │   └── I18nManager.js      # Internacionalització (CA/ES/EN) — singleton
 │   └── ui/
 │       ├── ScreenManager.js    # Gestiona transicions entre pantalles
 │       ├── TitleScreen.js      # Pantalla de títol / splash
@@ -55,7 +56,8 @@ repte-acceptat/
       "title": "Quest 404: El Tresor del Drac Pàgic",
       "author": "Equip Repte",
       "description": "Ets en Baldiri, aventurer de 3a categoria...",
-      "difficulty": "fàcil",
+      "difficulty": "easy",
+      "language": "ca",
       "endings": { "total": 10, "good": 1, "bad": 9 }
     }
   ]
@@ -171,6 +173,30 @@ Preferències (claus):
   sfxEnabled                    → boolean (default: true)
   typewriterEnabled             → boolean (default: true)
   typewriterSpeed               → number en ms (default: 30)
+  fontSize                      → "small"|"medium"|"large"|"x-large"|"xx-large" (default: "medium")
+  fontFamily                    → "retro" | "accessible" (default: "retro")
+  timerEnabled                  → boolean (default: true)
+  language                      → "ca" | "es" | "en" (default: "ca")
+```
+
+### I18nManager.js
+```
+Responsabilitat: Internacionalització de la interfície (CA/ES/EN).
+                 Singleton — cada pantalla l'importa directament.
+                 Les aventures NO es tradueixen; cada una té un idioma fix.
+
+Mètodes públics:
+  init(settingsManager)         → Inicialitza amb SettingsManager per persistir idioma
+  t(key, params?)               → Retorna traducció; si és funció, la crida amb params
+  setLanguage(lang)              → Canvia idioma actiu i el persisteix
+  lang                          → (getter) Retorna l'idioma actiu
+
+Fallback: idioma actiu → català → clau crua.
+
+Claus principals (~55):
+  Àrees: title, menu, difficulty, settings, game, death_summary, timer, end, error
+  Parametritzades: menu_scenes({n}), menu_endings({total,good,bad}),
+                   game_deaths_label({d}), death_summary_*({d}), error_loading_adventure({msg})
 ```
 
 ### ScreenManager.js

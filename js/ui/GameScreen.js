@@ -2,6 +2,8 @@
  * GameScreen — Pantalla de joc: text narratiu + opcions de decisió.
  */
 
+import i18n from '../engine/I18nManager.js';
+
 class GameScreen {
   constructor({ storyEngine, typewriterEffect, settingsManager, audioManager, onMenu, onSettings }) {
     this._engine = storyEngine;
@@ -49,10 +51,10 @@ class GameScreen {
         <div class="game-screen__header">
           <h2 class="game-screen__title"></h2>
           <div class="game-screen__toolbar">
-            <span class="game-screen__death-counter" title="Intents fallits"><i class="fa-solid fa-skull"></i> <span class="game-screen__death-counter-value">0</span></span>
-            <button class="btn btn--icon game-screen__mute-btn" title="Silenciar/activar música"></button>
-            <button class="btn btn--icon game-screen__settings-btn" title="Opcions"><i class="fa-solid fa-gear"></i></button>
-            <button class="btn btn--icon game-screen__menu-btn" title="Menú principal"><i class="fa-solid fa-bars"></i></button>
+            <span class="game-screen__death-counter" title="${i18n.t('game_deaths_tooltip')}"><i class="fa-solid fa-skull"></i> <span class="game-screen__death-counter-value">0</span></span>
+            <button class="btn btn--icon game-screen__mute-btn" title=""></button>
+            <button class="btn btn--icon game-screen__settings-btn" title="${i18n.t('game_settings_btn')}"><i class="fa-solid fa-gear"></i></button>
+            <button class="btn btn--icon game-screen__menu-btn" title="${i18n.t('game_menu_tooltip')}"><i class="fa-solid fa-bars"></i></button>
           </div>
         </div>
         <div class="narrative">
@@ -205,7 +207,7 @@ class GameScreen {
 
     let html = `
       <p class="game-screen__ending-label ${isGood ? 'text-success' : 'text-danger'}">
-        ${isGood ? '★ VICTÒRIA! ★' : '☠ GAME OVER ☠'}
+        ${isGood ? i18n.t('game_victory') : i18n.t('game_over')}
       </p>
     `;
     if (node.endingTitle) {
@@ -233,12 +235,12 @@ class GameScreen {
 
     const restartBtn = document.createElement('button');
     restartBtn.className = 'btn btn--center';
-    restartBtn.textContent = isGood ? 'Tornar a jugar' : 'Torna a intentar-ho';
+    restartBtn.textContent = isGood ? i18n.t('game_restart_good') : i18n.t('game_restart_bad');
     restartBtn.addEventListener('click', () => this._restartFromEnding());
 
     const menuBtn = document.createElement('button');
     menuBtn.className = 'btn btn--center';
-    menuBtn.textContent = 'Tornar al menú';
+    menuBtn.textContent = i18n.t('game_menu_btn');
     menuBtn.addEventListener('click', () => {
       if (this._onMenu) this._onMenu();
     });
@@ -273,20 +275,20 @@ class GameScreen {
     let msg;
 
     if (d === 0) {
-      msg = 'Has superat l\'aventura sense morir ni una sola vegada! Diga-li al teu professor/a que et posi un assoliment excel·lent en comprensió lectora! O potser és que ja has jugat mil vegades i te\'n recordes de memòria...';
+      msg = i18n.t('death_summary_zero');
     } else if (d <= 3) {
-      msg = `Només ${d} mort${d > 1 ? 's' : ''}! Tens molt bona comprensió lectora, tot i que algun detall se t'ha escapat. Res que una segona lectura no arregli!`;
+      msg = i18n.t('death_summary_few', { d });
     } else if (d <= 7) {
-      msg = `${d} morts. No està malament, però potser hauries de llegir els textos amb una mica més d'atenció. Els detalls importen!`;
+      msg = i18n.t('death_summary_some', { d });
     } else if (d <= 15) {
-      msg = `${d} morts! Ui, que fort. Segur que llegeixes els textos sencers o vas directament als botons? Els detalls amagats estan AL TEXT, no als botons!`;
+      msg = i18n.t('death_summary_many', { d });
     } else {
-      msg = `${d} morts! Vols dir que no has de repetir curs? T'has llegit algun text? Potser cal felicitar-te, perquè s'ha d'esmerçar força per aconseguir morir de tantes formes possibles!`;
+      msg = i18n.t('death_summary_extreme', { d });
     }
 
     return `
       <div class="game-screen__death-summary">
-        <p class="game-screen__death-count">Morts: ${d}</p>
+        <p class="game-screen__death-count">${i18n.t('game_deaths_label', { d })}</p>
         <p class="game-screen__death-msg">${msg}</p>
       </div>
     `;
@@ -470,13 +472,13 @@ class GameScreen {
     let msg;
 
     if (this._timerExpired) {
-      msg = 'Mare meva, apurant el temps sempre... què feies mentre tenies el text al davant, mirar el mòbil?';
+      msg = i18n.t('timer_expired');
     } else if (pct > 50) {
-      msg = 'Velocitat llamp! Has acabat amb temps de sobra.';
+      msg = i18n.t('timer_fast');
     } else if (pct > 20) {
-      msg = 'Just a temps, però t\'ho has pres amb calma.';
+      msg = i18n.t('timer_ok');
     } else {
-      msg = 'Per els pèls! Un minut més i no ho expliques.';
+      msg = i18n.t('timer_close');
     }
 
     return `
@@ -492,7 +494,7 @@ class GameScreen {
     btn.innerHTML = enabled
       ? '<i class="fa-solid fa-volume-high"></i>'
       : '<i class="fa-solid fa-volume-xmark"></i>';
-    btn.title = enabled ? 'Silenciar música' : 'Activar música';
+    btn.title = enabled ? i18n.t('game_mute_btn') : i18n.t('game_unmute_btn');
   }
 }
 

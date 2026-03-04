@@ -14,9 +14,12 @@ import StoryEngine from './engine/StoryEngine.js';
 import TypewriterEffect from './engine/TypewriterEffect.js';
 import AudioManager from './engine/AudioManager.js';
 import SettingsManager from './engine/SettingsManager.js';
+import i18n from './engine/I18nManager.js';
 
 // Instàncies dels serveis (engine)
 const settings = new SettingsManager();
+i18n.init(settings);
+document.title = i18n.t('page_title');
 const audio = new AudioManager();
 const engine = new StoryEngine();
 const typewriter = new TypewriterEffect();
@@ -47,6 +50,7 @@ const titleScreen = new TitleScreen({
 });
 
 const menuScreen = new MenuScreen({
+  settingsManager: settings,
   onSelectAdventure: (adv) => startAdventure(adv),
   onSettings: () => screens.showScreen('settings')
 });
@@ -119,7 +123,7 @@ async function startAdventure(adv) {
     }
   } catch (e) {
     console.error('Error carregant aventura:', e);
-    alert(`Error carregant l'aventura: ${e.message}`);
+    alert(i18n.t('error_loading_adventure', { msg: e.message }));
   }
 }
 

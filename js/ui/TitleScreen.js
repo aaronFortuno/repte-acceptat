@@ -3,6 +3,8 @@
  * Mostra el nom del joc i "Prem qualsevol tecla".
  */
 
+import i18n from '../engine/I18nManager.js';
+
 class TitleScreen {
   constructor({ onStart }) {
     this._onStart = onStart;
@@ -21,12 +23,12 @@ class TitleScreen {
       <div class="title-screen">
         <div class="title-screen__logo">
           <h1 class="title-screen__title">AVENTURES<br>TEXTUALS<br>RETRO</h1>
-          <p class="title-screen__subtitle text-muted">Motor d'aventures textuals estil anys 80</p>
+          <p class="title-screen__subtitle text-muted">${i18n.t('title_subtitle')}</p>
         </div>
         <p class="title-screen__prompt text-accent text-center">
-          Prem qualsevol tecla<span class="cursor"></span>
+          ${i18n.t('title_prompt')}<span class="cursor"></span>
         </p>
-        <button class="title-screen__version text-muted text-center" title="Historial de versions">v0.2</button>
+        <button class="title-screen__version text-muted text-center" title="${i18n.t('changelog_title')}">v0.2</button>
       </div>
     `;
     container.appendChild(screen);
@@ -69,7 +71,7 @@ class TitleScreen {
     overlay.className = 'title-screen__changelog';
     overlay.innerHTML = `
       <div class="title-screen__changelog-box panel">
-        <h2>Historial de versions</h2>
+        <h2>${i18n.t('changelog_title')}</h2>
         <div class="title-screen__changelog-entry">
           <p class="text-accent">v0.2</p>
           <ul>
@@ -92,7 +94,7 @@ class TitleScreen {
             <li>Selector de mida de lletra</li>
           </ul>
         </div>
-        <button class="btn btn--center title-screen__changelog-close">Tancar</button>
+        <button class="btn btn--center title-screen__changelog-close">${i18n.t('changelog_close')}</button>
       </div>
     `;
 

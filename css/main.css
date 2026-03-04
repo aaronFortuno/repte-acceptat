@@ -434,12 +434,12 @@ p, .narrative-text {
   white-space: nowrap;
 }
 
-.menu-screen__card-difficulty--fàcil {
+.menu-screen__card-difficulty--easy {
   color: var(--text-success);
   border-color: var(--text-success);
 }
 
-.menu-screen__card-difficulty--difícil {
+.menu-screen__card-difficulty--hard {
   color: var(--text-danger);
   border-color: var(--text-danger);
 }
@@ -493,6 +493,11 @@ p, .narrative-text {
   border-color: var(--text-accent);
   background-color: var(--bg-button-active);
   color: var(--text-accent);
+}
+
+/* Filtre d'idioma */
+.menu-screen__lang-filter {
+  margin-bottom: 0.5rem;
 }
 
 /* Botó enviar aventura */
@@ -674,6 +679,32 @@ p, .narrative-text {
 
 .settings-screen__fontfamily-btn--accessible {
   font-family: 'Verdana', 'Arial', sans-serif;
+}
+
+/* Selector d'idioma */
+.settings-screen__lang-btn {
+  padding: 0.6rem 1rem;
+  text-align: center;
+  min-width: auto;
+  border: 2px solid var(--border-color);
+  background-color: var(--bg-button);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-family: var(--font-family, 'Press Start 2P', monospace);
+  font-size: var(--font-muted, 0.55rem);
+  transition: all 0.15s ease;
+}
+
+.settings-screen__lang-btn:hover {
+  border-color: var(--text-accent);
+  color: var(--text-accent);
+}
+
+.settings-screen__lang-btn--active {
+  border-color: var(--text-accent);
+  background-color: var(--bg-button-active);
+  color: var(--text-accent);
+  box-shadow: var(--glow-intensity);
 }
 
 .settings-screen__font-btn:hover {

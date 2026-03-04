@@ -87,7 +87,7 @@ Cada aventura es defineix en un fitxer JSON independent. El motor és genèric i
 - [ ] Sistema de metadades per aventura (títol, autor, dificultat, descripció)
 - [ ] Suport per a imatges opcionals als nodes
 - [ ] Sistema de desbloqueig de finals (tracking local)
-- [ ] Localització (i18n) per a interfície en múltiples idiomes
+- [x] Localització (i18n) per a interfície en múltiples idiomes (CA/ES/EN) + filtre d'idioma al menú
 
 ---
 

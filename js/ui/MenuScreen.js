@@ -2,8 +2,11 @@
  * MenuScreen — Menú principal: triar aventura, opcions, crèdits.
  */
 
+import i18n from '../engine/I18nManager.js';
+
 class MenuScreen {
-  constructor({ onSelectAdventure, onSettings }) {
+  constructor({ settingsManager, onSelectAdventure, onSettings }) {
+    this._settings = settingsManager;
     this._onSelectAdventure = onSelectAdventure;
     this._onSettings = onSettings;
     this._adventures = [];
@@ -21,6 +24,9 @@ class MenuScreen {
     const screen = document.createElement('div');
     screen.className = 'screen screen--active';
 
+    // Idioma actiu per al filtre
+    const currentLang = i18n.lang;
+
     // Extreure dificultats úniques per al filtre
     const difficulties = [...new Set(
       this._adventures.map(a => a.difficulty).filter(Boolean)
@@ -29,61 +35,80 @@ class MenuScreen {
     // Construir llista d'aventures
     let adventureCards = '';
     if (this._adventures.length === 0) {
-      adventureCards = '<p class="text-muted">Cap aventura disponible</p>';
+      adventureCards = `<p class="text-muted">${i18n.t('menu_no_adventures')}</p>`;
     } else {
       adventureCards = this._adventures.map((adv, i) => {
-        const author = adv.author || 'Anònim';
-        const difficulty = adv.difficulty || '—';
+        const author = adv.author || i18n.t('menu_author_anonymous');
+        const diffKey = adv.difficulty === 'easy' ? 'difficulty_easy' : 'difficulty_hard';
+        const diffLabel = i18n.t(diffKey);
         const nodes = adv.nodes || '?';
         const endings = adv.endings || {};
         const endingsTotal = endings.total || '?';
         const endingsGood = endings.good || 0;
         const endingsBad = endings.bad || 0;
+        const lang = adv.language || 'ca';
 
         return `
-          <button class="menu-screen__card" data-index="${i}" data-difficulty="${difficulty}">
+          <button class="menu-screen__card" data-index="${i}" data-difficulty="${adv.difficulty}" data-lang="${lang}">
             <div class="menu-screen__card-header">
               <span class="menu-screen__card-title">${adv.title}</span>
-              <span class="menu-screen__card-difficulty menu-screen__card-difficulty--${difficulty}">${difficulty}</span>
+              <span class="menu-screen__card-difficulty menu-screen__card-difficulty--${adv.difficulty}">${diffLabel}</span>
             </div>
             <p class="menu-screen__card-desc">${adv.description || ''}</p>
             <div class="menu-screen__card-meta">
               <span class="menu-screen__card-author"><i class="fa-solid fa-user-pen"></i> ${author}</span>
-              <span><i class="fa-solid fa-map-signs"></i> ${nodes} escenes</span>
-              <span><i class="fa-solid fa-flag-checkered"></i> ${endingsTotal} finals (${endingsGood} <i class="fa-solid fa-star"></i> / ${endingsBad} <i class="fa-solid fa-skull"></i>)</span>
+              <span><i class="fa-solid fa-map-signs"></i> ${i18n.t('menu_scenes', { n: nodes })}</span>
+              <span><i class="fa-solid fa-flag-checkered"></i> ${i18n.t('menu_endings', { total: endingsTotal, good: endingsGood, bad: endingsBad })}</span>
             </div>
           </button>
         `;
       }).join('');
     }
 
+    // Barra de filtre per idioma
+    const langFilterBar = `
+      <div class="menu-screen__filter menu-screen__lang-filter">
+        ${['ca', 'es', 'en'].map(l => {
+          const active = l === currentLang ? ' menu-screen__filter-btn--active' : '';
+          return `<button class="menu-screen__filter-btn${active}" data-lang-filter="${l}">${i18n.t('lang_' + l)}</button>`;
+        }).join('')}
+      </div>
+    `;
+
     // Barra de filtre per dificultat
-    const filterBar = difficulties.length > 0 ? `
+    const diffFilterBar = difficulties.length > 0 ? `
       <div class="menu-screen__filter">
-        <button class="menu-screen__filter-btn menu-screen__filter-btn--active" data-filter="totes">Totes</button>
-        ${difficulties.map(d => `<button class="menu-screen__filter-btn" data-filter="${d}">${d.charAt(0).toUpperCase() + d.slice(1)}</button>`).join('')}
+        <button class="menu-screen__filter-btn menu-screen__filter-btn--active" data-filter="all">${i18n.t('menu_filter_all')}</button>
+        ${difficulties.map(d => {
+          const diffKey = d === 'easy' ? 'difficulty_easy' : 'difficulty_hard';
+          return `<button class="menu-screen__filter-btn" data-filter="${d}">${i18n.t(diffKey)}</button>`;
+        }).join('')}
       </div>
     ` : '';
 
     screen.innerHTML = `
       <div class="menu-screen">
         <div class="menu-screen__header">
-          <h1>MENÚ PRINCIPAL</h1>
-          <button class="btn btn--icon menu-screen__settings-btn" title="Opcions"><i class="fa-solid fa-gear"></i></button>
+          <h1>${i18n.t('menu_title')}</h1>
+          <button class="btn btn--icon menu-screen__settings-btn" title="${i18n.t('game_settings_btn')}"><i class="fa-solid fa-gear"></i></button>
         </div>
-        <h2>Tria una aventura</h2>
-        ${filterBar}
+        <h2>${i18n.t('menu_choose')}</h2>
+        ${langFilterBar}
+        ${diffFilterBar}
         <div class="menu-screen__adventures">
           ${adventureCards}
         </div>
         <div class="menu-screen__submit">
           <button class="menu-screen__submit-btn">
-            <i class="fa-solid fa-plus"></i> Envia'ns la teva aventura
+            <i class="fa-solid fa-plus"></i> ${i18n.t('menu_submit_btn')}
           </button>
         </div>
       </div>
     `;
     container.appendChild(screen);
+
+    // Aplicar filtre d'idioma inicial
+    this._applyLangFilter(currentLang, screen);
 
     // Listeners aventures
     screen.querySelectorAll('.menu-screen__card').forEach(btn => {
@@ -95,8 +120,19 @@ class MenuScreen {
       });
     });
 
+    // Listener filtre d'idioma
+    screen.querySelectorAll('[data-lang-filter]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        screen.querySelectorAll('[data-lang-filter]').forEach(b => {
+          b.classList.remove('menu-screen__filter-btn--active');
+        });
+        btn.classList.add('menu-screen__filter-btn--active');
+        this._applyLangFilter(btn.dataset.langFilter, screen);
+      });
+    });
+
     // Listener filtre de dificultat
-    screen.querySelectorAll('.menu-screen__filter-btn').forEach(btn => {
+    screen.querySelectorAll('.menu-screen__filter-btn[data-filter]').forEach(btn => {
       btn.addEventListener('click', () => {
         this._handleFilter(btn, screen);
       });
@@ -116,19 +152,36 @@ class MenuScreen {
   hide() {}
   destroy() {}
 
+  /** @private — Filtra aventures per idioma */
+  _applyLangFilter(lang, screen) {
+    screen.querySelectorAll('.menu-screen__card').forEach(card => {
+      if (card.dataset.lang === lang) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  }
+
   /** @private — Filtra aventures per dificultat */
   _handleFilter(btn, screen) {
     const filter = btn.dataset.filter;
 
     // Actualitzar estat actiu dels botons
-    screen.querySelectorAll('.menu-screen__filter-btn').forEach(b => {
+    screen.querySelectorAll('.menu-screen__filter-btn[data-filter]').forEach(b => {
       b.classList.remove('menu-screen__filter-btn--active');
     });
     btn.classList.add('menu-screen__filter-btn--active');
 
-    // Mostrar/ocultar cards
+    // Obtenir l'idioma actiu
+    const activeLangBtn = screen.querySelector('[data-lang-filter].menu-screen__filter-btn--active');
+    const activeLang = activeLangBtn ? activeLangBtn.dataset.langFilter : i18n.lang;
+
+    // Mostrar/ocultar cards (combinar amb filtre d'idioma)
     screen.querySelectorAll('.menu-screen__card').forEach(card => {
-      if (filter === 'totes' || card.dataset.difficulty === filter) {
+      const matchLang = card.dataset.lang === activeLang;
+      const matchDiff = filter === 'all' || card.dataset.difficulty === filter;
+      if (matchLang && matchDiff) {
         card.classList.remove('hidden');
       } else {
         card.classList.add('hidden');
@@ -142,21 +195,21 @@ class MenuScreen {
     overlay.className = 'menu-screen__overlay';
     overlay.innerHTML = `
       <div class="menu-screen__overlay-box panel">
-        <h2>Envia'ns la teva aventura!</h2>
+        <h2>${i18n.t('menu_submit_title')}</h2>
         <div class="menu-screen__overlay-content">
-          <p>Tens una idea per a una aventura? Ens encantaria rebre-la!</p>
-          <p><strong>Com fer-ho:</strong></p>
+          <p>${i18n.t('menu_submit_intro')}</p>
+          <p><strong>${i18n.t('menu_submit_how')}</strong></p>
           <ul>
-            <li>Envia un correu a <span class="text-accent">afortun8@xtec.cat</span></li>
-            <li>Adjunta un document amb els textos dels nodes i les accions</li>
-            <li>No cal format JSON, nosaltres ens encarreguem de la part tècnica</li>
+            <li>${i18n.t('menu_submit_step1')} <span class="text-accent">afortun8@xtec.cat</span></li>
+            <li>${i18n.t('menu_submit_step2')}</li>
+            <li>${i18n.t('menu_submit_step3')}</li>
           </ul>
         </div>
         <div class="menu-screen__overlay-actions">
           <a class="btn btn--center" href="mailto:afortun8@xtec.cat?subject=Nova aventura textual&body=Hola! Vull enviar-vos una aventura.%0A%0ATítol:%0ADescripció:%0A%0ANodes i accions:">
-            <i class="fa-solid fa-envelope"></i> Enviar correu
+            <i class="fa-solid fa-envelope"></i> ${i18n.t('menu_submit_email_btn')}
           </a>
-          <button class="btn btn--center menu-screen__overlay-close">Tancar</button>
+          <button class="btn btn--center menu-screen__overlay-close">${i18n.t('menu_submit_close')}</button>
         </div>
       </div>
     `;

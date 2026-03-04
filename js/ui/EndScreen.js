@@ -3,6 +3,8 @@
  * L'àudio (SFX + música de fons) es gestiona des d'app.js.
  */
 
+import i18n from '../engine/I18nManager.js';
+
 class EndScreen {
   constructor({ onRestart, onMenu }) {
     this._onRestart = onRestart;
@@ -26,7 +28,7 @@ class EndScreen {
       <div class="end-screen">
         <div class="end-screen__banner ${isGood ? 'end-screen__banner--good' : 'end-screen__banner--bad'}">
           <p class="end-screen__icon">${isGood ? '★' : '☠'}</p>
-          <h1 class="end-screen__result">${isGood ? 'VICTÒRIA!' : 'GAME OVER'}</h1>
+          <h1 class="end-screen__result">${isGood ? i18n.t('end_victory') : i18n.t('end_game_over')}</h1>
           ${node.endingTitle ? `<h2 class="end-screen__title">"${node.endingTitle}"</h2>` : ''}
         </div>
         <div class="narrative" style="padding: 1.5rem 0;">
@@ -34,9 +36,9 @@ class EndScreen {
         </div>
         <div class="choices">
           <button class="btn btn--center end-screen__restart-btn">
-            ${isGood ? 'Tornar a jugar' : 'Torna a intentar-ho, perdedor'}
+            ${isGood ? i18n.t('end_restart_good') : i18n.t('end_restart_bad')}
           </button>
-          <button class="btn btn--center end-screen__menu-btn">Tornar al menú</button>
+          <button class="btn btn--center end-screen__menu-btn">${i18n.t('end_menu')}</button>
         </div>
       </div>
     `;

@@ -1,7 +1,9 @@
 /**
- * SettingsScreen — Pantalla d'opcions: tema, àudio, typewriter, mida de font.
+ * SettingsScreen — Pantalla d'opcions: tema, àudio, typewriter, mida de font, idioma.
  * Pot ser cridada des del menú o des del joc (onBack dinàmic).
  */
+
+import i18n from '../engine/I18nManager.js';
 
 const FONT_SIZES = [
   { key: 'small', css: 'settings-screen__font-btn--small' },
@@ -12,8 +14,14 @@ const FONT_SIZES = [
 ];
 
 const FONT_FAMILIES = [
-  { key: 'retro', label: 'Retro 8-bit', css: 'settings-screen__fontfamily-btn--retro' },
-  { key: 'accessible', label: 'Llegible', css: 'settings-screen__fontfamily-btn--accessible' }
+  { key: 'retro', labelKey: 'settings_font_retro', css: 'settings-screen__fontfamily-btn--retro' },
+  { key: 'accessible', labelKey: 'settings_font_accessible', css: 'settings-screen__fontfamily-btn--accessible' }
+];
+
+const LANGUAGES = [
+  { key: 'ca', label: 'CA' },
+  { key: 'es', label: 'ES' },
+  { key: 'en', label: 'EN' }
 ];
 
 class SettingsScreen {
@@ -39,17 +47,18 @@ class SettingsScreen {
     screen.innerHTML = `
       <div class="settings-screen">
         <div class="settings-screen__header">
-          <h1>OPCIONS</h1>
-          <button class="btn btn--icon settings-screen__back-btn" title="Tornar"><i class="fa-solid fa-bars"></i></button>
+          <h1>${i18n.t('settings_title')}</h1>
+          <button class="btn btn--icon settings-screen__back-btn" title="${i18n.t('settings_back')}"><i class="fa-solid fa-bars"></i></button>
         </div>
         <div class="settings-screen__options">
-          ${this._renderToggle('theme', 'Tema', s.get('theme') === 'dark' ? 'Fosc' : 'Clar')}
+          ${this._renderToggle('theme', i18n.t('settings_theme'), s.get('theme') === 'dark' ? i18n.t('settings_theme_dark') : i18n.t('settings_theme_light'))}
           ${this._renderFontSize(s.get('fontSize'))}
           ${this._renderFontFamily(s.get('fontFamily'))}
-          ${this._renderToggle('musicEnabled', 'Música', s.get('musicEnabled') ? 'ON' : 'OFF')}
-          ${this._renderToggle('sfxEnabled', 'Efectes sonors', s.get('sfxEnabled') ? 'ON' : 'OFF')}
-          ${this._renderToggle('typewriterEnabled', 'Efecte escriptura', s.get('typewriterEnabled') ? 'ON' : 'OFF')}
-          ${this._renderToggle('timerEnabled', 'Temporitzador', s.get('timerEnabled') ? 'ON' : 'OFF')}
+          ${this._renderLanguage(i18n.lang)}
+          ${this._renderToggle('musicEnabled', i18n.t('settings_music'), s.get('musicEnabled') ? 'ON' : 'OFF')}
+          ${this._renderToggle('sfxEnabled', i18n.t('settings_sfx'), s.get('sfxEnabled') ? 'ON' : 'OFF')}
+          ${this._renderToggle('typewriterEnabled', i18n.t('settings_typewriter'), s.get('typewriterEnabled') ? 'ON' : 'OFF')}
+          ${this._renderToggle('timerEnabled', i18n.t('settings_timer'), s.get('timerEnabled') ? 'ON' : 'OFF')}
         </div>
       </div>
     `;
@@ -68,6 +77,11 @@ class SettingsScreen {
     // Listeners tipografia
     screen.querySelectorAll('.settings-screen__fontfamily-btn').forEach(btn => {
       btn.addEventListener('click', () => this._handleFontFamily(btn, screen));
+    });
+
+    // Listeners idioma
+    screen.querySelectorAll('.settings-screen__lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => this._handleLanguage(btn, screen));
     });
 
     // Listener tornar
@@ -94,14 +108,14 @@ class SettingsScreen {
 
   /** @private — Renderitza els 2 botons de tipografia */
   _renderFontFamily(currentFamily) {
-    const buttons = FONT_FAMILIES.map(({ key, label, css }) => {
+    const buttons = FONT_FAMILIES.map(({ key, labelKey, css }) => {
       const active = key === currentFamily ? ' settings-screen__fontfamily-btn--active' : '';
-      return `<button class="settings-screen__fontfamily-btn ${css}${active}" data-family="${key}">${label}</button>`;
+      return `<button class="settings-screen__fontfamily-btn ${css}${active}" data-family="${key}">${i18n.t(labelKey)}</button>`;
     }).join('');
 
     return `
       <div class="panel settings-screen__option">
-        <span class="settings-screen__label">Tipografia</span>
+        <span class="settings-screen__label">${i18n.t('settings_font_family')}</span>
         <div class="settings-screen__font-sizes">
           ${buttons}
         </div>
@@ -118,7 +132,24 @@ class SettingsScreen {
 
     return `
       <div class="panel settings-screen__option">
-        <span class="settings-screen__label">Mida de lletra</span>
+        <span class="settings-screen__label">${i18n.t('settings_font_size')}</span>
+        <div class="settings-screen__font-sizes">
+          ${buttons}
+        </div>
+      </div>
+    `;
+  }
+
+  /** @private — Renderitza els 3 botons d'idioma (CA/ES/EN) */
+  _renderLanguage(currentLang) {
+    const buttons = LANGUAGES.map(({ key, label }) => {
+      const active = key === currentLang ? ' settings-screen__lang-btn--active' : '';
+      return `<button class="settings-screen__lang-btn${active}" data-lang="${key}">${label}</button>`;
+    }).join('');
+
+    return `
+      <div class="panel settings-screen__option">
+        <span class="settings-screen__label">${i18n.t('settings_language')}</span>
         <div class="settings-screen__font-sizes">
           ${buttons}
         </div>
@@ -132,7 +163,6 @@ class SettingsScreen {
     this._settings.set('fontSize', size);
     this._settings.applyFontSize();
 
-    // Actualitzar estat actiu
     screen.querySelectorAll('.settings-screen__font-btn').forEach(b => {
       b.classList.remove('settings-screen__font-btn--active');
     });
@@ -151,6 +181,18 @@ class SettingsScreen {
     btn.classList.add('settings-screen__fontfamily-btn--active');
   }
 
+  /** @private — Canvia l'idioma i re-renderitza la pantalla */
+  _handleLanguage(btn, screen) {
+    const lang = btn.dataset.lang;
+    i18n.setLanguage(lang);
+    document.title = i18n.t('page_title');
+
+    // Re-renderitzar la pantalla sencera per reflectir el nou idioma
+    const container = screen.parentElement;
+    screen.remove();
+    this.show(container, { onBack: this._activeOnBack !== this._defaultOnBack ? this._activeOnBack : undefined });
+  }
+
   /** @private */
   _handleToggle(btn) {
     const key = btn.dataset.key;
@@ -160,7 +202,7 @@ class SettingsScreen {
       const newTheme = s.get('theme') === 'dark' ? 'light' : 'dark';
       s.set('theme', newTheme);
       s.applyTheme();
-      btn.textContent = newTheme === 'dark' ? 'Fosc' : 'Clar';
+      btn.textContent = newTheme === 'dark' ? i18n.t('settings_theme_dark') : i18n.t('settings_theme_light');
     } else if (key === 'musicEnabled') {
       const val = !s.get('musicEnabled');
       s.set('musicEnabled', val);
