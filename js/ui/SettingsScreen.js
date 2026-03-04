@@ -48,6 +48,7 @@ class SettingsScreen {
           ${this._renderToggle('musicEnabled', 'Música', s.get('musicEnabled') ? 'ON' : 'OFF')}
           ${this._renderToggle('sfxEnabled', 'Efectes sonors', s.get('sfxEnabled') ? 'ON' : 'OFF')}
           ${this._renderToggle('typewriterEnabled', 'Efecte escriptura', s.get('typewriterEnabled') ? 'ON' : 'OFF')}
+          ${this._renderToggle('timerEnabled', 'Temporitzador', s.get('timerEnabled') ? 'ON' : 'OFF')}
         </div>
         <div class="settings-screen__footer">
           <button class="btn btn--center settings-screen__back-btn">${backLabel}</button>
@@ -175,6 +176,10 @@ class SettingsScreen {
     } else if (key === 'typewriterEnabled') {
       const val = !s.get('typewriterEnabled');
       s.set('typewriterEnabled', val);
+      btn.textContent = val ? 'ON' : 'OFF';
+    } else if (key === 'timerEnabled') {
+      const val = !s.get('timerEnabled');
+      s.set('timerEnabled', val);
       btn.textContent = val ? 'ON' : 'OFF';
     }
   }

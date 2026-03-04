@@ -8,7 +8,8 @@
       "description": "Ets en Baldiri, aventurer de 3a categoria amb llicència caducada. Un mapa trobat en un got de cervesa et porta a una aventura absurda.",
       "difficulty": "fàcil",
       "nodes": 7,
-      "endings": { "total": 11, "good": 1, "bad": 10 }
+      "endings": { "total": 11, "good": 1, "bad": 10 },
+      "timeLimit": 300
     },
     {
       "id": "castell",
@@ -18,7 +19,8 @@
       "description": "Ets la Bruna, aprenenta de cavalleresca amb assignatures pendents. Rescata el príncep Tomàs d'un castell ple d'enigmes trampa. Llegeix bé cada paraula... o paga les conseqüències!",
       "difficulty": "difícil",
       "nodes": 22,
-      "endings": { "total": 35, "good": 1, "bad": 34 }
+      "endings": { "total": 35, "good": 1, "bad": 34 },
+      "timeLimit": 720
     }
   ]
 }

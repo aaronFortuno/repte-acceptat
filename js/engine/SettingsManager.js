@@ -12,7 +12,8 @@ const DEFAULTS = {
   typewriterEnabled: true,
   typewriterSpeed: 30,
   fontSize: 'medium',
-  fontFamily: 'retro'
+  fontFamily: 'retro',
+  timerEnabled: true
 };
 
 class SettingsManager {

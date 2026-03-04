@@ -115,6 +115,9 @@ async function startAdventure(adv) {
     gameScreen.loadStats(adv.id);
     audio.playMusic('adventure');
     screens.showScreen('game');
+    if (adv.timeLimit) {
+      gameScreen.startTimer(adv.timeLimit);
+    }
   } catch (e) {
     console.error('Error carregant aventura:', e);
     alert(`Error carregant l'aventura: ${e.message}`);
