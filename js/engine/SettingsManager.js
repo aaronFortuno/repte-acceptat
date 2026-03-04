@@ -11,7 +11,8 @@ const DEFAULTS = {
   sfxEnabled: true,
   typewriterEnabled: true,
   typewriterSpeed: 30,
-  fontSize: 'medium'
+  fontSize: 'medium',
+  fontFamily: 'retro'
 };
 
 class SettingsManager {
@@ -75,11 +76,19 @@ class SettingsManager {
   }
 
   /**
+   * Aplica la tipografia al DOM (atribut data-font-family al body).
+   */
+  applyFontFamily() {
+    document.body.setAttribute('data-font-family', this._settings.fontFamily);
+  }
+
+  /**
    * Aplica totes les preferències visuals al DOM.
    */
   applyAll() {
     this.applyTheme();
     this.applyFontSize();
+    this.applyFontFamily();
   }
 
   /** @private */

@@ -16,7 +16,7 @@ html {
 }
 
 body {
-  font-family: 'Press Start 2P', monospace;
+  font-family: var(--font-family, 'Press Start 2P', monospace);
   background-color: var(--bg-primary);
   color: var(--text-primary);
   min-height: 100%;
@@ -27,10 +27,20 @@ body {
   overflow-y: auto;
 }
 
+/* Tipografies: retro (per defecte) i accessible */
+body:not([data-font-family]),
+[data-font-family="retro"] {
+  --font-family: 'Press Start 2P', monospace;
+}
+
+[data-font-family="accessible"] {
+  --font-family: 'Verdana', 'Arial', sans-serif;
+}
+
 /* Contenidor principal */
 #app {
   width: 100%;
-  max-width: 800px;
+  max-width: 1100px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -107,7 +117,7 @@ p, .narrative-text {
    ============================================ */
 
 .btn {
-  font-family: 'Press Start 2P', monospace;
+  font-family: var(--font-family, 'Press Start 2P', monospace);
   font-size: var(--font-btn, 0.6rem);
   padding: 0.8rem 1.2rem;
   background-color: var(--bg-button);
@@ -171,18 +181,18 @@ p, .narrative-text {
   display: none;
 }
 
-/* Contenidor de botons d'opció */
+/* Contenidor de botons d'opció — ancorat al fons de la pantalla */
 .choices {
   display: grid;
   grid-template-columns: 1fr;
   gap: 0.6rem;
-  margin-top: auto;
-  padding-top: 1.5rem;
+  flex-shrink: 0;
+  padding-top: 1rem;
 }
 
 @media (min-width: 768px) {
   .choices {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -196,6 +206,8 @@ p, .narrative-text {
   flex-direction: column;
   justify-content: flex-start;
   padding: 1rem 0;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 .narrative-text {
@@ -350,8 +362,41 @@ p, .narrative-text {
   background-color: var(--bg-button);
   color: var(--text-secondary);
   cursor: pointer;
-  font-family: 'Press Start 2P', monospace;
+  font-family: var(--font-family, 'Press Start 2P', monospace);
   transition: all 0.15s ease;
+}
+
+/* Selector de tipografia */
+.settings-screen__fontfamily-btn {
+  padding: 0.6rem 1rem;
+  text-align: center;
+  min-width: auto;
+  border: 2px solid var(--border-color);
+  background-color: var(--bg-button);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: var(--font-muted, 0.55rem);
+  transition: all 0.15s ease;
+}
+
+.settings-screen__fontfamily-btn:hover {
+  border-color: var(--text-accent);
+  color: var(--text-accent);
+}
+
+.settings-screen__fontfamily-btn--active {
+  border-color: var(--text-accent);
+  background-color: var(--bg-button-active);
+  color: var(--text-accent);
+  box-shadow: var(--glow-intensity);
+}
+
+.settings-screen__fontfamily-btn--retro {
+  font-family: 'Press Start 2P', monospace;
+}
+
+.settings-screen__fontfamily-btn--accessible {
+  font-family: 'Verdana', 'Arial', sans-serif;
 }
 
 .settings-screen__font-btn:hover {
@@ -410,7 +455,8 @@ p, .narrative-text {
 .game-screen {
   display: flex;
   flex-direction: column;
-  min-height: 90vh;
+  height: calc(100vh - 3rem);
+  max-height: calc(100vh - 3rem);
 }
 
 .game-screen__header {

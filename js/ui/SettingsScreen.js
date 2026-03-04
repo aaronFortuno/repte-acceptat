@@ -11,6 +11,11 @@ const FONT_SIZES = [
   { key: 'xx-large', css: 'settings-screen__font-btn--xx-large' }
 ];
 
+const FONT_FAMILIES = [
+  { key: 'retro', label: 'Retro 8-bit', css: 'settings-screen__fontfamily-btn--retro' },
+  { key: 'accessible', label: 'Llegible', css: 'settings-screen__fontfamily-btn--accessible' }
+];
+
 class SettingsScreen {
   constructor({ settingsManager, audioManager, onBack }) {
     this._settings = settingsManager;
@@ -39,6 +44,7 @@ class SettingsScreen {
         <div class="settings-screen__options">
           ${this._renderToggle('theme', 'Tema', s.get('theme') === 'dark' ? 'Fosc' : 'Clar')}
           ${this._renderFontSize(s.get('fontSize'))}
+          ${this._renderFontFamily(s.get('fontFamily'))}
           ${this._renderToggle('musicEnabled', 'Música', s.get('musicEnabled') ? 'ON' : 'OFF')}
           ${this._renderToggle('sfxEnabled', 'Efectes sonors', s.get('sfxEnabled') ? 'ON' : 'OFF')}
           ${this._renderToggle('typewriterEnabled', 'Efecte escriptura', s.get('typewriterEnabled') ? 'ON' : 'OFF')}
@@ -58,6 +64,11 @@ class SettingsScreen {
     // Listeners mida de font
     screen.querySelectorAll('.settings-screen__font-btn').forEach(btn => {
       btn.addEventListener('click', () => this._handleFontSize(btn, screen));
+    });
+
+    // Listeners tipografia
+    screen.querySelectorAll('.settings-screen__fontfamily-btn').forEach(btn => {
+      btn.addEventListener('click', () => this._handleFontFamily(btn, screen));
     });
 
     // Listener tornar
@@ -82,7 +93,24 @@ class SettingsScreen {
     `;
   }
 
-  /** @private — Renderitza els 3 botons "Aa" per a la mida de font */
+  /** @private — Renderitza els 2 botons de tipografia */
+  _renderFontFamily(currentFamily) {
+    const buttons = FONT_FAMILIES.map(({ key, label, css }) => {
+      const active = key === currentFamily ? ' settings-screen__fontfamily-btn--active' : '';
+      return `<button class="settings-screen__fontfamily-btn ${css}${active}" data-family="${key}">${label}</button>`;
+    }).join('');
+
+    return `
+      <div class="panel settings-screen__option">
+        <span class="settings-screen__label">Tipografia</span>
+        <div class="settings-screen__font-sizes">
+          ${buttons}
+        </div>
+      </div>
+    `;
+  }
+
+  /** @private — Renderitza els 5 botons "Aa" per a la mida de font */
   _renderFontSize(currentSize) {
     const buttons = FONT_SIZES.map(({ key, css }) => {
       const active = key === currentSize ? ' settings-screen__font-btn--active' : '';
@@ -110,6 +138,18 @@ class SettingsScreen {
       b.classList.remove('settings-screen__font-btn--active');
     });
     btn.classList.add('settings-screen__font-btn--active');
+  }
+
+  /** @private */
+  _handleFontFamily(btn, screen) {
+    const family = btn.dataset.family;
+    this._settings.set('fontFamily', family);
+    this._settings.applyFontFamily();
+
+    screen.querySelectorAll('.settings-screen__fontfamily-btn').forEach(b => {
+      b.classList.remove('settings-screen__fontfamily-btn--active');
+    });
+    btn.classList.add('settings-screen__fontfamily-btn--active');
   }
 
   /** @private */
