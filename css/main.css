@@ -708,15 +708,14 @@ p, .narrative-text {
   font-size: 1.25rem;
 }
 
-/* Botó tornar: sempre visible, ancorat al final */
-.settings-screen__footer {
-  padding-top: 1rem;
-  margin-top: auto;
-  border-top: 1px solid var(--border-color);
-  position: sticky;
-  bottom: 0;
-  background-color: var(--bg-primary);
-  padding-bottom: 0.5rem;
+.settings-screen__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.settings-screen__header h1 {
+  margin-bottom: 0;
 }
 
 @media (max-width: 500px) {
@@ -735,6 +734,13 @@ p, .narrative-text {
   height: calc(100vh - 3rem);
   max-height: calc(100vh - 3rem);
   position: relative;
+  padding-right: 2.5rem;
+}
+
+@media (max-width: 600px) {
+  .game-screen {
+    padding-right: 0;
+  }
 }
 
 .game-screen__header {
@@ -829,22 +835,91 @@ body.game-screen--victory {
   line-height: 2;
 }
 
-/* Barra del temporitzador */
-.game-screen__timer-bar {
+/* Temporitzador — widget termòmetre 8-bit */
+.game-screen__timer {
+  position: absolute;
+  right: -2.5rem;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  z-index: 10;
+}
+
+.game-screen__timer-text {
+  font-family: var(--font-family, 'Press Start 2P', monospace);
+  font-size: 0.45rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.game-screen__timer-frame {
+  flex: 1;
+  width: 18px;
+  border: 3px solid var(--border-color);
+  background-color: var(--bg-secondary);
+  position: relative;
+  box-shadow:
+    inset 2px 2px 0 rgba(0, 0, 0, 0.3),
+    inset -1px -1px 0 rgba(255, 255, 255, 0.05),
+    0 0 6px rgba(0, 0, 0, 0.4);
+}
+
+/* Decoració 8-bit: marques laterals */
+.game-screen__timer-frame::before {
+  content: '';
+  position: absolute;
+  left: -7px;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--border-color) 0px,
+    var(--border-color) 2px,
+    transparent 2px,
+    transparent 10px
+  );
+}
+
+.game-screen__timer-fill {
   --timer-pct: 100%;
   --timer-color: var(--text-success, #0f0);
   position: absolute;
+  left: 0;
   right: 0;
-  top: 0;
-  width: 5px;
+  bottom: 0;
   height: var(--timer-pct);
   background-color: var(--timer-color);
   transition: height 1s linear, background-color 2s ease;
-  z-index: 10;
-  border-radius: 2px;
+  box-shadow:
+    0 0 8px var(--timer-color),
+    inset 2px 0 0 rgba(255, 255, 255, 0.15);
+  image-rendering: pixelated;
 }
 
-.game-screen__timer-bar--expired {
+/* Pixelat: segments horitzontals dins la barra */
+.game-screen__timer-fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 4px,
+    rgba(0, 0, 0, 0.2) 4px,
+    rgba(0, 0, 0, 0.2) 6px
+  );
+}
+
+.game-screen__timer--expired .game-screen__timer-fill {
+  animation: timerBlink 0.5s step-end infinite;
+}
+
+.game-screen__timer--expired .game-screen__timer-text {
+  color: var(--text-danger);
   animation: timerBlink 0.5s step-end infinite;
 }
 
@@ -859,16 +934,58 @@ body.game-screen--victory {
   border-top: 1px solid var(--border-color);
 }
 
+/* Mòbil: termòmetre horitzontal sota el header */
 @media (max-width: 600px) {
-  .game-screen__timer-bar {
+  .game-screen__timer {
+    position: relative;
     right: auto;
     top: auto;
     bottom: auto;
-    width: var(--timer-pct);
-    height: 5px;
-    position: relative;
+    flex-direction: row-reverse;
+    gap: 0.5rem;
     margin-bottom: 0.5rem;
+  }
+
+  .game-screen__timer-frame {
+    flex: 1;
+    width: auto;
+    height: 16px;
+  }
+
+  .game-screen__timer-frame::before {
+    left: 0;
+    right: 0;
+    top: -7px;
+    bottom: auto;
+    width: auto;
+    height: 4px;
+    background: repeating-linear-gradient(
+      to right,
+      var(--border-color) 0px,
+      var(--border-color) 2px,
+      transparent 2px,
+      transparent 10px
+    );
+  }
+
+  .game-screen__timer-fill {
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: auto;
+    height: auto;
+    width: var(--timer-pct);
     transition: width 1s linear, background-color 2s ease;
+  }
+
+  .game-screen__timer-fill::after {
+    background: repeating-linear-gradient(
+      to right,
+      transparent 0px,
+      transparent 4px,
+      rgba(0, 0, 0, 0.2) 4px,
+      rgba(0, 0, 0, 0.2) 6px
+    );
   }
 }
 

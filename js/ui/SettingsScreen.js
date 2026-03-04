@@ -29,18 +29,19 @@ class SettingsScreen {
    * @param {HTMLElement} container
    * @param {object} params
    * @param {function} [params.onBack] — Callback personalitzat per tornar
-   * @param {string} [params.backLabel] — Text del botó tornar
    */
   show(container, params = {}) {
     this._activeOnBack = params.onBack || this._defaultOnBack;
-    const backLabel = params.backLabel || 'Tornar al menú';
     const s = this._settings;
     const screen = document.createElement('div');
     screen.className = 'screen screen--active';
 
     screen.innerHTML = `
       <div class="settings-screen">
-        <h1>OPCIONS</h1>
+        <div class="settings-screen__header">
+          <h1>OPCIONS</h1>
+          <button class="btn btn--icon settings-screen__back-btn" title="Tornar"><i class="fa-solid fa-bars"></i></button>
+        </div>
         <div class="settings-screen__options">
           ${this._renderToggle('theme', 'Tema', s.get('theme') === 'dark' ? 'Fosc' : 'Clar')}
           ${this._renderFontSize(s.get('fontSize'))}
@@ -49,9 +50,6 @@ class SettingsScreen {
           ${this._renderToggle('sfxEnabled', 'Efectes sonors', s.get('sfxEnabled') ? 'ON' : 'OFF')}
           ${this._renderToggle('typewriterEnabled', 'Efecte escriptura', s.get('typewriterEnabled') ? 'ON' : 'OFF')}
           ${this._renderToggle('timerEnabled', 'Temporitzador', s.get('timerEnabled') ? 'ON' : 'OFF')}
-        </div>
-        <div class="settings-screen__footer">
-          <button class="btn btn--center settings-screen__back-btn">${backLabel}</button>
         </div>
       </div>
     `;

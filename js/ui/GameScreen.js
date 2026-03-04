@@ -92,13 +92,28 @@ class GameScreen {
     this._cursorEl = screen.querySelector('.game-screen__cursor');
     this._deathCounterEl = screen.querySelector('.game-screen__death-counter-value');
 
-    // Barra del temporitzador
-    this._timerBarEl = document.createElement('div');
-    this._timerBarEl.className = 'game-screen__timer-bar hidden';
-    this._gameEl.appendChild(this._timerBarEl);
+    // Widget del temporitzador (termòmetre 8-bit)
+    const timerWidget = document.createElement('div');
+    timerWidget.className = 'game-screen__timer hidden';
+    timerWidget.innerHTML = `
+      <span class="game-screen__timer-text">00:00</span>
+      <div class="game-screen__timer-frame">
+        <div class="game-screen__timer-fill"></div>
+      </div>
+    `;
+    this._gameEl.appendChild(timerWidget);
+    this._timerWidgetEl = timerWidget;
+    this._timerBarEl = timerWidget.querySelector('.game-screen__timer-fill');
+    this._timerTextEl = timerWidget.querySelector('.game-screen__timer-text');
 
     this._titleEl.textContent = this._engine.getTitle() || '';
     this._updateDeathCounter();
+
+    // Reprendre temporitzador si estava actiu (tornant d'opcions)
+    if (this._timeLimit > 0 && this._timeRemaining > 0 && !this._timerExpired) {
+      this._resumeTimer();
+    }
+
     this._renderNode();
   }
 
@@ -114,40 +129,13 @@ class GameScreen {
     this._timeRemaining = timeLimit;
     this._timerExpired = false;
 
-    if (!this._settings.get('timerEnabled')) return;
-
-    if (this._timerBarEl) {
-      this._timerBarEl.classList.remove('hidden');
-      this._timerBarEl.classList.remove('game-screen__timer-bar--expired');
-      this._updateTimerBar();
-    }
-
-    this._timerInterval = setInterval(() => {
-      if (!this._settings.get('timerEnabled')) {
-        if (this._timerBarEl) this._timerBarEl.classList.add('hidden');
-        return;
-      }
-
-      if (this._timerBarEl) this._timerBarEl.classList.remove('hidden');
-
-      this._timeRemaining--;
-      this._updateTimerBar();
-
-      if (this._timeRemaining <= 0) {
-        this._timeRemaining = 0;
-        this._timerExpired = true;
-        this._stopTimer();
-        if (this._timerBarEl) {
-          this._timerBarEl.classList.add('game-screen__timer-bar--expired');
-        }
-      }
-    }, 1000);
+    this._resumeTimer();
   }
 
   hide() {
     this._typewriter.stop();
     this._removeSkipHandler();
-    this._stopTimer();
+    this._pauseTimer();
   }
 
   destroy() {
@@ -200,8 +188,9 @@ class GameScreen {
       this._saveDeathCounts();
     }
 
-    // Aturar el temporitzador en arribar a un final
-    this._stopTimer();
+    // Pausar el temporitzador en arribar a un final (conserva temps per al resum)
+    this._pauseTimer();
+    if (this._timerWidgetEl) this._timerWidgetEl.classList.add('hidden');
 
     // SFX i música de final
     const type = isGood ? 'victory' : 'death';
@@ -393,22 +382,77 @@ class GameScreen {
     }
   }
 
-  /** @private — Atura el temporitzador */
-  _stopTimer() {
+  /** @private — Pausa el temporitzador (conserva estat) */
+  _pauseTimer() {
     if (this._timerInterval) {
       clearInterval(this._timerInterval);
       this._timerInterval = null;
     }
   }
 
-  /** @private — Actualitza la barra visual del temporitzador */
+  /** @private — Atura i reinicia completament el temporitzador */
+  _stopTimer() {
+    this._pauseTimer();
+    this._timeLimit = 0;
+    this._timeRemaining = 0;
+    this._timerExpired = false;
+    if (this._timerWidgetEl) {
+      this._timerWidgetEl.classList.add('hidden');
+    }
+  }
+
+  /** @private — Reprèn el temporitzador des de l'estat actual */
+  _resumeTimer() {
+    this._pauseTimer();
+
+    if (!this._settings.get('timerEnabled') || this._timerExpired) {
+      if (this._timerWidgetEl) this._timerWidgetEl.classList.add('hidden');
+      return;
+    }
+
+    if (this._timerWidgetEl) {
+      this._timerWidgetEl.classList.remove('hidden');
+      this._timerWidgetEl.classList.remove('game-screen__timer--expired');
+      this._updateTimerBar();
+    }
+
+    this._timerInterval = setInterval(() => {
+      if (!this._settings.get('timerEnabled')) {
+        if (this._timerWidgetEl) this._timerWidgetEl.classList.add('hidden');
+        return;
+      }
+
+      if (this._timerWidgetEl) this._timerWidgetEl.classList.remove('hidden');
+
+      this._timeRemaining--;
+      this._updateTimerBar();
+
+      if (this._timeRemaining <= 0) {
+        this._timeRemaining = 0;
+        this._timerExpired = true;
+        this._pauseTimer();
+        if (this._timerWidgetEl) {
+          this._timerWidgetEl.classList.add('game-screen__timer--expired');
+        }
+      }
+    }, 1000);
+  }
+
+  /** @private — Actualitza la barra visual i el text del temporitzador */
   _updateTimerBar() {
     if (!this._timerBarEl || this._timeLimit <= 0) return;
 
     const pct = (this._timeRemaining / this._timeLimit) * 100;
     this._timerBarEl.style.setProperty('--timer-pct', `${pct}%`);
 
-    // Color progressiu: verd → groc → vermell
+    // Comptador mm:ss
+    if (this._timerTextEl) {
+      const mins = Math.floor(this._timeRemaining / 60);
+      const secs = this._timeRemaining % 60;
+      this._timerTextEl.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+
+    // Color progressiu: verd → groc/taronja → vermell
     let color;
     if (pct > 50) {
       color = 'var(--text-success, #0f0)';

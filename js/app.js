@@ -65,8 +65,7 @@ const gameScreen = new GameScreen({
   onMenu: () => showMenu(),
   onSettings: () => {
     screens.showScreen('settings', {
-      onBack: () => screens.showScreen('game'),
-      backLabel: 'Tornar al joc'
+      onBack: () => screens.showScreen('game')
     });
   }
 });
