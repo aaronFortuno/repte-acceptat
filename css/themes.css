@@ -83,3 +83,19 @@
   --font-btn: 0.75rem;
   --font-muted: 0.65rem;
 }
+
+[data-font-size="x-large"] {
+  --font-title: 1.8rem;
+  --font-subtitle: 1.25rem;
+  --font-body: 1.05rem;
+  --font-btn: 0.9rem;
+  --font-muted: 0.78rem;
+}
+
+[data-font-size="xx-large"] {
+  --font-title: 2.1rem;
+  --font-subtitle: 1.45rem;
+  --font-body: 1.22rem;
+  --font-btn: 1.05rem;
+  --font-muted: 0.9rem;
+}

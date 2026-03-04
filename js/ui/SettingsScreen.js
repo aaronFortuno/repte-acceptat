@@ -6,7 +6,9 @@
 const FONT_SIZES = [
   { key: 'small', css: 'settings-screen__font-btn--small' },
   { key: 'medium', css: 'settings-screen__font-btn--medium' },
-  { key: 'large', css: 'settings-screen__font-btn--large' }
+  { key: 'large', css: 'settings-screen__font-btn--large' },
+  { key: 'x-large', css: 'settings-screen__font-btn--x-large' },
+  { key: 'xx-large', css: 'settings-screen__font-btn--xx-large' }
 ];
 
 class SettingsScreen {

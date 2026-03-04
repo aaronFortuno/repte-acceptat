@@ -33,8 +33,8 @@ class GameScreen {
           <h2 class="game-screen__title"></h2>
           <div class="game-screen__toolbar">
             <button class="btn btn--icon game-screen__mute-btn" title="Silenciar/activar música"></button>
-            <button class="btn btn--icon game-screen__settings-btn" title="Opcions">&#9881;</button>
-            <button class="btn btn--icon game-screen__menu-btn" title="Menú principal">&#9776;</button>
+            <button class="btn btn--icon game-screen__settings-btn" title="Opcions"><i class="fa-solid fa-gear"></i></button>
+            <button class="btn btn--icon game-screen__menu-btn" title="Menú principal"><i class="fa-solid fa-bars"></i></button>
           </div>
         </div>
         <div class="narrative">
@@ -189,8 +189,9 @@ class GameScreen {
   /** @private — Actualitza la icona del botó mute */
   _updateMuteBtn(btn) {
     const enabled = this._audio.getMusicEnabled();
-    // 🔊 altaveu amb so / 🔇 altaveu ratllat
-    btn.textContent = enabled ? '\u{1F50A}' : '\u{1F507}';
+    btn.innerHTML = enabled
+      ? '<i class="fa-solid fa-volume-high"></i>'
+      : '<i class="fa-solid fa-volume-xmark"></i>';
     btn.title = enabled ? 'Silenciar música' : 'Activar música';
   }
 }

@@ -157,11 +157,14 @@ p, .narrative-text {
 
 /* Botó icona (toolbar del joc) */
 .btn--icon {
-  padding: 0.4rem 0.6rem;
-  font-size: var(--font-btn, 0.6rem);
+  padding: 0.5rem 0.7rem;
+  font-size: 1rem;
   line-height: 1;
   min-width: auto;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn--icon::before {
@@ -170,11 +173,17 @@ p, .narrative-text {
 
 /* Contenidor de botons d'opció */
 .choices {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 0.6rem;
   margin-top: auto;
   padding-top: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .choices {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
 }
 
 /* ============================================
@@ -367,6 +376,14 @@ p, .narrative-text {
 
 .settings-screen__font-btn--large {
   font-size: 0.85rem;
+}
+
+.settings-screen__font-btn--x-large {
+  font-size: 1.05rem;
+}
+
+.settings-screen__font-btn--xx-large {
+  font-size: 1.25rem;
 }
 
 /* Botó tornar: sempre visible, ancorat al final */
