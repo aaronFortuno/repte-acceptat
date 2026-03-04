@@ -112,7 +112,7 @@ async function startAdventure(adv) {
   try {
     await engine.loadAdventureFromUrl(`stories/${adv.file}`);
     engine.startGame();
-    gameScreen.resetStats();
+    gameScreen.loadStats(adv.id);
     audio.playMusic('adventure');
     screens.showScreen('game');
   } catch (e) {

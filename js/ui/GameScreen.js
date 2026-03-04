@@ -17,13 +17,17 @@ class GameScreen {
     this._gameEl = null;
     this._skipHandler = null;
     this._deathCount = 0;
+    this._adventureId = null;
   }
 
   /**
-   * Reinicia el comptador de morts (cridat en començar nova aventura).
+   * Carrega el comptador de morts per a una aventura concreta.
+   * @param {string} adventureId — Identificador de l'aventura (ex: 'castell')
    */
-  resetStats() {
-    this._deathCount = 0;
+  loadStats(adventureId) {
+    this._adventureId = adventureId;
+    const deaths = this._loadDeathCounts();
+    this._deathCount = deaths[adventureId] || 0;
   }
 
   /**
@@ -140,6 +144,7 @@ class GameScreen {
     if (!isGood) {
       this._deathCount++;
       this._updateDeathCounter();
+      this._saveDeathCounts();
     }
 
     // SFX i música de final
@@ -300,6 +305,27 @@ class GameScreen {
   _updateDeathCounter() {
     if (this._deathCounterEl) {
       this._deathCounterEl.textContent = this._deathCount;
+    }
+  }
+
+  /** @private — Carrega comptadors de morts des de localStorage */
+  _loadDeathCounts() {
+    try {
+      const raw = localStorage.getItem('aventures-retro-deaths');
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  /** @private — Desa el comptador de morts actual a localStorage */
+  _saveDeathCounts() {
+    try {
+      const deaths = this._loadDeathCounts();
+      deaths[this._adventureId] = this._deathCount;
+      localStorage.setItem('aventures-retro-deaths', JSON.stringify(deaths));
+    } catch (e) {
+      // localStorage no disponible — ignorar
     }
   }
 
