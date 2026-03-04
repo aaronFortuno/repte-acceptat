@@ -40,6 +40,7 @@ class GameScreen {
         <div class="game-screen__header">
           <h2 class="game-screen__title"></h2>
           <div class="game-screen__toolbar">
+            <span class="game-screen__death-counter" title="Intents fallits"><i class="fa-solid fa-skull"></i> <span class="game-screen__death-counter-value">0</span></span>
             <button class="btn btn--icon game-screen__mute-btn" title="Silenciar/activar música"></button>
             <button class="btn btn--icon game-screen__settings-btn" title="Opcions"><i class="fa-solid fa-gear"></i></button>
             <button class="btn btn--icon game-screen__menu-btn" title="Menú principal"><i class="fa-solid fa-bars"></i></button>
@@ -74,13 +75,16 @@ class GameScreen {
         if (this._onMenu) this._onMenu();
       });
 
+    this._screenEl = screen;
     this._gameEl = screen.querySelector('.game-screen');
     this._titleEl = screen.querySelector('.game-screen__title');
     this._textEl = screen.querySelector('.game-screen__text');
     this._choicesEl = screen.querySelector('.game-screen__choices');
     this._cursorEl = screen.querySelector('.game-screen__cursor');
+    this._deathCounterEl = screen.querySelector('.game-screen__death-counter-value');
 
     this._titleEl.textContent = this._engine.getTitle() || '';
+    this._updateDeathCounter();
     this._renderNode();
   }
 
@@ -135,14 +139,15 @@ class GameScreen {
 
     if (!isGood) {
       this._deathCount++;
+      this._updateDeathCounter();
     }
 
     // SFX i música de final
     const type = isGood ? 'victory' : 'death';
     this._audio.playSFXThenMusic(type, type);
 
-    // Tint de fons suau
-    this._gameEl.classList.add(isGood ? 'game-screen--victory' : 'game-screen--death');
+    // Tint de fons a tota la pantalla
+    this._screenEl.classList.add(isGood ? 'game-screen--victory' : 'game-screen--death');
 
     // Bloc de resultat a sota del text narratiu
     const resultEl = document.createElement('div');
@@ -192,7 +197,7 @@ class GameScreen {
   /** @private — Reinicia la partida des d'un final */
   _restartFromEnding() {
     // Netejar estat visual de final
-    this._gameEl.classList.remove('game-screen--death', 'game-screen--victory');
+    this._screenEl.classList.remove('game-screen--death', 'game-screen--victory');
     const resultEl = this._gameEl.querySelector('.game-screen__ending-result');
     if (resultEl) resultEl.remove();
 
@@ -288,6 +293,13 @@ class GameScreen {
       document.removeEventListener('click', this._skipHandler);
       document.removeEventListener('keydown', this._skipHandler);
       this._skipHandler = null;
+    }
+  }
+
+  /** @private — Actualitza el comptador de morts visible */
+  _updateDeathCounter() {
+    if (this._deathCounterEl) {
+      this._deathCounterEl.textContent = this._deathCount;
     }
   }
 
