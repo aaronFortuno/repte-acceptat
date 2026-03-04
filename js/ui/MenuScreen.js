@@ -68,7 +68,7 @@ class MenuScreen {
     // Barra de filtre per idioma
     const langFilterBar = `
       <div class="menu-screen__filter menu-screen__lang-filter">
-        ${['ca', 'es', 'en'].map(l => {
+        ${['ca', 'es', 'en', 'eu', 'gl'].map(l => {
           const active = l === currentLang ? ' menu-screen__filter-btn--active' : '';
           return `<button class="menu-screen__filter-btn${active}" data-lang-filter="${l}">${i18n.t('lang_' + l)}</button>`;
         }).join('')}

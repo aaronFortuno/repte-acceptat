@@ -21,7 +21,9 @@ const FONT_FAMILIES = [
 const LANGUAGES = [
   { key: 'ca', label: 'CA' },
   { key: 'es', label: 'ES' },
-  { key: 'en', label: 'EN' }
+  { key: 'en', label: 'EN' },
+  { key: 'eu', label: 'EU' },
+  { key: 'gl', label: 'GL' }
 ];
 
 class SettingsScreen {

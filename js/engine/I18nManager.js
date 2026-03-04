@@ -1,6 +1,6 @@
 /**
  * I18nManager — Gestiona la internacionalització de la interfície.
- * Singleton que proporciona traduccions per a CA, ES i EN.
+ * Singleton que proporciona traduccions per a CA, ES, EN, EU i GL.
  * Les aventures NO es tradueixen — cada una té un idioma fix.
  */
 
@@ -35,6 +35,8 @@ const TRANSLATIONS = {
     lang_ca: 'CA',
     lang_es: 'ES',
     lang_en: 'EN',
+    lang_eu: 'EU',
+    lang_gl: 'GL',
 
     // Dificultat
     difficulty_easy: 'Fàcil',
@@ -120,6 +122,8 @@ const TRANSLATIONS = {
     lang_ca: 'CA',
     lang_es: 'ES',
     lang_en: 'EN',
+    lang_eu: 'EU',
+    lang_gl: 'GL',
 
     difficulty_easy: 'Fácil',
     difficulty_hard: 'Difícil',
@@ -198,11 +202,11 @@ const TRANSLATIONS = {
     lang_ca: 'CA',
     lang_es: 'ES',
     lang_en: 'EN',
+    lang_eu: 'EU',
+    lang_gl: 'GL',
 
     difficulty_easy: 'Easy',
     difficulty_hard: 'Hard',
-
-    menu_title: 'MAIN MENU',
 
     settings_title: 'SETTINGS',
     settings_back: 'Back',
@@ -249,6 +253,166 @@ const TRANSLATIONS = {
     end_menu: 'Back to menu',
 
     error_loading_adventure: ({ msg }) => `Error loading adventure: ${msg}`
+  },
+
+  eu: {
+    page_title: 'Testu-abenturak Retro',
+    title_subtitle: '80ko hamarkadako testu-abenturen motorea',
+    title_prompt: 'Sakatu edozein tekla',
+    changelog_title: 'Bertsio-historia',
+    changelog_close: 'Itxi',
+
+    menu_title: 'MENU NAGUSIA',
+    menu_choose: 'Aukeratu abentura bat',
+    menu_no_adventures: 'Ez dago abenturarik eskuragarri',
+    menu_filter_all: 'Denak',
+    menu_scenes: ({ n }) => `${n} eszena`,
+    menu_endings: ({ total, good, bad }) => `${total} amaiera (${good} ★ / ${bad} ☠)`,
+    menu_author_anonymous: 'Anonimoa',
+    menu_submit_btn: 'Bidali zure abentura',
+    menu_submit_title: 'Bidali zure abentura!',
+    menu_submit_intro: 'Abentura baten ideia duzu? Jasatea gustatuko litzaiguke!',
+    menu_submit_how: 'Nola egin:',
+    menu_submit_step1: 'Bidali mezu elektroniko bat hona:',
+    menu_submit_step2: 'Erantsi nodoen testuak eta ekintzak dituen dokumentu bat',
+    menu_submit_step3: 'Ez da JSON formatuaren beharrik, guk alde teknikoa kudeatzen dugu',
+    menu_submit_email_btn: 'Mezua bidali',
+    menu_submit_close: 'Itxi',
+
+    lang_ca: 'CA',
+    lang_es: 'ES',
+    lang_en: 'EN',
+    lang_eu: 'EU',
+    lang_gl: 'GL',
+
+    difficulty_easy: 'Erraza',
+    difficulty_hard: 'Zaila',
+
+    settings_title: 'AUKERAK',
+    settings_back: 'Itzuli',
+    settings_theme: 'Gaia',
+    settings_theme_dark: 'Iluna',
+    settings_theme_light: 'Argia',
+    settings_music: 'Musika',
+    settings_sfx: 'Soinu-efektuak',
+    settings_typewriter: 'Idazketa-efektua',
+    settings_timer: 'Kronometroa',
+    settings_language: 'Hizkuntza',
+    settings_font_size: 'Letra-tamaina',
+    settings_font_family: 'Tipografia',
+    settings_font_retro: 'Retro 8-bit',
+    settings_font_accessible: 'Irakurgarria',
+
+    game_victory: '★ GARAIPENA! ★',
+    game_over: '☠ GAME OVER ☠',
+    game_restart_good: 'Berriro jolastu',
+    game_restart_bad: 'Saiatu berriro',
+    game_menu_btn: 'Menura itzuli',
+    game_mute_btn: 'Musika isilarazi',
+    game_unmute_btn: 'Musika aktibatu',
+    game_settings_btn: 'Aukerak',
+    game_menu_tooltip: 'Menu nagusia',
+    game_deaths_label: ({ d }) => `Heriotzak: ${d}`,
+    game_deaths_tooltip: 'Saiakera hutsak',
+
+    death_summary_zero: 'Abentura gainditu duzu behin ere hil gabe! Esan zure irakasleari irakurmenean bikain jartzeko! Edo agian mila aldiz jokatu duzu eta buruz dakizu...',
+    death_summary_few: ({ d }) => `${d} heriotza bakarrik! Irakurmen ona duzu, nahiz eta xehetasunen bat ihes egin dizun. Bigarren irakurketa batek konponduko du!`,
+    death_summary_some: ({ d }) => `${d} heriotza. Ez dago gaizki, baina agian testuak arreta handiagoz irakurri beharko zenituzke. Xehetasunek garrantzia dute!`,
+    death_summary_many: ({ d }) => `${d} heriotza! Ene bada. Ziur testuak osorik irakurtzen dituzula edo zuzenean botoietara joaten zara? Ezkutuko xehetasunak TESTUAN daude, ez botoietan!`,
+    death_summary_extreme: ({ d }) => `${d} heriotza! Ziur kurtso bat errepikatu behar ez duzula? Testurik irakurri duzu? Agian zoriondu behar zaitugu, esfortzu handia eskatzen baitu hainbeste modutan hiltzea!`,
+
+    timer_expired: 'Ene bada, beti denbora agortu beharrean... zer egiten zenuen testua aurrean zenuen bitartean, mugikorra begiratu?',
+    timer_fast: 'Tximista-abiadura! Denbora asko sobran bukatu duzu.',
+    timer_ok: 'Garaiz, baina lasai hartu duzu.',
+    timer_close: 'Ilezain! Minutu bat gehiago eta ez zenuen lortuko.',
+
+    end_victory: 'GARAIPENA!',
+    end_game_over: 'GAME OVER',
+    end_restart_good: 'Berriro jolastu',
+    end_restart_bad: 'Saiatu berriro, galtzaile',
+    end_menu: 'Menura itzuli',
+
+    error_loading_adventure: ({ msg }) => `Errorea abentura kargatzean: ${msg}`
+  },
+
+  gl: {
+    page_title: 'Aventuras Textuais Retro',
+    title_subtitle: 'Motor de aventuras textuais estilo anos 80',
+    title_prompt: 'Preme calquera tecla',
+    changelog_title: 'Historial de versións',
+    changelog_close: 'Pechar',
+
+    menu_title: 'MENÚ PRINCIPAL',
+    menu_choose: 'Escolle unha aventura',
+    menu_no_adventures: 'Non hai aventuras dispoñibles',
+    menu_filter_all: 'Todas',
+    menu_scenes: ({ n }) => `${n} escenas`,
+    menu_endings: ({ total, good, bad }) => `${total} finais (${good} ★ / ${bad} ☠)`,
+    menu_author_anonymous: 'Anónimo',
+    menu_submit_btn: 'Envíanos a túa aventura',
+    menu_submit_title: 'Envíanos a túa aventura!',
+    menu_submit_intro: 'Tes unha idea para unha aventura? Encantaríanos recibila!',
+    menu_submit_how: 'Como facelo:',
+    menu_submit_step1: 'Envía un correo a',
+    menu_submit_step2: 'Adxunta un documento cos textos dos nodos e as accións',
+    menu_submit_step3: 'Non fai falta formato JSON, nós encargámonos da parte técnica',
+    menu_submit_email_btn: 'Enviar correo',
+    menu_submit_close: 'Pechar',
+
+    lang_ca: 'CA',
+    lang_es: 'ES',
+    lang_en: 'EN',
+    lang_eu: 'EU',
+    lang_gl: 'GL',
+
+    difficulty_easy: 'Fácil',
+    difficulty_hard: 'Difícil',
+
+    settings_title: 'OPCIÓNS',
+    settings_back: 'Volver',
+    settings_theme: 'Tema',
+    settings_theme_dark: 'Escuro',
+    settings_theme_light: 'Claro',
+    settings_music: 'Música',
+    settings_sfx: 'Efectos de son',
+    settings_typewriter: 'Efecto escritura',
+    settings_timer: 'Temporizador',
+    settings_language: 'Lingua',
+    settings_font_size: 'Tamaño de letra',
+    settings_font_family: 'Tipografía',
+    settings_font_retro: 'Retro 8-bit',
+    settings_font_accessible: 'Lexible',
+
+    game_victory: '★ VITORIA! ★',
+    game_over: '☠ GAME OVER ☠',
+    game_restart_good: 'Volver xogar',
+    game_restart_bad: 'Téntao de novo',
+    game_menu_btn: 'Volver ao menú',
+    game_mute_btn: 'Silenciar música',
+    game_unmute_btn: 'Activar música',
+    game_settings_btn: 'Opcións',
+    game_menu_tooltip: 'Menú principal',
+    game_deaths_label: ({ d }) => `Mortes: ${d}`,
+    game_deaths_tooltip: 'Intentos fallidos',
+
+    death_summary_zero: 'Superaches a aventura sen morrer nin unha soa vez! Dille ao teu profe que che poña un sobresaínte en comprensión lectora! Ou se cadra xa xogaches mil veces e sábelo de memoria...',
+    death_summary_few: ({ d }) => `Só ${d} morte${d > 1 ? 's' : ''}! Tes moi boa comprensión lectora, aínda que algún detalle se che escapou. Nada que unha segunda lectura non arranxe!`,
+    death_summary_some: ({ d }) => `${d} mortes. Non está mal, pero se cadra deberías ler os textos cun pouco máis de atención. Os detalles importan!`,
+    death_summary_many: ({ d }) => `${d} mortes! Vaites. Seguro que les os textos enteiros ou vas directamente aos botóns? Os detalles agochados están NO TEXTO, non nos botóns!`,
+    death_summary_extreme: ({ d }) => `${d} mortes! Seguro que non tes que repetir curso? Liches algún texto? Se cadra hai que felicitarte, porque hai que esforzarse moito para conseguir morrer de tantas formas posibles!`,
+
+    timer_expired: 'Miña nai, sempre apurando o tempo... que facías mentres tiñas o texto diante, mirar o móbil?',
+    timer_fast: 'Velocidade relámpago! Acabaches con tempo de sobra.',
+    timer_ok: 'Xusto a tempo, pero tomáchelo con calma.',
+    timer_close: 'Polos pelos! Un minuto máis e non o contas.',
+
+    end_victory: 'VITORIA!',
+    end_game_over: 'GAME OVER',
+    end_restart_good: 'Volver xogar',
+    end_restart_bad: 'Téntao de novo, perdedor',
+    end_menu: 'Volver ao menú',
+
+    error_loading_adventure: ({ msg }) => `Erro cargando a aventura: ${msg}`
   }
 };
 
@@ -277,7 +441,7 @@ class I18nManager {
 
   /**
    * Canvia l'idioma actiu i el persisteix.
-   * @param {string} lang — 'ca', 'es' o 'en'
+   * @param {string} lang — 'ca', 'es', 'en', 'eu' o 'gl'
    */
   setLanguage(lang) {
     if (!TRANSLATIONS[lang]) return;
