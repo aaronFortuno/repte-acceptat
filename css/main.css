@@ -546,15 +546,23 @@ p, .narrative-text {
   flex-shrink: 0;
 }
 
-/* Tints de fons per a finals — aplicat al .screen complet */
-.game-screen--death {
-  background-color: rgba(255, 40, 40, 0.1);
+/* Tints de fons per a finals — aplicat al body sencer */
+body.game-screen--death {
+  background-color: #1a0808 !important;
   transition: background-color 1s ease;
 }
 
-.game-screen--victory {
-  background-color: rgba(0, 255, 100, 0.1);
+body.game-screen--victory {
+  background-color: #081a0c !important;
   transition: background-color 1s ease;
+}
+
+[data-theme="light"].game-screen--death {
+  background-color: #f0d8d4 !important;
+}
+
+[data-theme="light"].game-screen--victory {
+  background-color: #d4f0d8 !important;
 }
 
 /* Comptador de morts a la toolbar */

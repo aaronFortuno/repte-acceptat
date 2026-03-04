@@ -146,8 +146,8 @@ class GameScreen {
     const type = isGood ? 'victory' : 'death';
     this._audio.playSFXThenMusic(type, type);
 
-    // Tint de fons a tota la pantalla
-    this._screenEl.classList.add(isGood ? 'game-screen--victory' : 'game-screen--death');
+    // Tint de fons a tota la interfície (body)
+    document.body.classList.add(isGood ? 'game-screen--victory' : 'game-screen--death');
 
     // Bloc de resultat a sota del text narratiu
     const resultEl = document.createElement('div');
@@ -197,7 +197,7 @@ class GameScreen {
   /** @private — Reinicia la partida des d'un final */
   _restartFromEnding() {
     // Netejar estat visual de final
-    this._screenEl.classList.remove('game-screen--death', 'game-screen--victory');
+    document.body.classList.remove('game-screen--death', 'game-screen--victory');
     const resultEl = this._gameEl.querySelector('.game-screen__ending-result');
     if (resultEl) resultEl.remove();
 

@@ -57,45 +57,90 @@
 }
 
 /* ============================================
-   MIDES DE FONT
+   MIDES DE FONT — Escala retro (Press Start 2P)
    ============================================ */
 
 [data-font-size="small"] {
-  --font-title: 0.9rem;
-  --font-subtitle: 0.65rem;
-  --font-body: 0.55rem;
-  --font-btn: 0.48rem;
-  --font-muted: 0.42rem;
+  --font-title: 1.0rem;
+  --font-subtitle: 0.75rem;
+  --font-body: 0.65rem;
+  --font-btn: 0.58rem;
+  --font-muted: 0.52rem;
 }
 
 [data-font-size="medium"] {
-  --font-title: 1.2rem;
-  --font-subtitle: 0.85rem;
-  --font-body: 0.7rem;
-  --font-btn: 0.6rem;
-  --font-muted: 0.55rem;
+  --font-title: 1.3rem;
+  --font-subtitle: 0.95rem;
+  --font-body: 0.8rem;
+  --font-btn: 0.7rem;
+  --font-muted: 0.6rem;
 }
 
 [data-font-size="large"] {
-  --font-title: 1.5rem;
-  --font-subtitle: 1.05rem;
-  --font-body: 0.88rem;
-  --font-btn: 0.75rem;
-  --font-muted: 0.65rem;
+  --font-title: 1.6rem;
+  --font-subtitle: 1.15rem;
+  --font-body: 0.98rem;
+  --font-btn: 0.85rem;
+  --font-muted: 0.72rem;
 }
 
 [data-font-size="x-large"] {
-  --font-title: 1.8rem;
-  --font-subtitle: 1.25rem;
-  --font-body: 1.05rem;
-  --font-btn: 0.9rem;
-  --font-muted: 0.78rem;
+  --font-title: 1.9rem;
+  --font-subtitle: 1.35rem;
+  --font-body: 1.15rem;
+  --font-btn: 1.0rem;
+  --font-muted: 0.85rem;
 }
 
 [data-font-size="xx-large"] {
-  --font-title: 2.1rem;
-  --font-subtitle: 1.45rem;
-  --font-body: 1.22rem;
+  --font-title: 2.2rem;
+  --font-subtitle: 1.55rem;
+  --font-body: 1.32rem;
+  --font-btn: 1.15rem;
+  --font-muted: 0.98rem;
+}
+
+/* ============================================
+   MIDES DE FONT — Escala accessible (Verdana)
+   Multiplicador ~1.5× respecte l'escala retro
+   ============================================ */
+
+[data-font-family="accessible"][data-font-size="small"] {
+  --font-title: 1.5rem;
+  --font-subtitle: 1.1rem;
+  --font-body: 0.95rem;
+  --font-btn: 0.85rem;
+  --font-muted: 0.78rem;
+}
+
+[data-font-family="accessible"][data-font-size="medium"] {
+  --font-title: 1.95rem;
+  --font-subtitle: 1.4rem;
+  --font-body: 1.2rem;
   --font-btn: 1.05rem;
   --font-muted: 0.9rem;
+}
+
+[data-font-family="accessible"][data-font-size="large"] {
+  --font-title: 2.4rem;
+  --font-subtitle: 1.7rem;
+  --font-body: 1.45rem;
+  --font-btn: 1.28rem;
+  --font-muted: 1.08rem;
+}
+
+[data-font-family="accessible"][data-font-size="x-large"] {
+  --font-title: 2.85rem;
+  --font-subtitle: 2.0rem;
+  --font-body: 1.7rem;
+  --font-btn: 1.5rem;
+  --font-muted: 1.28rem;
+}
+
+[data-font-family="accessible"][data-font-size="xx-large"] {
+  --font-title: 3.3rem;
+  --font-subtitle: 2.3rem;
+  --font-body: 1.95rem;
+  --font-btn: 1.7rem;
+  --font-muted: 1.45rem;
 }
