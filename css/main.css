@@ -376,6 +376,92 @@ p, .narrative-text {
   min-height: 90vh;
 }
 
+.menu-screen__adventures {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1;
+}
+
+.menu-screen__card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 1.2rem 1.5rem;
+  background-color: var(--bg-panel);
+  border: 2px solid var(--border-color);
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-family, 'Press Start 2P', monospace);
+  transition: all 0.15s ease;
+}
+
+.menu-screen__card:hover,
+.menu-screen__card:focus {
+  border-color: var(--text-accent);
+  box-shadow: var(--glow-intensity);
+  outline: none;
+}
+
+.menu-screen__card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.menu-screen__card-title {
+  font-size: var(--font-btn, 0.6rem);
+  color: var(--text-title);
+  text-shadow: var(--glow-intensity);
+}
+
+.menu-screen__card-difficulty {
+  font-size: var(--font-muted, 0.55rem);
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.menu-screen__card-difficulty--fàcil {
+  color: var(--text-success);
+  border-color: var(--text-success);
+}
+
+.menu-screen__card-difficulty--difícil {
+  color: var(--text-danger);
+  border-color: var(--text-danger);
+}
+
+.menu-screen__card-desc {
+  font-size: var(--font-muted, 0.55rem);
+  color: var(--text-secondary);
+  line-height: 2.2;
+  margin-bottom: 0;
+}
+
+.menu-screen__card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.5rem;
+  font-size: var(--font-muted, 0.55rem);
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-color);
+  padding-top: 0.8rem;
+}
+
+.menu-screen__card-meta i {
+  color: var(--text-accent);
+  margin-right: 0.2rem;
+}
+
+.menu-screen__footer {
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1.5rem;
+}
+
 /* ============================================
    SETTINGS SCREEN
    ============================================ */

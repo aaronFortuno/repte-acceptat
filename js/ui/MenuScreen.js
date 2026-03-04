@@ -22,36 +22,52 @@ class MenuScreen {
     screen.className = 'screen screen--active';
 
     // Construir llista d'aventures
-    let adventureButtons = '';
+    let adventureCards = '';
     if (this._adventures.length === 0) {
-      adventureButtons = '<p class="text-muted">Cap aventura disponible</p>';
+      adventureCards = '<p class="text-muted">Cap aventura disponible</p>';
     } else {
-      adventureButtons = this._adventures.map((adv, i) => `
-        <button class="btn menu-screen__adventure-btn" data-index="${i}">
-          ${adv.title}
-          <span class="text-muted" style="display: block; margin-top: 0.4rem; font-size: 0.45rem;">
-            ${adv.description || ''}
-          </span>
-        </button>
-      `).join('');
+      adventureCards = this._adventures.map((adv, i) => {
+        const author = adv.author || 'Anònim';
+        const difficulty = adv.difficulty || '—';
+        const nodes = adv.nodes || '?';
+        const endings = adv.endings || {};
+        const endingsTotal = endings.total || '?';
+        const endingsGood = endings.good || 0;
+        const endingsBad = endings.bad || 0;
+
+        return `
+          <button class="menu-screen__card" data-index="${i}">
+            <div class="menu-screen__card-header">
+              <span class="menu-screen__card-title">${adv.title}</span>
+              <span class="menu-screen__card-difficulty menu-screen__card-difficulty--${difficulty}">${difficulty}</span>
+            </div>
+            <p class="menu-screen__card-desc">${adv.description || ''}</p>
+            <div class="menu-screen__card-meta">
+              <span class="menu-screen__card-author"><i class="fa-solid fa-user-pen"></i> ${author}</span>
+              <span><i class="fa-solid fa-map-signs"></i> ${nodes} escenes</span>
+              <span><i class="fa-solid fa-flag-checkered"></i> ${endingsTotal} finals (${endingsGood} <i class="fa-solid fa-star"></i> / ${endingsBad} <i class="fa-solid fa-skull"></i>)</span>
+            </div>
+          </button>
+        `;
+      }).join('');
     }
 
     screen.innerHTML = `
       <div class="menu-screen">
         <h1>MENÚ PRINCIPAL</h1>
         <h2>Tria una aventura</h2>
-        <div class="choices menu-screen__adventures">
-          ${adventureButtons}
+        <div class="menu-screen__adventures">
+          ${adventureCards}
         </div>
-        <div class="choices" style="margin-top: 1.5rem; border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
-          <button class="btn menu-screen__settings-btn">Opcions</button>
+        <div class="menu-screen__footer">
+          <button class="btn btn--center menu-screen__settings-btn">Opcions</button>
         </div>
       </div>
     `;
     container.appendChild(screen);
 
     // Listeners aventures
-    screen.querySelectorAll('.menu-screen__adventure-btn').forEach(btn => {
+    screen.querySelectorAll('.menu-screen__card').forEach(btn => {
       btn.addEventListener('click', () => {
         const index = parseInt(btn.dataset.index, 10);
         if (this._onSelectAdventure) {
