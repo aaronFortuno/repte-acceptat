@@ -3,19 +3,27 @@
  */
 
 class GameScreen {
-  constructor({ storyEngine, typewriterEffect, settingsManager, audioManager, onEnd, onMenu, onSettings }) {
+  constructor({ storyEngine, typewriterEffect, settingsManager, audioManager, onMenu, onSettings }) {
     this._engine = storyEngine;
     this._typewriter = typewriterEffect;
     this._settings = settingsManager;
     this._audio = audioManager;
-    this._onEnd = onEnd;
     this._onMenu = onMenu;
     this._onSettings = onSettings;
     this._container = null;
     this._textEl = null;
     this._choicesEl = null;
     this._titleEl = null;
+    this._gameEl = null;
     this._skipHandler = null;
+    this._deathCount = 0;
+  }
+
+  /**
+   * Reinicia el comptador de morts (cridat en començar nova aventura).
+   */
+  resetStats() {
+    this._deathCount = 0;
   }
 
   /**
@@ -66,6 +74,7 @@ class GameScreen {
         if (this._onMenu) this._onMenu();
       });
 
+    this._gameEl = screen.querySelector('.game-screen');
     this._titleEl = screen.querySelector('.game-screen__title');
     this._textEl = screen.querySelector('.game-screen__text');
     this._choicesEl = screen.querySelector('.game-screen__choices');
@@ -114,14 +123,110 @@ class GameScreen {
     this._cursorEl.classList.add('hidden');
 
     if (node.isEnding) {
-      // Transició a EndScreen
-      if (this._onEnd) {
-        this._onEnd(node);
-      }
+      this._handleEnding(node);
     } else {
-      // Mostrar opcions
       this._showChoices(node.choices);
     }
+  }
+
+  /** @private — Gestiona un final inline (sense canviar de pantalla) */
+  _handleEnding(node) {
+    const isGood = node.endingType === 'good';
+
+    if (!isGood) {
+      this._deathCount++;
+    }
+
+    // SFX i música de final
+    const type = isGood ? 'victory' : 'death';
+    this._audio.playSFXThenMusic(type, type);
+
+    // Tint de fons suau
+    this._gameEl.classList.add(isGood ? 'game-screen--victory' : 'game-screen--death');
+
+    // Bloc de resultat a sota del text narratiu
+    const resultEl = document.createElement('div');
+    resultEl.className = 'game-screen__ending-result';
+
+    let html = `
+      <p class="game-screen__ending-label ${isGood ? 'text-success' : 'text-danger'}">
+        ${isGood ? '★ VICTÒRIA! ★' : '☠ GAME OVER ☠'}
+      </p>
+    `;
+    if (node.endingTitle) {
+      html += `<p class="game-screen__ending-title">"${node.endingTitle}"</p>`;
+    }
+    if (isGood) {
+      html += this._getDeathSummary();
+    }
+    resultEl.innerHTML = html;
+
+    this._textEl.insertAdjacentElement('afterend', resultEl);
+
+    // Fer scroll al final del text
+    const narrativeEl = this._textEl.closest('.narrative');
+    if (narrativeEl) {
+      setTimeout(() => { narrativeEl.scrollTop = narrativeEl.scrollHeight; }, 100);
+    }
+
+    // Botons de reinici / menú
+    this._choicesEl.innerHTML = '';
+    this._choicesEl.classList.remove('hidden');
+
+    const restartBtn = document.createElement('button');
+    restartBtn.className = 'btn btn--center';
+    restartBtn.textContent = isGood ? 'Tornar a jugar' : 'Torna a intentar-ho';
+    restartBtn.addEventListener('click', () => this._restartFromEnding());
+
+    const menuBtn = document.createElement('button');
+    menuBtn.className = 'btn btn--center';
+    menuBtn.textContent = 'Tornar al menú';
+    menuBtn.addEventListener('click', () => {
+      if (this._onMenu) this._onMenu();
+    });
+
+    this._choicesEl.appendChild(restartBtn);
+    this._choicesEl.appendChild(menuBtn);
+  }
+
+  /** @private — Reinicia la partida des d'un final */
+  _restartFromEnding() {
+    // Netejar estat visual de final
+    this._gameEl.classList.remove('game-screen--death', 'game-screen--victory');
+    const resultEl = this._gameEl.querySelector('.game-screen__ending-result');
+    if (resultEl) resultEl.remove();
+
+    // Reiniciar motor i música
+    this._engine.restart();
+    this._audio.playMusic('adventure');
+
+    // Re-renderitzar
+    this._renderNode();
+  }
+
+  /** @private — Genera el missatge resum de morts */
+  _getDeathSummary() {
+    const d = this._deathCount;
+    let msg;
+
+    if (d === 0) {
+      msg = 'Has superat l\'aventura sense morir ni una sola vegada! Diga-li al teu professor/a que et posi un assoliment excel·lent en comprensió lectora! O potser és que ja has jugat mil vegades i te\'n recordes de memòria...';
+    } else if (d <= 3) {
+      msg = `Només ${d} mort${d > 1 ? 's' : ''}! Tens molt bona comprensió lectora, tot i que algun detall se t'ha escapat. Res que una segona lectura no arregli!`;
+    } else if (d <= 7) {
+      msg = `${d} morts. No està malament, però potser hauries de llegir els textos amb una mica més d'atenció. Els detalls importen!`;
+    } else if (d <= 15) {
+      msg = `${d} morts! Ui, que fort. Segur que llegeixes els textos sencers o vas directament als botons? Els detalls amagats estan AL TEXT, no als botons!`;
+    } else {
+      msg = `${d} morts! Vols dir que no has de repetir curs? T'has llegit algun text? Potser cal felicitar-te, perquè s'ha d'esmerçar força per aconseguir morir de tantes formes possibles!`;
+    }
+
+    return `
+      <div class="game-screen__death-summary">
+        <p class="game-screen__death-count">Morts: ${d}</p>
+        <p class="game-screen__death-msg">${msg}</p>
+      </div>
+    `;
   }
 
   /** @private — Mostra els botons d'opció */

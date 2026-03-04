@@ -62,11 +62,6 @@ const gameScreen = new GameScreen({
   typewriterEffect: typewriter,
   settingsManager: settings,
   audioManager: audio,
-  onEnd: (node) => {
-    const type = node.endingType === 'good' ? 'victory' : 'death';
-    audio.playSFXThenMusic(type, type);
-    screens.showScreen('end', { node });
-  },
   onMenu: () => showMenu(),
   onSettings: () => {
     screens.showScreen('settings', {
@@ -117,6 +112,7 @@ async function startAdventure(adv) {
   try {
     await engine.loadAdventureFromUrl(`stories/${adv.file}`);
     engine.startGame();
+    gameScreen.resetStats();
     audio.playMusic('adventure');
     screens.showScreen('game');
   } catch (e) {
