@@ -1,6 +1,6 @@
 # Aventures Textuals Retro
 
-Motor d'aventures textuals estil anys 70-80 per a navegador web.
+Motor d'aventures textuals estil anys 70-80 per a navegador web, disponible a [http://aaronfortuno.github.io/repte-acceptat/](aquí).
 
 Tria la teva aventura, pren decisions i descobreix finals absurds, tràgics o —amb molta sort— victoriosos.
 
