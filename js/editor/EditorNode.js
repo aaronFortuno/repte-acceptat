@@ -10,7 +10,8 @@
  *   - Tirador de redimensionament a la cantonada inferior dreta
  *
  * Emet CustomEvents: node-moved, node-text-changed,
- * node-delete-requested, node-port-drag-start, node-resized.
+ * node-delete-requested, node-port-drag-start, node-resized,
+ * node-id-changed, node-color-changed.
  */
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
@@ -51,6 +52,8 @@ class EditorNode {
     this._height = NODE_MIN_HEIGHT;
     this._width = NODE_WIDTH;
     this._warningMsg = null;
+    this._color = null;
+    this._editingId = false;
 
     // Trobar l'SVG arrel per al càlcul de coordenades
     this._rootSvgEl = svgEl;
@@ -76,6 +79,17 @@ class EditorNode {
 
   /** Retorna l'identificador del node */
   get id() { return this._id; }
+
+  /** Estableix l'identificador del node (usat per renameNode) */
+  set id(newId) {
+    this._id = newId;
+    if (this._idLabelEl) {
+      this._idLabelEl.textContent = newId;
+    }
+    if (this._groupEl) {
+      this._groupEl.setAttribute('data-node-id', newId);
+    }
+  }
 
   /** Retorna la posició X */
   get x() { return this._x; }
@@ -138,6 +152,9 @@ class EditorNode {
     }
     if (nodeData.isStart !== undefined) {
       this._isStart = nodeData.isStart;
+    }
+    if (nodeData.color !== undefined) {
+      this._color = nodeData.color;
     }
 
     this._applyStyles();
@@ -326,6 +343,45 @@ class EditorNode {
     this._resizeHandleEl = resizeHandle;
     g.appendChild(resizeHandle);
 
+    // Cercle de color amb color picker ocult
+    const colorBtnG = document.createElementNS(SVG_NS, 'g');
+    colorBtnG.classList.add('editor-node__color-btn');
+    colorBtnG.setAttribute('transform',
+      `translate(${NODE_WIDTH - DELETE_BTN_SIZE / 2 - 18}, ${-DELETE_BTN_SIZE / 2 + 4})`);
+
+    const colorCircle = document.createElementNS(SVG_NS, 'circle');
+    colorCircle.setAttribute('cx', 0);
+    colorCircle.setAttribute('cy', 0);
+    colorCircle.setAttribute('r', 6);
+    colorCircle.setAttribute('fill', this._color || '#556');
+    colorCircle.setAttribute('stroke', '#888');
+    colorCircle.setAttribute('stroke-width', '1');
+    colorCircle.classList.add('editor-node__color-circle');
+    this._colorCircleEl = colorCircle;
+    colorBtnG.appendChild(colorCircle);
+
+    // Input color ocult dins foreignObject
+    const colorFo = document.createElementNS(SVG_NS, 'foreignObject');
+    colorFo.setAttribute('x', -10);
+    colorFo.setAttribute('y', -10);
+    colorFo.setAttribute('width', 20);
+    colorFo.setAttribute('height', 20);
+    colorFo.style.overflow = 'hidden';
+    colorFo.style.opacity = '0';
+    colorFo.style.pointerEvents = 'none';
+
+    const colorInput = document.createElementNS(XHTML_NS, 'input');
+    colorInput.setAttribute('xmlns', XHTML_NS);
+    colorInput.type = 'color';
+    colorInput.value = this._color || '#223344';
+    colorInput.style.cssText = 'width:20px;height:20px;border:none;padding:0;';
+    this._colorInputEl = colorInput;
+    colorFo.appendChild(colorInput);
+    colorBtnG.appendChild(colorFo);
+
+    this._colorBtnEl = colorBtnG;
+    g.appendChild(colorBtnG);
+
     // Botó d'eliminar (×) a la cantonada superior dreta
     const deleteBtnG = document.createElementNS(SVG_NS, 'g');
     deleteBtnG.classList.add('editor-node__delete-btn');
@@ -397,17 +453,28 @@ class EditorNode {
     if (this._isStart) {
       rect.classList.add('editor-node--start');
     }
+
+    // Color personalitzat de fons (prioritat sobre classes CSS)
+    if (this._color) {
+      rect.style.fill = this._color;
+    } else {
+      rect.style.fill = '';
+    }
   }
 
   /** @private — Actualitza l'indicador de tipus (text) */
   _updateTypeIndicator() {
     if (this._isEnding) {
-      const label = this._endingType === 'good' ? 'FI \u2713' : 'FI \u2717';
+      const label = this._endingType === 'good' ? '\u2713 WIN' : '\u2717 FAIL';
       this._typeIndicatorEl.textContent = label;
       this._typeIndicatorEl.setAttribute('fill',
         this._endingType === 'good' ? '#4a4' : '#c44');
+      this._typeIndicatorEl.style.cursor = 'pointer';
+      this._typeIndicatorEl.style.display = 'block';
     } else {
       this._typeIndicatorEl.textContent = '';
+      this._typeIndicatorEl.style.cursor = 'default';
+      this._typeIndicatorEl.style.display = 'none';
     }
   }
 
@@ -485,6 +552,12 @@ class EditorNode {
         `translate(${this._width - DELETE_BTN_SIZE / 2 + 4}, ${-DELETE_BTN_SIZE / 2 + 4})`);
     }
 
+    // Reposicionar botó de color
+    if (this._colorBtnEl) {
+      this._colorBtnEl.setAttribute('transform',
+        `translate(${this._width - DELETE_BTN_SIZE / 2 - 18}, ${-DELETE_BTN_SIZE / 2 + 4})`);
+    }
+
     // Reposicionar indicador de tipus
     if (this._typeIndicatorEl) {
       this._typeIndicatorEl.setAttribute('x', this._width - 8);
@@ -534,6 +607,20 @@ class EditorNode {
       this._dispatchEvent('node-delete-requested', { nodeId: this._id });
     });
 
+    // Toggle ending type (clic a l'indicador FI)
+    this._typeIndicatorEl.addEventListener('mousedown', (e) => {
+      e.stopPropagation();
+    });
+    this._typeIndicatorEl.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (!this._isEnding) return;
+      const newType = this._endingType === 'good' ? 'bad' : 'good';
+      this._dispatchEvent('node-ending-type-toggled', {
+        nodeId: this._id,
+        endingType: newType
+      });
+    });
+
     // Port de sortida: inici de connexió
     this._outputPortEl.addEventListener('mousedown', (e) => {
       e.stopPropagation();
@@ -544,6 +631,34 @@ class EditorNode {
         portY: this._y + this._height / 2,
         mouseEvent: e
       });
+    });
+
+    // Doble clic a l'etiqueta ID: edició inline
+    this._idLabelEl.addEventListener('dblclick', (e) => {
+      e.stopPropagation();
+      this._startIdEditing();
+    });
+
+    // Color picker: clic al cercle de color
+    this._colorCircleEl.addEventListener('mousedown', (e) => {
+      e.stopPropagation();
+    });
+    this._colorCircleEl.addEventListener('click', (e) => {
+      e.stopPropagation();
+      this._colorInputEl.click();
+    });
+    this._colorInputEl.addEventListener('input', (e) => {
+      const newColor = e.target.value;
+      this._color = newColor;
+      this._colorCircleEl.setAttribute('fill', newColor);
+      this._applyStyles();
+      this._dispatchEvent('node-color-changed', {
+        nodeId: this._id,
+        color: newColor
+      });
+    });
+    this._colorInputEl.addEventListener('mousedown', (e) => {
+      e.stopPropagation();
     });
 
     // Selecció: clic al grup
@@ -658,6 +773,97 @@ class EditorNode {
 
     document.removeEventListener('mousemove', this._onResizeMove);
     document.removeEventListener('mouseup', this._onResizeUp);
+  }
+
+  /**
+   * @private — Inicia l'edició inline de l'ID del node.
+   * Substitueix l'etiqueta SVG per un foreignObject amb input.
+   */
+  _startIdEditing() {
+    if (this._editingId) return;
+    this._editingId = true;
+
+    const oldId = this._id;
+
+    // Amagar l'etiqueta de text
+    this._idLabelEl.style.display = 'none';
+
+    // Crear foreignObject amb input
+    const fo = document.createElementNS(SVG_NS, 'foreignObject');
+    const xPos = this._isStart ? 24 : 8;
+    fo.setAttribute('x', xPos);
+    fo.setAttribute('y', 2);
+    fo.setAttribute('width', 140);
+    fo.setAttribute('height', 18);
+    this._idEditFo = fo;
+
+    const input = document.createElementNS(XHTML_NS, 'input');
+    input.setAttribute('xmlns', XHTML_NS);
+    input.type = 'text';
+    input.value = oldId;
+    input.style.cssText = `
+      width: 130px;
+      height: 16px;
+      border: 1px solid #6af;
+      background: #1a1a2e;
+      color: #c8c8e0;
+      font-family: inherit;
+      font-size: 9px;
+      padding: 0 2px;
+      box-sizing: border-box;
+      outline: none;
+    `;
+
+    const finish = (commit) => {
+      if (!this._editingId) return;
+      this._editingId = false;
+
+      const raw = input.value.trim();
+      // Validar: no buit, només alfanumèric i guions
+      const valid = /^[a-zA-Z0-9-]+$/.test(raw);
+
+      if (commit && raw && valid && raw !== oldId) {
+        this._dispatchEvent('node-id-changed', {
+          nodeId: oldId,
+          newId: raw
+        });
+      }
+
+      // Restaurar l'etiqueta de text
+      this._idLabelEl.style.display = '';
+      if (fo.parentNode) {
+        fo.parentNode.removeChild(fo);
+      }
+      this._idEditFo = null;
+    };
+
+    input.addEventListener('keydown', (e) => {
+      e.stopPropagation();
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        finish(true);
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        finish(false);
+      }
+    });
+
+    input.addEventListener('blur', () => {
+      finish(true);
+    });
+
+    input.addEventListener('mousedown', (e) => {
+      e.stopPropagation();
+    });
+
+    fo.appendChild(input);
+    this._groupEl.appendChild(fo);
+
+    // Enfocar i seleccionar el text
+    requestAnimationFrame(() => {
+      input.focus();
+      input.select();
+    });
   }
 
   /**

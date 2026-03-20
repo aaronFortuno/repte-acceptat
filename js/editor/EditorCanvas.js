@@ -63,6 +63,9 @@ class EditorCanvas {
     this._onNodeDeleteRequested = this._handleNodeDeleteRequested.bind(this);
     this._onNodeSelectRequested = this._handleNodeSelectRequested.bind(this);
     this._onNodePortDragStart = this._handleNodePortDragStart.bind(this);
+    this._onNodeIdChanged = this._handleNodeIdChanged.bind(this);
+    this._onNodeColorChanged = this._handleNodeColorChanged.bind(this);
+    this._onNodeEndingTypeToggled = this._handleNodeEndingTypeToggled.bind(this);
   }
 
   /**
@@ -356,6 +359,9 @@ class EditorCanvas {
     document.addEventListener('node-delete-requested', this._onNodeDeleteRequested);
     document.addEventListener('node-select-requested', this._onNodeSelectRequested);
     document.addEventListener('node-port-drag-start', this._onNodePortDragStart);
+    document.addEventListener('node-id-changed', this._onNodeIdChanged);
+    document.addEventListener('node-color-changed', this._onNodeColorChanged);
+    document.addEventListener('node-ending-type-toggled', this._onNodeEndingTypeToggled);
   }
 
   /** @private — Elimina tots els event listeners */
@@ -373,6 +379,9 @@ class EditorCanvas {
     document.removeEventListener('node-delete-requested', this._onNodeDeleteRequested);
     document.removeEventListener('node-select-requested', this._onNodeSelectRequested);
     document.removeEventListener('node-port-drag-start', this._onNodePortDragStart);
+    document.removeEventListener('node-id-changed', this._onNodeIdChanged);
+    document.removeEventListener('node-color-changed', this._onNodeColorChanged);
+    document.removeEventListener('node-ending-type-toggled', this._onNodeEndingTypeToggled);
   }
 
   /** @private — Escolta events d'EditorState per sincronitzar visuals */
@@ -557,6 +566,59 @@ class EditorCanvas {
     document.dispatchEvent(new CustomEvent('editor-canvas-port-drag-start', {
       detail: e.detail
     }));
+  }
+
+  /** @private — S'ha canviat l'ID d'un node */
+  _handleNodeIdChanged(e) {
+    const { nodeId: oldId, newId } = e.detail;
+    if (!this._editorState || !this._nodes.has(oldId)) return;
+
+    try {
+      // Renomenar a l'estat
+      this._editorState.renameNode(oldId, newId);
+
+      // Actualitzar el Map del canvas
+      const editorNode = this._nodes.get(oldId);
+      this._nodes.delete(oldId);
+      editorNode.id = newId;
+      this._nodes.set(newId, editorNode);
+
+      // Actualitzar selecció del canvas
+      if (this._selectedNodeId === oldId) {
+        this._selectedNodeId = newId;
+      }
+    } catch (err) {
+      console.warn('[EditorCanvas] Error renomenant node:', err.message);
+      // Restaurar el text de l'etiqueta a l'ID original
+      const editorNode = this._nodes.get(oldId);
+      if (editorNode) {
+        editorNode.id = oldId;
+      }
+    }
+  }
+
+  /** @private — S'ha canviat el color d'un node */
+  _handleNodeColorChanged(e) {
+    const { nodeId, color } = e.detail;
+    if (!this._editorState) return;
+
+    try {
+      this._editorState.updateNode(nodeId, { color });
+    } catch (err) {
+      console.warn('[EditorCanvas] Error actualitzant color:', err.message);
+    }
+  }
+
+  /** @private — S'ha alternat el tipus de final d'un node (good/bad) */
+  _handleNodeEndingTypeToggled(e) {
+    const { nodeId, endingType } = e.detail;
+    if (!this._editorState) return;
+
+    try {
+      this._editorState.updateNode(nodeId, { endingType });
+    } catch (err) {
+      console.warn('[EditorCanvas] Error alternant endingType:', err.message);
+    }
   }
 }
 

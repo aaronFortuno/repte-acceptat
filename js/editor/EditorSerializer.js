@@ -11,8 +11,8 @@
  */
 
 // Constants per al layout automàtic durant la deserialització
-const COLUMN_GAP = 300;   // píxels horitzontals entre columnes
-const ROW_GAP = 150;      // píxels verticals entre nodes d'una mateixa columna
+const COLUMN_GAP = 450;   // més espai horitzontal per veure etiquetes de connexions
+const ROW_GAP = 200;      // més espai vertical entre nodes
 const ORIGIN_X = 80;      // marge esquerre inicial
 const ORIGIN_Y = 80;      // marge superior inicial
 

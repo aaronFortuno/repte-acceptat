@@ -261,7 +261,8 @@ class EditorState {
       text: opts.text || '',
       isEnding: opts.isEnding || false,
       endingType: opts.endingType || null,
-      endingTitle: opts.endingTitle || null
+      endingTitle: opts.endingTitle || null,
+      color: opts.color || null
     };
 
     this._pushUndo();
@@ -346,6 +347,56 @@ class EditorState {
     this._dirty = true;
     this._emit('state:node:remove', { nodeId, removedConnections });
     this._emit('state:change', { action: 'removeNode', nodeId });
+  }
+
+  /**
+   * Renomena un node canviant el seu ID a tot arreu.
+   * Actualitza connexions, startNodeId i selecció.
+   * @param {string} oldId — ID actual del node
+   * @param {string} newId — Nou ID desitjat
+   */
+  renameNode(oldId, newId) {
+    if (!newId || newId.trim() === '') {
+      throw new Error('El nou ID no pot ser buit.');
+    }
+    if (this._state.nodes[newId]) {
+      throw new Error(`Ja existeix un node amb l'ID '${newId}'.`);
+    }
+    if (!this._state.nodes[oldId]) {
+      throw new Error(`El node '${oldId}' no existeix.`);
+    }
+
+    this._pushUndo();
+
+    // Copiar el node amb el nou ID
+    const nodeData = this._state.nodes[oldId];
+    nodeData.id = newId;
+    this._state.nodes[newId] = nodeData;
+    delete this._state.nodes[oldId];
+
+    // Actualitzar totes les connexions que referenciïn l'antic ID
+    for (const conn of Object.values(this._state.connections)) {
+      if (conn.fromNodeId === oldId) {
+        conn.fromNodeId = newId;
+      }
+      if (conn.toNodeId === oldId) {
+        conn.toNodeId = newId;
+      }
+    }
+
+    // Actualitzar startNodeId si cal
+    if (this._state.startNodeId === oldId) {
+      this._state.startNodeId = newId;
+    }
+
+    // Actualitzar selecció si cal
+    if (this._selectedId === oldId) {
+      this._selectedId = newId;
+    }
+
+    this._dirty = true;
+    this._emit('state:node:rename', { oldId, newId, node: deepClone(nodeData) });
+    this._emit('state:change', { action: 'renameNode', oldId, newId });
   }
 
   /**

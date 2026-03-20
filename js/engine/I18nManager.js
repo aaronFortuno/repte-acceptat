@@ -128,7 +128,8 @@ const TRANSLATIONS = {
     editor_create_adventure: 'Crear aventura',
     editor_errors_found: 'Errors trobats. Corregeix abans de provar.',
     editor_ending_good: 'Final bo',
-    editor_ending_bad: 'Final dolent'
+    editor_ending_bad: 'Final dolent',
+    editor_auto_layout: 'Redistribuir'
   },
 
   es: {
@@ -244,7 +245,8 @@ const TRANSLATIONS = {
     editor_create_adventure: 'Crear aventura',
     editor_errors_found: 'Errores encontrados. Corrige antes de probar.',
     editor_ending_good: 'Final bueno',
-    editor_ending_bad: 'Final malo'
+    editor_ending_bad: 'Final malo',
+    editor_auto_layout: 'Redistribuir'
   },
 
   en: {
@@ -360,7 +362,8 @@ const TRANSLATIONS = {
     editor_create_adventure: 'Create adventure',
     editor_errors_found: 'Errors found. Fix before testing.',
     editor_ending_good: 'Good ending',
-    editor_ending_bad: 'Bad ending'
+    editor_ending_bad: 'Bad ending',
+    editor_auto_layout: 'Auto-layout'
   },
 
   eu: {
@@ -476,7 +479,8 @@ const TRANSLATIONS = {
     editor_create_adventure: 'Abentura sortu',
     editor_errors_found: 'Erroreak aurkitu dira. Zuzendu probatu aurretik.',
     editor_ending_good: 'Amaiera ona',
-    editor_ending_bad: 'Amaiera txarra'
+    editor_ending_bad: 'Amaiera txarra',
+    editor_auto_layout: 'Birbanatu'
   },
 
   gl: {
@@ -592,7 +596,8 @@ const TRANSLATIONS = {
     editor_create_adventure: 'Crear aventura',
     editor_errors_found: 'Erros atopados. Corrixe antes de probar.',
     editor_ending_good: 'Final bo',
-    editor_ending_bad: 'Final malo'
+    editor_ending_bad: 'Final malo',
+    editor_auto_layout: 'Redistribuír'
   }
 };
 

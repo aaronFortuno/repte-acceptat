@@ -83,7 +83,13 @@ class GameScreen {
     screen.querySelector('.game-screen__menu-btn')
       .addEventListener('click', (e) => {
         e.stopPropagation();
-        if (this._onMenu) this._onMenu();
+        // Si estem en mode test de l'editor, tornar a l'editor
+        if (this._editorTestMode) {
+          this._editorTestMode = false;
+          document.dispatchEvent(new CustomEvent('editor-return-from-test'));
+        } else {
+          if (this._onMenu) this._onMenu();
+        }
       });
 
     this._screenEl = screen;
@@ -242,7 +248,13 @@ class GameScreen {
     menuBtn.className = 'btn btn--center';
     menuBtn.textContent = i18n.t('game_menu_btn');
     menuBtn.addEventListener('click', () => {
-      if (this._onMenu) this._onMenu();
+      // Si estem en mode test de l'editor, tornar a l'editor
+      if (this._editorTestMode) {
+        this._editorTestMode = false;
+        document.dispatchEvent(new CustomEvent('editor-return-from-test'));
+      } else {
+        if (this._onMenu) this._onMenu();
+      }
     });
 
     this._choicesEl.appendChild(restartBtn);

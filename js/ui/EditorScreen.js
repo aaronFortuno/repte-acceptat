@@ -67,6 +67,8 @@ class EditorScreen {
     this._onConnectionLabelChanged = this._handleConnectionLabelChanged.bind(this);
     this._onConnectionSelectRequested = this._handleConnectionSelectRequested.bind(this);
     this._onConnectionDeleteRequested = this._handleConnectionDeleteRequested.bind(this);
+    this._onNodeIdChanged = this._handleNodeIdChangedScreen.bind(this);
+    this._onNodeColorChanged = this._handleNodeColorChangedScreen.bind(this);
   }
 
   // ---------------------------------------------------------------------------
@@ -80,6 +82,21 @@ class EditorScreen {
    */
   show(container, params = {}) {
     this._container = container;
+
+    // Netejar referències a connexions visuals anteriors (DOM ja destruït per ScreenManager)
+    this._connections.clear();
+
+    // Recrear el canvas si ja existia (DOM destruït per ScreenManager)
+    if (this._editorCanvas) {
+      this._editorCanvas.destroy();
+      this._editorCanvas = new EditorCanvas();
+    }
+
+    // Cleanup drag handler anterior
+    if (this._dragCleanup) {
+      this._dragCleanup();
+      this._dragCleanup = null;
+    }
 
     const screen = document.createElement('div');
     screen.className = 'screen screen--active editor-screen';
@@ -242,6 +259,9 @@ class EditorScreen {
         <button class="editor-toolbar__btn" data-action="export" title="${i18n.t('editor_export')}">
           <i class="fa-solid fa-download"></i>
         </button>
+        <button class="editor-toolbar__btn" data-action="auto-layout" title="${i18n.t('editor_auto_layout')}">
+          <i class="fa-solid fa-sitemap"></i>
+        </button>
         <div class="editor-toolbar__spacer"></div>
         <input type="text" class="editor-toolbar__title"
           placeholder="${i18n.t('editor_title_placeholder')}"
@@ -402,6 +422,9 @@ class EditorScreen {
         break;
       case 'export':
         this._handleExport();
+        break;
+      case 'auto-layout':
+        this._handleAutoLayout();
         break;
       case 'validate':
         this._handleValidate();
@@ -591,6 +614,23 @@ class EditorScreen {
   _handleExport() {
     EditorSerializer.downloadAsFile(this._editorState);
     this._showToast(i18n.t('editor_exported'));
+  }
+
+  /** @private — Redistribuir nodes automàticament amb BFS */
+  _handleAutoLayout() {
+    const serialized = EditorSerializer.serialize(this._editorState);
+    const positions = EditorSerializer._autoLayout(
+      serialized.nodes,
+      serialized.startNode
+    );
+
+    // Actualitzar posicions de cada node
+    for (const [nodeId, pos] of Object.entries(positions)) {
+      this._editorState.updateNode(nodeId, { x: pos.x, y: pos.y });
+    }
+
+    // Ajustar el zoom per veure tots els nodes
+    this._editorCanvas.zoomToFit(this._editorState.getAllNodes());
   }
 
   /** @private — Mostrar panell de validació */
@@ -1019,6 +1059,8 @@ class EditorScreen {
     document.addEventListener('editor-connection-label-changed', this._onConnectionLabelChanged);
     document.addEventListener('editor-connection-select-requested', this._onConnectionSelectRequested);
     document.addEventListener('editor-connection-delete-requested', this._onConnectionDeleteRequested);
+    document.addEventListener('node-id-changed', this._onNodeIdChanged);
+    document.addEventListener('node-color-changed', this._onNodeColorChanged);
   }
 
   /** @private — Elimina els listeners d'events del canvas */
@@ -1027,6 +1069,8 @@ class EditorScreen {
     document.removeEventListener('editor-connection-label-changed', this._onConnectionLabelChanged);
     document.removeEventListener('editor-connection-select-requested', this._onConnectionSelectRequested);
     document.removeEventListener('editor-connection-delete-requested', this._onConnectionDeleteRequested);
+    document.removeEventListener('node-id-changed', this._onNodeIdChanged);
+    document.removeEventListener('node-color-changed', this._onNodeColorChanged);
   }
 
   /** @private — Doble clic al canvas: crear node */
@@ -1070,6 +1114,39 @@ class EditorScreen {
     } catch (err) {
       console.warn('[EditorScreen] Error eliminant connexió:', err.message);
     }
+  }
+
+  /**
+   * @private — Quan un node canvia d'ID, reconstruir connexions afectades.
+   * El renomeig d'estat i canvas el gestiona EditorCanvas._handleNodeIdChanged.
+   */
+  _handleNodeIdChangedScreen(e) {
+    const { nodeId: oldId, newId } = e.detail;
+
+    // Trobar connexions que referencien l'antic ID i reconstruir-les
+    const toRebuild = [];
+    for (const [connId, conn] of this._connections.entries()) {
+      if (conn.fromNodeId === oldId || conn.toNodeId === oldId) {
+        toRebuild.push(connId);
+      }
+    }
+
+    // Destruir i recrear les connexions afectades amb les dades actualitzades
+    for (const connId of toRebuild) {
+      this._removeConnectionVisual(connId);
+      const connData = this._editorState.getConnection(connId);
+      if (connData) {
+        this._addConnectionVisual(connData);
+      }
+    }
+  }
+
+  /**
+   * @private — Quan un node canvia de color.
+   * L'actualització d'estat la gestiona EditorCanvas._handleNodeColorChanged.
+   */
+  _handleNodeColorChangedScreen(_e) {
+    // L'estat s'actualitza via EditorCanvas; no cal acció addicional aquí
   }
 
   // ---------------------------------------------------------------------------

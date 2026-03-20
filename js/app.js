@@ -82,7 +82,15 @@ const endScreen = new EndScreen({
     audio.playMusic('adventure');
     screens.showScreen('game');
   },
-  onMenu: () => showMenu()
+  onMenu: () => {
+    // Si estem en mode test de l'editor, tornar a l'editor
+    if (gameScreen._editorTestMode) {
+      gameScreen._editorTestMode = false;
+      document.dispatchEvent(new CustomEvent('editor-return-from-test'));
+    } else {
+      showMenu();
+    }
+  }
 });
 
 const editorScreen = new EditorScreen({
@@ -93,6 +101,8 @@ const editorScreen = new EditorScreen({
   onTestAdventure: () => {
     engine.startGame();
     audio.playMusic('adventure');
+    // Activar mode test per tornar a l'editor en lloc del menú
+    gameScreen._editorTestMode = true;
     screens.showScreen('game');
   }
 });
@@ -141,6 +151,12 @@ async function startAdventure(adv) {
     alert(i18n.t('error_loading_adventure', { msg: e.message }));
   }
 }
+
+// Listener per tornar a l'editor des del mode test
+document.addEventListener('editor-return-from-test', () => {
+  audio.stopMusic();
+  screens.showScreen('editor');
+});
 
 // ============================================
 // Inicialització

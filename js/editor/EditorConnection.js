@@ -95,7 +95,7 @@ class EditorConnection {
     this._labelEl.setAttribute('font-size', '11');
     this._labelEl.setAttribute('fill', '#ccc');
     this._labelEl.style.cursor = 'pointer';
-    this._labelEl.textContent = this._label || '(sense text)';
+    this._renderLabelTspans(this._label);
     this._groupEl.appendChild(this._labelEl);
 
     // Dibuixar el path i posicionar l'etiqueta
@@ -158,6 +158,12 @@ class EditorConnection {
     this._labelEl.setAttribute('x', midX);
     this._labelEl.setAttribute('y', midY);
 
+    // Actualitzar x de cada tspan per centrar-los al punt mig
+    const tspans = this._labelEl.querySelectorAll('tspan');
+    for (const tspan of tspans) {
+      tspan.setAttribute('x', midX);
+    }
+
     // Ajustar el fons de l'etiqueta al voltant del text
     this._updateLabelBackground(midX, midY);
   }
@@ -168,14 +174,63 @@ class EditorConnection {
    * @param {number} cy — Centre Y
    */
   _updateLabelBackground(cx, cy) {
-    const text = this._label || '(sense text)';
-    const approxWidth = text.length * 6.5 + 12;
-    const height = 18;
+    const lines = this._wrapText(this._label || '(sense text)');
+    const lineHeight = 14;
+    const maxLineLen = Math.max(...lines.map(l => l.length));
+    const approxWidth = maxLineLen * 6.5 + 12;
+    const height = lines.length * lineHeight + 4;
 
     this._labelBgEl.setAttribute('x', cx - approxWidth / 2);
     this._labelBgEl.setAttribute('y', cy - height / 2);
     this._labelBgEl.setAttribute('width', approxWidth);
     this._labelBgEl.setAttribute('height', height);
+  }
+
+  /**
+   * @private — Divideix el text en línies per a la visualització multilínia.
+   * @param {string} text
+   * @param {number} [maxChars=20]
+   * @returns {string[]}
+   */
+  _wrapText(text, maxChars = 20) {
+    if (!text || text.length <= maxChars) return [text || ''];
+    const words = text.split(' ');
+    const lines = [];
+    let currentLine = '';
+    for (const word of words) {
+      if (currentLine.length + word.length + 1 > maxChars && currentLine.length > 0) {
+        lines.push(currentLine);
+        currentLine = word;
+      } else {
+        currentLine = currentLine ? currentLine + ' ' + word : word;
+      }
+    }
+    if (currentLine) lines.push(currentLine);
+    return lines;
+  }
+
+  /**
+   * @private — Renderitza l'etiqueta amb <tspan> per a suport multilínia.
+   * @param {string} text
+   */
+  _renderLabelTspans(text) {
+    // Netejar tspans existents
+    while (this._labelEl.firstChild) {
+      this._labelEl.removeChild(this._labelEl.firstChild);
+    }
+
+    const lines = this._wrapText(text || '(sense text)');
+    const lineHeight = 14;
+    // Desplaçament vertical per centrar el bloc de línies
+    const startDy = -((lines.length - 1) * lineHeight) / 2;
+
+    for (let i = 0; i < lines.length; i++) {
+      const tspan = document.createElementNS(SVG_NS, 'tspan');
+      tspan.setAttribute('x', this._labelEl.getAttribute('x') || '0');
+      tspan.setAttribute('dy', i === 0 ? `${startDy}` : `${lineHeight}`);
+      tspan.textContent = lines[i];
+      this._labelEl.appendChild(tspan);
+    }
   }
 
   // ─── Selecció ─────────────────────────────────────────────
@@ -204,7 +259,7 @@ class EditorConnection {
    */
   updateLabel(newLabel) {
     this._label = newLabel;
-    this._labelEl.textContent = newLabel || '(sense text)';
+    this._renderLabelTspans(newLabel);
 
     // Recalcular fons
     const cx = parseFloat(this._labelEl.getAttribute('x')) || 0;
