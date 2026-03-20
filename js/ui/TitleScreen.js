@@ -28,7 +28,7 @@ class TitleScreen {
         <p class="title-screen__prompt text-accent text-center">
           ${i18n.t('title_prompt')}<span class="cursor"></span>
         </p>
-        <button class="title-screen__version text-muted text-center" title="${i18n.t('changelog_title')}">v0.2</button>
+        <button class="title-screen__version text-muted text-center" title="${i18n.t('changelog_title')}">v0.3</button>
       </div>
     `;
     container.appendChild(screen);
@@ -72,6 +72,16 @@ class TitleScreen {
     overlay.innerHTML = `
       <div class="title-screen__changelog-box panel">
         <h2>${i18n.t('changelog_title')}</h2>
+        <div class="title-screen__changelog-entry">
+          <p class="text-accent">v0.3</p>
+          <ul>
+            <li>Editor visual d'aventures integrat</li>
+            <li>Crea nodes, connecta'ls amb fletxes i prova l'aventura</li>
+            <li>Exporta a JSON i importa aventures existents</li>
+            <li>Autoguardat, undo/redo, validació en temps real</li>
+            <li>Tema clar per defecte</li>
+          </ul>
+        </div>
         <div class="title-screen__changelog-entry">
           <p class="text-accent">v0.2</p>
           <ul>
