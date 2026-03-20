@@ -92,8 +92,6 @@ class EditorConnection {
     this._labelEl.classList.add('editor-connection__label');
     this._labelEl.setAttribute('text-anchor', 'middle');
     this._labelEl.setAttribute('dominant-baseline', 'central');
-    this._labelEl.setAttribute('font-size', '11');
-    this._labelEl.setAttribute('fill', '#ccc');
     this._labelEl.style.cursor = 'pointer';
     this._renderLabelTspans(this._label);
     this._groupEl.appendChild(this._labelEl);
@@ -297,10 +295,10 @@ class EditorConnection {
     input.style.cssText = `
       width: 100%;
       height: 100%;
-      border: 1px solid #8af;
-      background: #1a1a2e;
-      color: #eee;
-      font-family: inherit;
+      border: 1px solid var(--border-color, #555);
+      background: var(--bg-panel, #1a1a2e);
+      color: var(--text-primary, #eee);
+      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
       font-size: 11px;
       text-align: center;
       outline: none;
@@ -574,6 +572,7 @@ class EditorConnection {
      */
     function onDragMove(e) {
       if (!dragging || !previewPath) return;
+      e.preventDefault(); // Evitar selecció de text del navegador
 
       const svgCoords = screenToSVG(e.clientX, e.clientY);
       const d = calcPreviewPath(startX, startY, svgCoords.x, svgCoords.y);

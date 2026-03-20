@@ -42,6 +42,15 @@
    LAYOUT — Pantalla de l'editor
    ============================================ */
 
+/* Tipografia llegible per a l'editor (no pixel font) */
+.editor-screen,
+.editor-screen input,
+.editor-screen textarea,
+.editor-screen select,
+.editor-screen button {
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
 .editor-screen {
   display: none;
   flex-direction: column;
@@ -86,9 +95,8 @@
   align-items: center;
   justify-content: center;
   gap: 0.4rem;
-  font-family: var(--font-family, 'Press Start 2P', monospace);
-  font-size: 0.65rem;
-  padding: 0.4rem 0.6rem;
+  font-size: 13px;
+  padding: 0.35rem 0.5rem;
   min-width: 36px;
   min-height: 36px;
   background-color: var(--bg-button);
@@ -101,7 +109,7 @@
 }
 
 .editor-toolbar__btn i {
-  font-size: 0.85rem;
+  font-size: 16px;
   line-height: 1;
 }
 
@@ -143,16 +151,15 @@
 }
 
 .editor-toolbar__title {
-  font-family: var(--font-family, 'Press Start 2P', monospace);
-  font-size: 0.7rem;
+  font-size: 14px;
   color: var(--text-title);
   background: none;
   border: 1px solid transparent;
   padding: 0.4rem 0.6rem;
   cursor: text;
   transition: border-color 0.15s ease;
-  min-width: 150px;
-  max-width: 350px;
+  width: 100%;
+  min-width: 0;
 }
 
 .editor-toolbar__title:hover {
@@ -202,6 +209,26 @@
   width: 100%;
   height: 100%;
   display: block;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Evitar drag natiu del navegador a tot l'SVG */
+.editor-canvas-container svg * {
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
+/* Només el textarea dins dels nodes ha de permetre selecció de text */
+.editor-node__textarea {
+  -webkit-user-select: text !important;
+  user-select: text !important;
+}
+
+/* Input d'edició d'ID inline */
+.editor-node__id-input {
+  -webkit-user-select: text !important;
+  user-select: text !important;
 }
 
 /* Controls de zoom flotants — cantonada superior dreta del canvas */
@@ -314,8 +341,6 @@
 .editor-node--selected rect {
   stroke: var(--editor-selection-color);
   stroke-width: 3;
-  filter: drop-shadow(0 0 6px var(--editor-selection-color))
-          drop-shadow(0 0 12px var(--editor-selection-color));
 }
 
 /* Node amb warning — pols taronja/vermell */
@@ -348,8 +373,8 @@
 /* Node header elements - muted color visible on dark bg */
 .editor-node__id-label {
   fill: #8888aa;
-  font-family: var(--font-family, 'Press Start 2P', monospace);
-  font-size: 0.4rem;
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 10px;
 }
 
 [data-theme="light"] .editor-node__id-label {
@@ -369,31 +394,58 @@
 /* Start indicator star */
 .editor-node__start-indicator {
   fill: #fd0;
-  filter: drop-shadow(0 0 3px rgba(255, 221, 0, 0.5));
 }
 
 /* Type indicator (FI ✓ / FI ✗) */
 .editor-node__type-indicator {
-  font-family: var(--font-family, 'Press Start 2P', monospace);
-  font-size: 0.4rem;
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 10px;
 }
 
 /* Delete button - always visible colors */
 .editor-node__delete-bg {
-  fill: rgba(0, 0, 0, 0.6);
-  stroke: none;
+  fill: rgba(100, 100, 120, 0.3);
+  stroke: #888;
+  stroke-width: 1;
 }
 
 .editor-node__delete-x {
-  fill: #ff4444;
+  fill: #999;
+}
+
+.editor-node__delete-btn:hover .editor-node__delete-bg {
+  fill: rgba(200, 60, 60, 0.3);
+  stroke: #c66;
+}
+
+.editor-node__delete-btn:hover .editor-node__delete-x {
+  fill: #e55;
+}
+
+[data-theme="light"] .editor-node__delete-bg {
+  fill: rgba(150, 150, 160, 0.2);
+  stroke: #aaa;
+}
+
+[data-theme="light"] .editor-node__delete-x {
+  fill: #999;
+}
+
+[data-theme="light"] .editor-node__delete-btn:hover .editor-node__delete-bg {
+  fill: rgba(200, 60, 60, 0.2);
+  stroke: #c44;
+}
+
+[data-theme="light"] .editor-node__delete-btn:hover .editor-node__delete-x {
+  fill: #c44;
 }
 
 /* Textarea inside node */
 .editor-node__textarea {
-  color: #c8c8e0 !important;
-  font-family: var(--font-family, 'Press Start 2P', monospace) !important;
-  font-size: var(--editor-node-font) !important;
-  line-height: 1.8 !important;
+  color: var(--text-primary, #c8c8e0) !important;
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+  font-size: 13px !important;
+  line-height: 1.6 !important;
 }
 
 [data-theme="light"] .editor-node__textarea {
@@ -464,29 +516,24 @@
 }
 
 /* Botó d'eliminar (x a la cantonada) */
-.editor-node__delete {
-  cursor: pointer;
+/* Botons flotants del node (eliminar, color): ocults per defecte */
+.editor-node__delete-btn,
+.editor-node__color-btn {
   opacity: 0;
   transition: opacity 0.15s ease;
+  cursor: pointer;
 }
 
-.editor-node:hover .editor-node__delete {
-  opacity: 0.6;
+.editor-node-group:hover .editor-node__delete-btn,
+.editor-node-group:hover .editor-node__color-btn,
+.editor-node--selected ~ .editor-node__delete-btn,
+.editor-node--selected ~ .editor-node__color-btn {
+  opacity: 0.7;
 }
 
-.editor-node__delete:hover {
+.editor-node__delete-btn:hover,
+.editor-node__color-btn:hover {
   opacity: 1 !important;
-}
-
-.editor-node__delete text {
-  fill: var(--editor-danger-color);
-  font-family: var(--font-family, 'Press Start 2P', monospace);
-  font-size: 0.6rem;
-}
-
-.editor-node__delete rect {
-  fill: transparent;
-  stroke: none;
 }
 
 /* Tirador de redimensionament */
@@ -555,7 +602,6 @@
 .editor-connection--selected {
   stroke: var(--editor-selection-color);
   stroke-width: 3;
-  filter: drop-shadow(0 0 4px var(--editor-selection-color));
 }
 
 .editor-connection--preview {
@@ -576,16 +622,16 @@
 /* Etiqueta de la connexió */
 .editor-connection__label-bg {
   fill: var(--editor-canvas-bg);
-  stroke: var(--editor-connection-color);
-  stroke-width: 1;
-  rx: 2;
-  ry: 2;
-  opacity: 0.92;
+  stroke: var(--border-color);
+  stroke-width: 0.5;
+  rx: 3;
+  ry: 3;
+  opacity: 0.95;
 }
 
 .editor-connection__label {
-  font-family: var(--font-family, 'Press Start 2P', monospace);
-  font-size: var(--editor-label-font);
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 11px;
   fill: var(--text-secondary);
   text-anchor: middle;
   dominant-baseline: central;
@@ -594,7 +640,7 @@
 }
 
 .editor-connection__label:hover {
-  fill: var(--text-accent);
+  fill: var(--text-primary);
 }
 
 /* ============================================
@@ -921,7 +967,7 @@
 }
 
 .editor-validation-panel__header h3 {
-  font-size: var(--editor-node-font);
+  font-size: 14px;
   color: var(--text-accent);
   margin: 0;
 }
@@ -937,9 +983,8 @@
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  font-family: var(--font-family, 'Press Start 2P', monospace);
-  font-size: var(--editor-badge-font);
-  padding: 0.3rem 0.5rem;
+  font-size: 14px;
+  padding: 0.4rem 0.6rem;
   border: none;
   background: none;
   cursor: pointer;

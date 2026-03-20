@@ -66,6 +66,7 @@ class EditorCanvas {
     this._onNodeIdChanged = this._handleNodeIdChanged.bind(this);
     this._onNodeColorChanged = this._handleNodeColorChanged.bind(this);
     this._onNodeEndingTypeToggled = this._handleNodeEndingTypeToggled.bind(this);
+    this._onNodeEndingToggled = this._handleNodeEndingToggled.bind(this);
   }
 
   /**
@@ -362,6 +363,7 @@ class EditorCanvas {
     document.addEventListener('node-id-changed', this._onNodeIdChanged);
     document.addEventListener('node-color-changed', this._onNodeColorChanged);
     document.addEventListener('node-ending-type-toggled', this._onNodeEndingTypeToggled);
+    document.addEventListener('node-ending-toggled', this._onNodeEndingToggled);
   }
 
   /** @private — Elimina tots els event listeners */
@@ -382,6 +384,7 @@ class EditorCanvas {
     document.removeEventListener('node-id-changed', this._onNodeIdChanged);
     document.removeEventListener('node-color-changed', this._onNodeColorChanged);
     document.removeEventListener('node-ending-type-toggled', this._onNodeEndingTypeToggled);
+    document.removeEventListener('node-ending-toggled', this._onNodeEndingToggled);
   }
 
   /** @private — Escolta events d'EditorState per sincronitzar visuals */
@@ -606,6 +609,18 @@ class EditorCanvas {
       this._editorState.updateNode(nodeId, { color });
     } catch (err) {
       console.warn('[EditorCanvas] Error actualitzant color:', err.message);
+    }
+  }
+
+  /** @private — S'ha alternat un node entre normal i final */
+  _handleNodeEndingToggled(e) {
+    const { nodeId, isEnding, endingType, endingTitle } = e.detail;
+    if (!this._editorState) return;
+
+    try {
+      this._editorState.updateNode(nodeId, { isEnding, endingType, endingTitle });
+    } catch (err) {
+      console.warn('[EditorCanvas] Error alternant ending:', err.message);
     }
   }
 

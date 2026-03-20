@@ -274,11 +274,11 @@ class EditorScreen {
           <i class="fa-solid fa-volume-xmark"></i>
         </button>
         <span class="editor-toolbar__sep"></span>
-        <button class="editor-toolbar__btn" data-action="validate">
-          <i class="fa-solid fa-check-circle"></i> ${i18n.t('editor_validate')}
+        <button class="editor-toolbar__btn" data-action="validate" title="${i18n.t('editor_validate')}">
+          <i class="fa-solid fa-check-circle"></i>
         </button>
-        <button class="editor-toolbar__btn editor-toolbar__btn--primary" data-action="test">
-          <i class="fa-solid fa-play"></i> ${i18n.t('editor_test')}
+        <button class="editor-toolbar__btn editor-toolbar__btn--primary" data-action="test" title="${i18n.t('editor_test')}">
+          <i class="fa-solid fa-play"></i>
         </button>
       </div>
     `;

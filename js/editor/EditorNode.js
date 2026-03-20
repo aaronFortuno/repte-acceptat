@@ -239,21 +239,65 @@ class EditorNode {
     this._startIndicatorEl = startIndicator;
     g.appendChild(startIndicator);
 
-    // Indicador de tipus (normal/final)
-    const typeIndicator = document.createElementNS(SVG_NS, 'text');
-    typeIndicator.setAttribute('x', NODE_WIDTH - 8);
-    typeIndicator.setAttribute('y', HEADER_HEIGHT - 5);
-    typeIndicator.setAttribute('text-anchor', 'end');
-    typeIndicator.setAttribute('font-size', '10');
-    typeIndicator.classList.add('editor-node__type-indicator');
-    this._typeIndicatorEl = typeIndicator;
-    g.appendChild(typeIndicator);
+    // Selector de tipus: 3 icones [→] [✓] [✗]
+    const typeSelectorG = document.createElementNS(SVG_NS, 'g');
+    typeSelectorG.classList.add('editor-node__type-selector');
+    this._typeSelectorEl = typeSelectorG;
+
+    const types = [
+      { key: 'story', symbol: '\u2192', title: 'Node normal' },    // →
+      { key: 'good',  symbol: '\u2713', title: 'Final bo (WIN)' }, // ✓
+      { key: 'bad',   symbol: '\u2717', title: 'Final dolent (FAIL)' } // ✗
+    ];
+
+    this._typeButtons = {};
+    const btnSize = 16;
+    const btnGap = 2;
+    const totalW = types.length * (btnSize + btnGap) - btnGap;
+    const startX = NODE_WIDTH - totalW - 6;
+
+    types.forEach((t, i) => {
+      const bx = startX + i * (btnSize + btnGap);
+      const bg = document.createElementNS(SVG_NS, 'rect');
+      bg.setAttribute('x', bx);
+      bg.setAttribute('y', 2);
+      bg.setAttribute('width', btnSize);
+      bg.setAttribute('height', btnSize);
+      bg.setAttribute('rx', 3);
+      bg.setAttribute('ry', 3);
+      bg.classList.add('editor-node__type-btn-bg');
+      typeSelectorG.appendChild(bg);
+
+      const txt = document.createElementNS(SVG_NS, 'text');
+      txt.setAttribute('x', bx + btnSize / 2);
+      txt.setAttribute('y', 2 + btnSize / 2);
+      txt.setAttribute('text-anchor', 'middle');
+      txt.setAttribute('dominant-baseline', 'central');
+      txt.setAttribute('font-size', '11');
+      txt.style.cursor = 'pointer';
+      txt.textContent = t.symbol;
+      typeSelectorG.appendChild(txt);
+
+      // Àrea clicable invisible (més gran per facilitar el clic)
+      const hitArea = document.createElementNS(SVG_NS, 'rect');
+      hitArea.setAttribute('x', bx);
+      hitArea.setAttribute('y', 0);
+      hitArea.setAttribute('width', btnSize);
+      hitArea.setAttribute('height', HEADER_HEIGHT);
+      hitArea.setAttribute('fill', 'transparent');
+      hitArea.style.cursor = 'pointer';
+      typeSelectorG.appendChild(hitArea);
+
+      this._typeButtons[t.key] = { bg, txt, hitArea };
+    });
+
+    g.appendChild(typeSelectorG);
 
     // ID del node (petit, a la capçalera)
     const idLabel = document.createElementNS(SVG_NS, 'text');
     idLabel.setAttribute('x', this._isStart ? 24 : 8);
     idLabel.setAttribute('y', HEADER_HEIGHT - 5);
-    idLabel.setAttribute('font-size', '9');
+    idLabel.setAttribute('font-size', '10');
     idLabel.setAttribute('fill', '#8888aa');
     idLabel.classList.add('editor-node__id-label');
     idLabel.textContent = this._id;
@@ -289,9 +333,9 @@ class EditorNode {
       height: 100%;
       border: none;
       background: transparent;
-      color: #c8c8e0;
-      font-family: inherit;
-      font-size: 12px;
+      color: var(--text-primary, #c8c8e0);
+      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px;
       resize: none;
       outline: none;
       padding: 2px;
@@ -347,7 +391,7 @@ class EditorNode {
     const colorBtnG = document.createElementNS(SVG_NS, 'g');
     colorBtnG.classList.add('editor-node__color-btn');
     colorBtnG.setAttribute('transform',
-      `translate(${NODE_WIDTH - DELETE_BTN_SIZE / 2 - 18}, ${-DELETE_BTN_SIZE / 2 + 4})`);
+      `translate(${NODE_WIDTH - DELETE_BTN_SIZE / 2 - 23}, ${-DELETE_BTN_SIZE / 2})`);
 
     const colorCircle = document.createElementNS(SVG_NS, 'circle');
     colorCircle.setAttribute('cx', 0);
@@ -386,23 +430,21 @@ class EditorNode {
     const deleteBtnG = document.createElementNS(SVG_NS, 'g');
     deleteBtnG.classList.add('editor-node__delete-btn');
     deleteBtnG.setAttribute('transform',
-      `translate(${NODE_WIDTH - DELETE_BTN_SIZE / 2 + 4}, ${-DELETE_BTN_SIZE / 2 + 4})`);
+      `translate(${NODE_WIDTH - DELETE_BTN_SIZE / 2 - 1}, ${-DELETE_BTN_SIZE / 2})`);
 
     const deleteBg = document.createElementNS(SVG_NS, 'circle');
     deleteBg.setAttribute('cx', 0);
     deleteBg.setAttribute('cy', 0);
-    deleteBg.setAttribute('r', DELETE_BTN_SIZE / 2);
-    deleteBg.setAttribute('fill', 'rgba(0,0,0,0.5)');
+    deleteBg.setAttribute('r', 7);
     deleteBg.classList.add('editor-node__delete-bg');
     deleteBtnG.appendChild(deleteBg);
 
     const deleteX = document.createElementNS(SVG_NS, 'text');
     deleteX.setAttribute('x', 0);
-    deleteX.setAttribute('y', 0);
+    deleteX.setAttribute('y', 0.5);
     deleteX.setAttribute('text-anchor', 'middle');
     deleteX.setAttribute('dominant-baseline', 'central');
-    deleteX.setAttribute('font-size', '12');
-    deleteX.setAttribute('fill', '#ff4444');
+    deleteX.setAttribute('font-size', '11');
     deleteX.classList.add('editor-node__delete-x');
     deleteX.textContent = '\u00d7'; // ×
     deleteBtnG.appendChild(deleteX);
@@ -464,17 +506,26 @@ class EditorNode {
 
   /** @private — Actualitza l'indicador de tipus (text) */
   _updateTypeIndicator() {
+    // Determinar quin botó és l'actiu
+    let activeKey = 'story';
     if (this._isEnding) {
-      const label = this._endingType === 'good' ? '\u2713 WIN' : '\u2717 FAIL';
-      this._typeIndicatorEl.textContent = label;
-      this._typeIndicatorEl.setAttribute('fill',
-        this._endingType === 'good' ? '#4a4' : '#c44');
-      this._typeIndicatorEl.style.cursor = 'pointer';
-      this._typeIndicatorEl.style.display = 'block';
-    } else {
-      this._typeIndicatorEl.textContent = '';
-      this._typeIndicatorEl.style.cursor = 'default';
-      this._typeIndicatorEl.style.display = 'none';
+      activeKey = this._endingType === 'good' ? 'good' : 'bad';
+    }
+
+    // Actualitzar estils dels 3 botons
+    const colors = {
+      story: { active: '#4a8', inactive: '#555' },
+      good:  { active: '#4a4', inactive: '#555' },
+      bad:   { active: '#c44', inactive: '#555' }
+    };
+
+    for (const [key, els] of Object.entries(this._typeButtons)) {
+      const isActive = key === activeKey;
+      const color = colors[key];
+      els.bg.setAttribute('fill', isActive ? color.active + '33' : 'transparent');
+      els.bg.setAttribute('stroke', isActive ? color.active : 'transparent');
+      els.bg.setAttribute('stroke-width', isActive ? '1.5' : '0');
+      els.txt.setAttribute('fill', isActive ? color.active : color.inactive);
     }
   }
 
@@ -549,18 +600,29 @@ class EditorNode {
     // Reposicionar botó d'eliminar
     if (this._deleteBtnEl) {
       this._deleteBtnEl.setAttribute('transform',
-        `translate(${this._width - DELETE_BTN_SIZE / 2 + 4}, ${-DELETE_BTN_SIZE / 2 + 4})`);
+        `translate(${this._width - DELETE_BTN_SIZE / 2 - 1}, ${-DELETE_BTN_SIZE / 2})`);
     }
 
     // Reposicionar botó de color
     if (this._colorBtnEl) {
       this._colorBtnEl.setAttribute('transform',
-        `translate(${this._width - DELETE_BTN_SIZE / 2 - 18}, ${-DELETE_BTN_SIZE / 2 + 4})`);
+        `translate(${this._width - DELETE_BTN_SIZE / 2 - 23}, ${-DELETE_BTN_SIZE / 2})`);
     }
 
-    // Reposicionar indicador de tipus
-    if (this._typeIndicatorEl) {
-      this._typeIndicatorEl.setAttribute('x', this._width - 8);
+    // Reposicionar selector de tipus
+    if (this._typeButtons) {
+      const btnSize = 16;
+      const btnGap = 2;
+      const totalW = 3 * (btnSize + btnGap) - btnGap;
+      const startX = this._width - totalW - 6;
+      let i = 0;
+      for (const els of Object.values(this._typeButtons)) {
+        const bx = startX + i * (btnSize + btnGap);
+        els.bg.setAttribute('x', bx);
+        els.txt.setAttribute('x', bx + btnSize / 2);
+        els.hitArea.setAttribute('x', bx);
+        i++;
+      }
     }
 
     // Redibuixar connexions
@@ -607,23 +669,35 @@ class EditorNode {
       this._dispatchEvent('node-delete-requested', { nodeId: this._id });
     });
 
-    // Toggle ending type (clic a l'indicador FI)
-    this._typeIndicatorEl.addEventListener('mousedown', (e) => {
-      e.stopPropagation();
-    });
-    this._typeIndicatorEl.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (!this._isEnding) return;
-      const newType = this._endingType === 'good' ? 'bad' : 'good';
-      this._dispatchEvent('node-ending-type-toggled', {
-        nodeId: this._id,
-        endingType: newType
+    // Selector de tipus: clic a cada botó [→] [✓] [✗]
+    for (const [key, els] of Object.entries(this._typeButtons)) {
+      els.hitArea.addEventListener('mousedown', (e) => {
+        e.stopPropagation();
       });
-    });
+      els.hitArea.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (key === 'story') {
+          this._dispatchEvent('node-ending-toggled', {
+            nodeId: this._id,
+            isEnding: false,
+            endingType: null,
+            endingTitle: null
+          });
+        } else {
+          this._dispatchEvent('node-ending-toggled', {
+            nodeId: this._id,
+            isEnding: true,
+            endingType: key,
+            endingTitle: ''
+          });
+        }
+      });
+    }
 
     // Port de sortida: inici de connexió
     this._outputPortEl.addEventListener('mousedown', (e) => {
       e.stopPropagation();
+      e.preventDefault(); // Evitar selecció de text del navegador
       if (e.button !== 0) return;
       this._dispatchEvent('node-port-drag-start', {
         nodeId: this._id,
