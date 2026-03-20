@@ -6,7 +6,7 @@
 const STORAGE_KEY = 'aventures-retro-settings';
 
 const DEFAULTS = {
-  theme: 'dark',
+  theme: 'light',
   musicEnabled: true,
   sfxEnabled: true,
   typewriterEnabled: true,

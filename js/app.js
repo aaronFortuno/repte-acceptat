@@ -9,6 +9,7 @@ import MenuScreen from './ui/MenuScreen.js';
 import SettingsScreen from './ui/SettingsScreen.js';
 import GameScreen from './ui/GameScreen.js';
 import EndScreen from './ui/EndScreen.js';
+import EditorScreen from './ui/EditorScreen.js';
 
 import StoryEngine from './engine/StoryEngine.js';
 import TypewriterEffect from './engine/TypewriterEffect.js';
@@ -52,7 +53,8 @@ const titleScreen = new TitleScreen({
 const menuScreen = new MenuScreen({
   settingsManager: settings,
   onSelectAdventure: (adv) => startAdventure(adv),
-  onSettings: () => screens.showScreen('settings')
+  onSettings: () => screens.showScreen('settings'),
+  onEditor: () => screens.showScreen('editor')
 });
 
 const settingsScreen = new SettingsScreen({
@@ -83,12 +85,25 @@ const endScreen = new EndScreen({
   onMenu: () => showMenu()
 });
 
+const editorScreen = new EditorScreen({
+  settingsManager: settings,
+  storyEngine: engine,
+  audioManager: audio,
+  onMenu: () => showMenu(),
+  onTestAdventure: () => {
+    engine.startGame();
+    audio.playMusic('adventure');
+    screens.showScreen('game');
+  }
+});
+
 // Registrar pantalles
 screens.registerScreen('title', titleScreen);
 screens.registerScreen('menu', menuScreen);
 screens.registerScreen('settings', settingsScreen);
 screens.registerScreen('game', gameScreen);
 screens.registerScreen('end', endScreen);
+screens.registerScreen('editor', editorScreen);
 
 // ============================================
 // Funcions de navegació

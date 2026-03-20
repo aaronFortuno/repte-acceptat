@@ -1,0 +1,998 @@
+/* ============================================
+   EDITOR — Estils de l'editor visual d'aventures
+   Estètica retro CAD/terminal
+   ============================================ */
+
+/* ============================================
+   CUSTOM PROPERTIES DE L'EDITOR
+   ============================================ */
+
+:root {
+  --editor-canvas-bg: #08081a;
+  --editor-grid-color: rgba(60, 60, 110, 0.3);
+  --editor-grid-size: 20px;
+  --editor-node-bg: #12122a;
+  --editor-node-border: var(--border-color);
+  --editor-node-width: 220px;
+  --editor-node-min-height: 80px;
+  --editor-node-radius: 2px;
+  --editor-port-size: 10px;
+  --editor-port-color: var(--text-accent);
+  --editor-connection-color: var(--border-color);
+  --editor-connection-width: 2px;
+  --editor-selection-color: var(--text-accent);
+  --editor-selection-glow: 0 0 8px var(--text-accent), 0 0 16px var(--text-accent);
+  --editor-danger-color: var(--text-danger);
+  --editor-warning-color: var(--text-warning);
+  --editor-success-color: var(--text-success);
+  --editor-toolbar-height: 50px;
+  --editor-badge-font: 0.4rem;
+  --editor-node-font: 0.55rem;
+  --editor-label-font: 0.5rem;
+}
+
+[data-theme="light"] {
+  --editor-canvas-bg: #e8e0d0;
+  --editor-grid-color: rgba(180, 168, 136, 0.4);
+  --editor-node-bg: #faf6ee;
+  --editor-selection-glow: 0 0 6px var(--text-accent);
+}
+
+/* ============================================
+   LAYOUT — Pantalla de l'editor
+   ============================================ */
+
+.editor-screen {
+  display: none;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  background-color: var(--editor-canvas-bg);
+  overflow: hidden;
+}
+
+.editor-screen.screen--active {
+  display: flex;
+}
+
+.editor-layout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+/* ============================================
+   TOOLBAR — Barra d'eines superior
+   ============================================ */
+
+.editor-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.3rem 0.5rem;
+  background-color: var(--bg-panel);
+  border-bottom: 2px solid var(--border-color);
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.editor-toolbar__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-family: var(--font-family, 'Press Start 2P', monospace);
+  font-size: 0.65rem;
+  padding: 0.4rem 0.6rem;
+  min-width: 36px;
+  min-height: 36px;
+  background-color: var(--bg-button);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+  line-height: 1;
+}
+
+.editor-toolbar__btn i {
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.editor-toolbar__btn:hover,
+.editor-toolbar__btn:focus {
+  background-color: var(--bg-button-hover);
+  border-color: var(--text-accent);
+  color: var(--text-accent);
+  outline: none;
+}
+
+.editor-toolbar__btn:active {
+  background-color: var(--bg-button-active);
+  transform: scale(0.97);
+}
+
+.editor-toolbar__btn--primary {
+  border-color: var(--editor-success-color);
+  color: var(--editor-success-color);
+}
+
+.editor-toolbar__btn--primary:hover,
+.editor-toolbar__btn--primary:focus {
+  background-color: var(--bg-button-hover);
+  border-color: var(--editor-success-color);
+  color: var(--editor-success-color);
+}
+
+.editor-toolbar__sep {
+  width: 1px;
+  height: 26px;
+  background-color: var(--border-color);
+  margin: 0 0.2rem;
+  flex-shrink: 0;
+}
+
+.editor-toolbar__spacer {
+  flex: 1;
+}
+
+.editor-toolbar__title {
+  font-family: var(--font-family, 'Press Start 2P', monospace);
+  font-size: 0.7rem;
+  color: var(--text-title);
+  background: none;
+  border: 1px solid transparent;
+  padding: 0.4rem 0.6rem;
+  cursor: text;
+  transition: border-color 0.15s ease;
+  min-width: 150px;
+  max-width: 350px;
+}
+
+.editor-toolbar__title:hover {
+  border-color: var(--border-color);
+}
+
+.editor-toolbar__title:focus {
+  border-color: var(--text-accent);
+  outline: none;
+  box-shadow: var(--glow-intensity);
+}
+
+/* ============================================
+   CANVAS — Contenidor del SVG
+   ============================================ */
+
+.editor-canvas-wrapper {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.editor-canvas-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  cursor: crosshair;
+  background-color: var(--editor-canvas-bg);
+  background-image:
+    linear-gradient(var(--editor-grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--editor-grid-color) 1px, transparent 1px);
+  background-size: var(--editor-grid-size) var(--editor-grid-size);
+}
+
+.editor-canvas-container--panning {
+  cursor: grab;
+}
+
+.editor-canvas-container--panning:active {
+  cursor: grabbing;
+}
+
+.editor-canvas-container svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Controls de zoom flotants — cantonada superior dreta del canvas */
+.editor-zoom-controls {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  z-index: 15;
+}
+
+.editor-zoom-controls__btn {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0;  /* amagar text, només icona */
+  background-color: var(--bg-panel);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  opacity: 0.75;
+}
+
+.editor-zoom-controls__btn i {
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.editor-zoom-controls__btn:hover {
+  opacity: 1;
+  border-color: var(--text-accent);
+  color: var(--text-accent);
+}
+
+.editor-zoom-controls__btn:active {
+  transform: scale(0.93);
+}
+
+/* ============================================
+   NODES SVG — Estils per als nodes del graf
+   ============================================ */
+
+.editor-node {
+  cursor: pointer;
+  user-select: none;
+}
+
+.editor-node:hover {
+  filter: brightness(1.1);
+}
+
+.editor-node rect {
+  fill: var(--editor-node-bg);
+  stroke: var(--editor-node-border);
+  stroke-width: 2;
+  rx: var(--editor-node-radius);
+  ry: var(--editor-node-radius);
+  transition: stroke 0.15s ease, stroke-width 0.15s ease, filter 0.15s ease;
+}
+
+/* Node normal — indicador verd al costat esquerre */
+.editor-node--normal rect {
+  stroke: var(--editor-node-border);
+}
+
+.editor-node--normal::after {
+  content: '';
+}
+
+/* Línia lateral verda per a nodes normals (implementada com a segon rect dins del <g>) */
+.editor-node--normal .editor-node__left-accent {
+  fill: var(--editor-success-color);
+  opacity: 0.6;
+}
+
+/* Node final — vora (fallback genèric) */
+.editor-node--ending rect {
+  stroke: var(--editor-danger-color);
+  stroke-width: 2;
+  stroke-dasharray: 6, 3;
+}
+
+/* Node final bo — vora verda */
+.editor-node--ending-good {
+  stroke: #4a4 !important;
+  stroke-width: 2;
+  stroke-dasharray: 6, 3;
+}
+
+/* Node final dolent — vora vermella */
+.editor-node--ending-bad {
+  stroke: #c44 !important;
+  stroke-width: 2;
+  stroke-dasharray: 6, 3;
+}
+
+/* Node inici — vora més gruixuda i brillant */
+.editor-node--start rect {
+  stroke: var(--editor-selection-color);
+  stroke-width: 3;
+}
+
+/* Node seleccionat — brillantor */
+.editor-node--selected rect {
+  stroke: var(--editor-selection-color);
+  stroke-width: 3;
+  filter: drop-shadow(0 0 6px var(--editor-selection-color))
+          drop-shadow(0 0 12px var(--editor-selection-color));
+}
+
+/* Node amb warning — pols taronja/vermell */
+.editor-node--warning rect {
+  stroke: var(--editor-warning-color);
+  stroke-width: 2;
+  animation: nodePulseWarning 1.5s ease-in-out infinite;
+}
+
+@keyframes nodePulseWarning {
+  0%, 100% {
+    stroke: var(--editor-warning-color);
+    filter: drop-shadow(0 0 4px var(--editor-warning-color));
+  }
+  50% {
+    stroke: var(--editor-danger-color);
+    filter: drop-shadow(0 0 8px var(--editor-danger-color));
+  }
+}
+
+/* Fix: Node background via CSS (not inline) */
+.editor-node__bg {
+  fill: var(--editor-node-bg);
+  stroke: var(--editor-node-border);
+  stroke-width: 1.5;
+  rx: 6;
+  ry: 6;
+}
+
+/* Node header elements - muted color visible on dark bg */
+.editor-node__id-label {
+  fill: #8888aa;
+  font-family: var(--font-family, 'Press Start 2P', monospace);
+  font-size: 0.4rem;
+}
+
+[data-theme="light"] .editor-node__id-label {
+  fill: #666;
+}
+
+/* Header separator line */
+.editor-node__header-line {
+  stroke: rgba(255, 255, 255, 0.15);
+  stroke-width: 1;
+}
+
+[data-theme="light"] .editor-node__header-line {
+  stroke: rgba(0, 0, 0, 0.15);
+}
+
+/* Start indicator star */
+.editor-node__start-indicator {
+  fill: #fd0;
+  filter: drop-shadow(0 0 3px rgba(255, 221, 0, 0.5));
+}
+
+/* Type indicator (FI ✓ / FI ✗) */
+.editor-node__type-indicator {
+  font-family: var(--font-family, 'Press Start 2P', monospace);
+  font-size: 0.4rem;
+}
+
+/* Delete button - always visible colors */
+.editor-node__delete-bg {
+  fill: rgba(0, 0, 0, 0.6);
+  stroke: none;
+}
+
+.editor-node__delete-x {
+  fill: #ff4444;
+}
+
+/* Textarea inside node */
+.editor-node__textarea {
+  color: #c8c8e0 !important;
+  font-family: var(--font-family, 'Press Start 2P', monospace) !important;
+  font-size: var(--editor-node-font) !important;
+  line-height: 1.8 !important;
+}
+
+[data-theme="light"] .editor-node__textarea {
+  color: #333 !important;
+}
+
+/* Output port */
+.editor-node__output-port {
+  fill: #334;
+  stroke: #6af;
+  stroke-width: 2;
+  cursor: crosshair;
+  transition: fill 0.15s ease, r 0.1s ease;
+}
+
+.editor-node__output-port:hover {
+  fill: #6af;
+  r: 9;
+  filter: drop-shadow(0 0 4px #6af);
+}
+
+[data-theme="light"] .editor-node__output-port {
+  fill: #ddd;
+  stroke: #36a;
+}
+
+/* Text dins del node (foreignObject) */
+.editor-node__text {
+  font-family: var(--font-family, 'Press Start 2P', monospace);
+  font-size: var(--editor-node-font);
+  color: var(--text-primary);
+  line-height: 1.8;
+  padding: 0.5rem;
+  width: 100%;
+  height: 100%;
+  background: none;
+  border: none;
+  resize: none;
+  outline: none;
+  overflow: hidden;
+  cursor: text;
+  word-wrap: break-word;
+}
+
+.editor-node__text:focus {
+  color: var(--text-accent);
+}
+
+.editor-node__text::selection {
+  background-color: var(--text-accent);
+  color: var(--bg-primary);
+}
+
+/* Port de connexió de sortida */
+.editor-node__port {
+  fill: var(--editor-node-border);
+  stroke: var(--editor-port-color);
+  stroke-width: 2;
+  r: calc(var(--editor-port-size) / 2);
+  cursor: crosshair;
+  transition: fill 0.15s ease, r 0.1s ease;
+}
+
+.editor-node__port:hover {
+  fill: var(--editor-port-color);
+  r: calc(var(--editor-port-size) / 2 + 2);
+  filter: drop-shadow(0 0 4px var(--editor-port-color));
+}
+
+/* Botó d'eliminar (x a la cantonada) */
+.editor-node__delete {
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.editor-node:hover .editor-node__delete {
+  opacity: 0.6;
+}
+
+.editor-node__delete:hover {
+  opacity: 1 !important;
+}
+
+.editor-node__delete text {
+  fill: var(--editor-danger-color);
+  font-family: var(--font-family, 'Press Start 2P', monospace);
+  font-size: 0.6rem;
+}
+
+.editor-node__delete rect {
+  fill: transparent;
+  stroke: none;
+}
+
+/* Tirador de redimensionament */
+.editor-node__resize-handle {
+  fill: rgba(255, 255, 255, 0.15);
+  stroke: rgba(255, 255, 255, 0.3);
+  stroke-width: 1;
+  cursor: nwse-resize;
+  opacity: 0;
+  transition: opacity 0.15s ease, fill 0.15s ease;
+}
+
+.editor-node-group:hover .editor-node__resize-handle {
+  opacity: 0.6;
+}
+
+.editor-node__resize-handle:hover {
+  opacity: 1 !important;
+  fill: rgba(100, 170, 255, 0.3);
+  stroke: #6af;
+}
+
+[data-theme="light"] .editor-node__resize-handle {
+  fill: rgba(0, 0, 0, 0.1);
+  stroke: rgba(0, 0, 0, 0.2);
+}
+
+/* Badges de tipus */
+.editor-node__type-badge {
+  font-family: var(--font-family, 'Press Start 2P', monospace);
+  font-size: var(--editor-badge-font);
+  fill: var(--editor-danger-color);
+  text-anchor: end;
+  dominant-baseline: hanging;
+  opacity: 0.8;
+}
+
+.editor-node__start-badge {
+  font-family: var(--font-family, 'Press Start 2P', monospace);
+  font-size: var(--editor-badge-font);
+  fill: var(--editor-selection-color);
+  text-anchor: start;
+  dominant-baseline: hanging;
+  opacity: 0.9;
+  text-shadow: var(--glow-intensity);
+}
+
+/* ============================================
+   CONNEXIONS SVG — Fletxes entre nodes
+   ============================================ */
+
+.editor-connection {
+  fill: none;
+  stroke: var(--editor-connection-color);
+  stroke-width: var(--editor-connection-width);
+  stroke-linecap: round;
+  transition: stroke 0.15s ease, stroke-width 0.15s ease;
+  cursor: pointer;
+}
+
+.editor-connection:hover {
+  stroke: var(--text-accent);
+  stroke-width: 3;
+}
+
+.editor-connection--selected {
+  stroke: var(--editor-selection-color);
+  stroke-width: 3;
+  filter: drop-shadow(0 0 4px var(--editor-selection-color));
+}
+
+.editor-connection--preview {
+  stroke: var(--text-accent);
+  stroke-width: 2;
+  stroke-dasharray: 8, 4;
+  opacity: 0.6;
+  pointer-events: none;
+  animation: dashFlow 0.6s linear infinite;
+}
+
+@keyframes dashFlow {
+  to {
+    stroke-dashoffset: -12;
+  }
+}
+
+/* Etiqueta de la connexió */
+.editor-connection__label-bg {
+  fill: var(--editor-canvas-bg);
+  stroke: var(--editor-connection-color);
+  stroke-width: 1;
+  rx: 2;
+  ry: 2;
+  opacity: 0.92;
+}
+
+.editor-connection__label {
+  font-family: var(--font-family, 'Press Start 2P', monospace);
+  font-size: var(--editor-label-font);
+  fill: var(--text-secondary);
+  text-anchor: middle;
+  dominant-baseline: central;
+  cursor: text;
+  pointer-events: all;
+}
+
+.editor-connection__label:hover {
+  fill: var(--text-accent);
+}
+
+/* ============================================
+   CONTEXT MENU — Menú contextual
+   ============================================ */
+
+.editor-context-menu {
+  position: fixed;
+  z-index: 100;
+  background-color: var(--bg-panel);
+  border: 2px solid var(--border-color);
+  min-width: 160px;
+  padding: 0.3rem 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.editor-context-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.4rem 0.8rem;
+  font-family: var(--font-family, 'Press Start 2P', monospace);
+  font-size: var(--editor-badge-font);
+  color: var(--text-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+  transition: background-color 0.1s ease;
+}
+
+.editor-context-menu__item:hover {
+  background-color: var(--bg-button-hover);
+  color: var(--text-accent);
+}
+
+.editor-context-menu__item--danger {
+  color: var(--editor-danger-color);
+}
+
+.editor-context-menu__item--danger:hover {
+  background-color: rgba(204, 68, 68, 0.15);
+  color: var(--editor-danger-color);
+}
+
+/* ============================================
+   TOAST — Notificació de confirmació
+   ============================================ */
+
+.editor-toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background-color: var(--bg-panel);
+  color: var(--editor-success-color);
+  border: 2px solid var(--editor-success-color);
+  padding: 0.5rem 1.2rem;
+  font-family: var(--font-family, 'Press Start 2P', monospace);
+  font-size: var(--editor-badge-font);
+  z-index: 200;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  box-shadow: 0 0 12px rgba(0, 200, 0, 0.3);
+}
+
+.editor-toast--visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ============================================
+   PROJECTS DROPDOWN — Dropdown de projectes
+   ============================================ */
+
+.editor-projects-dropdown {
+  position: fixed;
+  z-index: 100;
+  background-color: var(--bg-panel);
+  border: 2px solid var(--border-color);
+  min-width: 250px;
+  max-height: 300px;
+  overflow-y: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.editor-projects-dropdown__item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  width: 100%;
+  padding: 0.5rem 0.8rem;
+  font-family: var(--font-family, 'Press Start 2P', monospace);
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.1s ease;
+}
+
+.editor-projects-dropdown__item:hover {
+  background-color: var(--bg-button-hover);
+}
+
+.editor-projects-dropdown__item--autosave {
+  border-left: 3px solid var(--editor-warning-color);
+}
+
+.editor-projects-dropdown__item-title {
+  font-size: var(--editor-node-font);
+  color: var(--text-primary);
+}
+
+.editor-projects-dropdown__item-meta {
+  font-size: var(--editor-badge-font);
+  color: var(--text-muted);
+}
+
+.editor-projects-dropdown__empty {
+  padding: 0.8rem;
+  font-size: var(--editor-badge-font);
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* ============================================
+   METADATA PANEL — Edició de metadades
+   ============================================ */
+
+.editor-metadata {
+  position: fixed;
+  top: var(--editor-toolbar-height);
+  right: 0;
+  width: 320px;
+  max-width: 90vw;
+  height: calc(100vh - var(--editor-toolbar-height));
+  background-color: var(--bg-panel);
+  border-left: 2px solid var(--border-color);
+  padding: 1.2rem;
+  overflow-y: auto;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: slideInRight 0.2s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.editor-metadata__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.editor-metadata__field label {
+  font-family: var(--font-family, 'Press Start 2P', monospace);
+  font-size: var(--editor-badge-font);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.editor-metadata__field input,
+.editor-metadata__field textarea,
+.editor-metadata__field select {
+  font-family: var(--font-family, 'Press Start 2P', monospace);
+  font-size: var(--editor-node-font);
+  color: var(--text-primary);
+  background-color: var(--bg-button);
+  border: 2px solid var(--border-color);
+  padding: 0.5rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+  line-height: 1.8;
+}
+
+.editor-metadata__field textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.editor-metadata__field select {
+  cursor: pointer;
+}
+
+.editor-metadata__field input:focus,
+.editor-metadata__field textarea:focus,
+.editor-metadata__field select:focus {
+  border-color: var(--text-accent);
+  box-shadow: 0 0 6px var(--glow-color);
+}
+
+.editor-metadata__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.editor-metadata__header h3 {
+  font-size: var(--editor-node-font);
+  color: var(--text-accent);
+  margin: 0;
+}
+
+.editor-metadata__form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.editor-metadata__form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-family: var(--font-family, 'Press Start 2P', monospace);
+  font-size: var(--editor-badge-font);
+  color: var(--text-muted);
+}
+
+.editor-metadata__form input,
+.editor-metadata__form textarea,
+.editor-metadata__form select {
+  font-family: var(--font-family, 'Press Start 2P', monospace);
+  font-size: var(--editor-node-font);
+  color: var(--text-primary);
+  background-color: var(--bg-button);
+  border: 2px solid var(--border-color);
+  padding: 0.4rem;
+  outline: none;
+}
+
+.editor-metadata__form input:focus,
+.editor-metadata__form textarea:focus,
+.editor-metadata__form select:focus {
+  border-color: var(--text-accent);
+}
+
+/* ============================================
+   VALIDATION PANEL — Errors i avisos
+   ============================================ */
+
+.editor-validation-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-height: 200px;
+  background-color: var(--bg-panel);
+  border-top: 2px solid var(--border-color);
+  overflow-y: auto;
+  z-index: 20;
+  padding: 0.6rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  animation: slideInUp 0.2s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.editor-validation__item {
+  font-family: var(--font-family, 'Press Start 2P', monospace);
+  font-size: var(--editor-badge-font);
+  color: var(--text-secondary);
+  padding: 0.3rem 0.5rem;
+  border-left: 3px solid var(--border-color);
+  line-height: 1.8;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.editor-validation__item:hover {
+  background-color: var(--bg-button);
+}
+
+.editor-validation__item--error {
+  border-left-color: var(--editor-danger-color);
+  color: var(--editor-danger-color);
+}
+
+.editor-validation__item--error::before {
+  content: '[ERR] ';
+  color: var(--editor-danger-color);
+}
+
+.editor-validation__item--warning {
+  border-left-color: var(--editor-warning-color);
+  color: var(--editor-warning-color);
+}
+
+.editor-validation__item--warning::before {
+  content: '[AVS] ';
+  color: var(--editor-warning-color);
+}
+
+.editor-validation-panel__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+
+.editor-validation-panel__header h3 {
+  font-size: var(--editor-node-font);
+  color: var(--text-accent);
+  margin: 0;
+}
+
+.editor-validation-panel__ok {
+  color: var(--editor-success-color);
+  font-size: var(--editor-badge-font);
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.editor-validation-panel__item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-family, 'Press Start 2P', monospace);
+  font-size: var(--editor-badge-font);
+  padding: 0.3rem 0.5rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  color: var(--text-secondary);
+  transition: background-color 0.1s ease;
+}
+
+.editor-validation-panel__item:hover {
+  background-color: var(--bg-button);
+}
+
+.editor-validation-panel__item--error {
+  color: var(--editor-danger-color);
+}
+
+.editor-validation-panel__item--warning {
+  color: var(--editor-warning-color);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .editor-toolbar {
+    gap: 0.3rem;
+    padding: 0.3rem 0.5rem;
+  }
+
+  .editor-toolbar__btn {
+    font-size: 0.45rem;
+    padding: 0.3rem 0.5rem;
+  }
+
+  .editor-toolbar__title {
+    min-width: 80px;
+    font-size: 0.45rem;
+  }
+
+  .editor-metadata {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .editor-validation-panel {
+    max-height: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .editor-toolbar__title {
+    display: none;
+  }
+}

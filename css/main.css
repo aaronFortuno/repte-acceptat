@@ -501,27 +501,83 @@ p, .narrative-text {
 }
 
 /* Botó enviar aventura */
-.menu-screen__submit {
-  margin-top: 1rem;
-}
-
-.menu-screen__submit-btn {
-  width: 100%;
+/* Header — accions a la dreta */
+.menu-screen__header-actions {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 0.5rem;
-  padding: 1rem;
+}
+
+.menu-screen__create-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   font-family: var(--font-family, 'Press Start 2P', monospace);
   font-size: var(--font-muted, 0.55rem);
-  color: var(--text-muted);
-  background-color: transparent;
-  border: 2px dashed var(--border-color);
+  padding: 0.5rem 0.8rem;
+  color: var(--text-accent);
+  background-color: var(--bg-button);
+  border: 2px solid var(--text-accent);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
-.menu-screen__submit-btn:hover {
+.menu-screen__create-btn:hover {
+  background-color: var(--bg-button-hover);
+}
+
+/* CTA — bloc unificat per crear/enviar aventura */
+.menu-screen__cta {
+  margin-top: 1.5rem;
+  border: 2px dashed var(--border-color);
+  padding: 1rem 1.2rem;
+  text-align: center;
+}
+
+.menu-screen__cta-text {
+  font-family: var(--font-family, 'Press Start 2P', monospace);
+  font-size: var(--font-muted, 0.55rem);
+  color: var(--text-secondary);
+  line-height: 2;
+  margin-bottom: 0.8rem;
+}
+
+.menu-screen__cta-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.menu-screen__cta-editor,
+.menu-screen__cta-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-family, 'Press Start 2P', monospace);
+  font-size: var(--font-muted, 0.55rem);
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.menu-screen__cta-editor {
+  color: var(--text-accent);
+  background-color: var(--bg-button);
+  border: 2px solid var(--text-accent);
+}
+
+.menu-screen__cta-editor:hover {
+  background-color: var(--bg-button-hover);
+}
+
+.menu-screen__cta-email {
+  color: var(--text-secondary);
+  background-color: transparent;
+  border: 2px solid var(--border-color);
+}
+
+.menu-screen__cta-email:hover {
   border-color: var(--text-accent);
   color: var(--text-accent);
 }

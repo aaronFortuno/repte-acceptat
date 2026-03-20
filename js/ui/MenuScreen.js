@@ -5,10 +5,11 @@
 import i18n from '../engine/I18nManager.js';
 
 class MenuScreen {
-  constructor({ settingsManager, onSelectAdventure, onSettings }) {
+  constructor({ settingsManager, onSelectAdventure, onSettings, onEditor }) {
     this._settings = settingsManager;
     this._onSelectAdventure = onSelectAdventure;
     this._onSettings = onSettings;
+    this._onEditor = onEditor;
     this._adventures = [];
   }
 
@@ -98,10 +99,18 @@ class MenuScreen {
         <div class="menu-screen__adventures">
           ${adventureCards}
         </div>
-        <div class="menu-screen__submit">
-          <button class="menu-screen__submit-btn">
-            <i class="fa-solid fa-plus"></i> ${i18n.t('menu_submit_btn')}
-          </button>
+        <div class="menu-screen__cta">
+          <div class="menu-screen__cta-content">
+            <p class="menu-screen__cta-text">${i18n.t('menu_cta_text')}</p>
+            <div class="menu-screen__cta-actions">
+              <button class="btn menu-screen__cta-editor">
+                <i class="fa-solid fa-pencil-ruler"></i> ${i18n.t('menu_cta_editor')}
+              </button>
+              <button class="btn menu-screen__cta-email">
+                <i class="fa-solid fa-envelope"></i> ${i18n.t('menu_cta_email')}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     `;
@@ -138,8 +147,14 @@ class MenuScreen {
       });
     });
 
-    // Listener botó enviar aventura
-    screen.querySelector('.menu-screen__submit-btn')
+    // Listener editor (CTA)
+    screen.querySelector('.menu-screen__cta-editor')
+      .addEventListener('click', () => {
+        if (this._onEditor) this._onEditor();
+      });
+
+    // Listener enviar per correu (CTA)
+    screen.querySelector('.menu-screen__cta-email')
       .addEventListener('click', () => this._showSubmitOverlay(screen));
 
     // Listener opcions

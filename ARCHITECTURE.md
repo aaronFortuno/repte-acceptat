@@ -8,7 +8,8 @@ repte-acceptat/
 ├── css/
 │   ├── main.css                # Estils principals, variables CSS, layout
 │   ├── crt.css                 # Efectes retro: scanlines, glow, curvatura CRT
-│   └── themes.css              # Temes clar/fosc (CSS custom properties)
+│   ├── themes.css              # Temes clar/fosc (CSS custom properties)
+│   └── editor.css              # Estils de l'editor visual d'aventures
 ├── js/
 │   ├── app.js                  # Punt d'entrada JS — inicialitza l'aplicació
 │   ├── engine/
@@ -17,13 +18,21 @@ repte-acceptat/
 │   │   ├── AudioManager.js     # Gestió d'àudio: música i SFX (Web Audio API)
 │   │   ├── SettingsManager.js  # Preferències d'usuari (localStorage)
 │   │   └── I18nManager.js      # Internacionalització (CA/ES/EN) — singleton
+│   ├── editor/
+│   │   ├── EditorCanvas.js     # Canvas SVG: pan/zoom, gestió visual de nodes
+│   │   ├── EditorNode.js       # Node visual SVG: drag, edició inline, ports
+│   │   ├── EditorConnection.js # Connexions SVG: bezier, drag-to-connect, etiquetes
+│   │   ├── EditorState.js      # Estat centralitzat: nodes, connexions, undo/redo
+│   │   ├── EditorSerializer.js # Serialització graf ↔ JSON, validació, import/export
+│   │   └── EditorStorage.js    # Persistència localStorage, autoguardat, projectes
 │   └── ui/
 │       ├── ScreenManager.js    # Gestiona transicions entre pantalles
 │       ├── TitleScreen.js      # Pantalla de títol / splash
-│       ├── MenuScreen.js       # Menú principal: triar aventura, opcions
+│       ├── MenuScreen.js       # Menú principal: triar aventura, opcions, editor
 │       ├── SettingsScreen.js   # Pantalla d'opcions
 │       ├── GameScreen.js       # Pantalla de joc: text narratiu + opcions
-│       └── EndScreen.js        # Pantalla de final: resultat + reiniciar
+│       ├── EndScreen.js        # Pantalla de final: resultat + reiniciar
+│       └── EditorScreen.js     # Pantalla de l'editor visual d'aventures
 ├── stories/
 │   ├── manifest.json           # Registre de totes les aventures disponibles
 │   └── quest404.json           # Aventura "Quest 404: El Tresor del Drac Pàgic"
@@ -236,9 +245,13 @@ l'element contenidor principal (#app).
     ↓
 [TitleScreen] — Animació títol retro, "Press any key"
     ↓
-[MenuScreen] — Triar aventura | Opcions | Crèdits
-    ↓                ↓
-    ↓         [SettingsScreen] — Tema, àudio, typewriter
+[MenuScreen] — Triar aventura | Opcions | Crear aventura
+    ↓                ↓                ↓
+    ↓         [SettingsScreen]  [EditorScreen] — Editor visual de nodes
+    ↓                                ↓
+    ↓                          [GameScreen] (mode prova)
+    ↓                                ↓
+    ↓                          [EditorScreen] (torna amb estat intacte)
     ↓
 [GameScreen] — Carrega aventura → Mostra node → Espera opció
     ↓              ↑                    |
