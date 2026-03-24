@@ -442,6 +442,11 @@ p, .narrative-text {
   border-color: var(--text-success);
 }
 
+.menu-screen__card-difficulty--medium {
+  color: var(--text-warning, #f0ad4e);
+  border-color: var(--text-warning, #f0ad4e);
+}
+
 .menu-screen__card-difficulty--hard {
   color: var(--text-danger);
   border-color: var(--text-danger);

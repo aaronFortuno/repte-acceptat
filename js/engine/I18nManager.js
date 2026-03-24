@@ -43,6 +43,7 @@ const TRANSLATIONS = {
 
     // Dificultat
     difficulty_easy: 'Fàcil',
+    difficulty_medium: 'Normal',
     difficulty_hard: 'Difícil',
 
     // Opcions
@@ -166,6 +167,7 @@ const TRANSLATIONS = {
     lang_gl: 'GL',
 
     difficulty_easy: 'Fácil',
+    difficulty_medium: 'Normal',
     difficulty_hard: 'Difícil',
 
     settings_title: 'OPCIONES',
@@ -283,6 +285,7 @@ const TRANSLATIONS = {
     lang_gl: 'GL',
 
     difficulty_easy: 'Easy',
+    difficulty_medium: 'Normal',
     difficulty_hard: 'Hard',
 
     settings_title: 'SETTINGS',
@@ -400,6 +403,7 @@ const TRANSLATIONS = {
     lang_gl: 'GL',
 
     difficulty_easy: 'Erraza',
+    difficulty_medium: 'Normala',
     difficulty_hard: 'Zaila',
 
     settings_title: 'AUKERAK',
@@ -517,6 +521,7 @@ const TRANSLATIONS = {
     lang_gl: 'GL',
 
     difficulty_easy: 'Fácil',
+    difficulty_medium: 'Normal',
     difficulty_hard: 'Difícil',
 
     settings_title: 'OPCIÓNS',

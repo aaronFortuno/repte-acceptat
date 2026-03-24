@@ -40,7 +40,7 @@ class MenuScreen {
     } else {
       adventureCards = this._adventures.map((adv, i) => {
         const author = adv.author || i18n.t('menu_author_anonymous');
-        const diffKey = adv.difficulty === 'easy' ? 'difficulty_easy' : 'difficulty_hard';
+        const diffKey = `difficulty_${adv.difficulty || 'easy'}`;
         const diffLabel = i18n.t(diffKey);
         const nodes = adv.nodes || '?';
         const endings = adv.endings || {};
@@ -81,7 +81,7 @@ class MenuScreen {
       <div class="menu-screen__filter">
         <button class="menu-screen__filter-btn menu-screen__filter-btn--active" data-filter="all">${i18n.t('menu_filter_all')}</button>
         ${difficulties.map(d => {
-          const diffKey = d === 'easy' ? 'difficulty_easy' : 'difficulty_hard';
+          const diffKey = `difficulty_${d}`;
           return `<button class="menu-screen__filter-btn" data-filter="${d}">${i18n.t(diffKey)}</button>`;
         }).join('')}
       </div>
