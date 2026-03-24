@@ -1,0 +1,87 @@
+{
+  "id": "monfantastic",
+  "title": "Món Fantàstic",
+  "author": "El Bromes",
+  "startNode": "node0",
+  "nodes": {
+    "node0": {
+      "text": "Ets un recluta de l'exèrcit del regne d'Eldia. Et dius Pringui (els teus pares t'odien).\n\nEts de la branca de la màgia. Dins d'aquesta branca pots escollir tres especialitats:\n\nMag d'atac: el clàssic llançaboles de foc.\nMag de protecció: un sac de boxa viu, bàsicament.\nMag mèdic: dona suport curant els companys a la guerra. El més corrupte de tots.",
+      "choices": [
+        { "label": "Convertir-te en mag d'atac", "nextNode": "final1" },
+        { "label": "Fer-te un sac de boxa (què pot sortir malament? Tot)", "nextNode": "final2" },
+        { "label": "Fer-te mag de curació (el més corrupte de tots)", "nextNode": "node1" }
+      ]
+    },
+    "node1": {
+      "text": "Et consideres intel·ligent i, com a bon mag mèdic corrupte, te'n vas a beure vi per celebrar-ho.\n\nPerò enmig de la festa veus com un oficial corrupte ven els bastons màgics al mercat negre. Aquests bastons es paguen amb els impostos del regne!\n\nQuè fas?",
+      "choices": [
+        { "label": "Subornar-lo i guanyar molts diners", "nextNode": "node2" },
+        { "label": "Fer-li una broma de mal gust a la màfia del regne", "nextNode": "final3" },
+        { "label": "Agafar una escopeta i disparar-li", "nextNode": "node2" }
+      ]
+    },
+    "node2": {
+      "text": "Has resolt la situació al bar... a la teva manera. Tens els diners (o la consciència tranquil·la, segons el mètode).\n\nAra estàs al bar amb una ampolla de vi i massa informació sobre la corrupció del regne. Potser no és segur quedar-se aquí.",
+      "choices": [
+        { "label": "Ignorar-ho tot i seguir bevent vi", "nextNode": "final4" },
+        { "label": "Escapar del bar i fugir a la muntanya", "nextNode": "node3" }
+      ]
+    },
+    "node3": {
+      "text": "T'escapes del bar amb una ampolla de vi i una escopeta. Vas a la muntanya més propera.\n\nDesprés de caminar una estona, trobes una cabana abandonada. Sembla un bon lloc per dormir... però mai se sap.",
+      "choices": [
+        { "label": "Entrar a la cabana per dormir", "nextNode": "final5" },
+        { "label": "Seguir caminant per la muntanya", "nextNode": "node4" }
+      ]
+    },
+    "node4": {
+      "text": "Segueixes caminant i trobes una cova estranya. Dins hi ha un vell mag amb una barba llarga i un bastó que brilla amb una llum verda.\n\nEt mira amb curiositat. Sembla poderós... molt més que tu.",
+      "choices": [
+        { "label": "Parlar amb el vell mag", "nextNode": "final_victory" },
+        { "label": "Intentar robar-li el bastó màgic", "nextNode": "final_frog" }
+      ]
+    },
+    "final1": {
+      "text": "Practiques màgia d'atac durant un temps. T'envien a la guerra i... et segresten al primer combat. Ni un sol encanteri vas poder llançar.\n\nPotser hauries d'haver triat una altra especialitat.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Segrestat al primer dia"
+    },
+    "final2": {
+      "text": "Aprens una mica de màgia de defensa. Mentre practiques, t'ataquen i et cau un meteorit al cap que te'l fractura.\n\nQue inútil que ets! Ni com a sac de boxa serves.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Meteorit al cap"
+    },
+    "final3": {
+      "text": "Comences a subornar gent, però li fas una broma de mal gust a la màfia del regne.\n\nA la màfia no li agraden les bromes. Et tallen el cap i venen els teus òrgans al mercat negre.\n\nAlmenys algú ha fet diners amb tu.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Òrgans al mercat negre"
+    },
+    "final4": {
+      "text": "Ignores tot el que ha passat i segueixes bevent vi. T'emborratxes molt, tornes a casa i vas al llit.\n\nMentres dormes, et dona un infart. El vi i la corrupció no són bona combinació.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "L'últim vi"
+    },
+    "final5": {
+      "text": "Entres a la cabana per dormir, però resulta que era d'un bandit. El bandit torna, et troba al seu llit i no li fa cap gràcia.\n\nLluiteu i perds. Un mag mèdic contra un bandit... no era un combat just.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "La cabana del bandit"
+    },
+    "final_victory": {
+      "text": "Parles amb el vell mag. Resulta que és un antic mestre que es va retirar perquè estava fart de la corrupció del regne (et sona familiar?).\n\nEt pren com a aprenent. Amb el temps, t'ensenya màgia de veritat i et converteixes en un mag molt més fort del que mai hauries estat a l'exèrcit.\n\nVius a la muntanya, lluny de la corrupció, amb vi, màgia i tranquil·litat. No està malament per algú que es diu Pringui.",
+      "isEnding": true,
+      "endingType": "good",
+      "endingTitle": "Nova vida com a mag"
+    },
+    "final_frog": {
+      "text": "Intentes robar el bastó al vell mag. Error.\n\nEl vell mag és MOLT més fort que tu. Amb un moviment del dit, et converteix en una granota.\n\nAra vius en un estany menjant mosques. Almenys ja no has de pagar impostos.\n\nCroac.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Croac"
+    }
+  }
+}

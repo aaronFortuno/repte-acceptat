@@ -1,0 +1,95 @@
+{
+  "id": "passadis",
+  "title": "No Respiris al Passadís",
+  "author": "Coquipopi",
+  "startNode": "node0",
+  "nodes": {
+    "node0": {
+      "text": "Ets un alumne i estàs a classe fent mates. Tots esteu molt avorrits.\n\nDe sobte s'escolta una alarma que diu:\n\n«ALERTA. Això no és un simulacre. Heu de sortir tots de l'escola perquè... bueno, després us ho expliquem.»\n\nTothom està molt intrigat perquè vol saber què passa.",
+      "choices": [
+        { "label": "Quedar-te a classe i no fer res", "nextNode": "final1" },
+        { "label": "Sortir ràpidament i anar on t'han dit", "nextNode": "node1" },
+        { "label": "Investigar què és el que passa", "nextNode": "node2" }
+      ]
+    },
+    "node1": {
+      "text": "Vas amb la resta de la classe i et quedes on has d'estar. No has descobert per què s'ha d'evacuar l'escola.\n\nVeus el teu mestre trucant als pares de tothom. Pots esperar que et vinguin a recollir... o tornar a entrar d'amagat.",
+      "choices": [
+        { "label": "Esperar que et vinguin a recollir i marxar a casa", "nextNode": "final2" },
+        { "label": "Entrar a l'escola d'amagat", "nextNode": "node2" }
+      ]
+    },
+    "node2": {
+      "text": "L'escola, que fa cinc minuts era plena de crits, ara està tota en silenci.\n\nT'has amagat a la teva classe de mates per observar des de la finestra què passa a fora, però de cop, el silenci es trenca. Sents uns sorolls estranys que venen d'una altra classe.",
+      "choices": [
+        { "label": "Seguir el soroll per veure d'on ve", "nextNode": "node3" },
+        { "label": "Anar al passadís i amagar-te a una altra classe", "nextNode": "node4" }
+      ]
+    },
+    "node3": {
+      "text": "Avances pel passadís i et vas acostant als sorolls. Ets davant de la porta d'on surten.",
+      "choices": [
+        { "label": "Obrir la porta", "nextNode": "final3" },
+        { "label": "Mirar pel pany", "nextNode": "node5" }
+      ]
+    },
+    "node4": {
+      "text": "Vas pel passadís que porta a una altra classe. La porta està oberta.\n\nPots entrar-hi i quedar-te allà... o canviar d'idea i anar a la classe d'on venen els sorolls.",
+      "choices": [
+        { "label": "Entrar i quedar-te allà sense fer res", "nextNode": "final1" },
+        { "label": "Canviar d'idea i anar cap als sorolls", "nextNode": "node3" }
+      ]
+    },
+    "node5": {
+      "text": "Mires pel pany i veus un grup de figures vestides amb vestits de protecció. Porten una màquina amb la qual escampen un fum de color lila.\n\nDe sobte, una d'elles es gira. No és una persona. És un ésser amb ulls lluminosos de color vermell, la resta de la cara són cables. Les seves mans són molt llargues i robòtiques. És més alt que una persona adulta.\n\nQuan creus la mirada amb ell, tens una visió: el veus intoxicant l'escola amb el fum lila i després intoxicant i conquerint tot el planeta.\n\nEls vestits de protecció! Potser ells també es poden intoxicar i per això els porten. Recordes que portes el compàs a la motxilla...",
+      "choices": [
+        { "label": "Anar corrents al pati i explicar-ho tot", "nextNode": "final4" },
+        { "label": "Fer fotos amb la càmera que sempre portes a la butxaca", "nextNode": "node6" },
+        { "label": "Usar el compàs per trencar-los els vestits de protecció", "nextNode": "final_victory" }
+      ]
+    },
+    "node6": {
+      "text": "Agafes la càmera i fas un munt de fotos per si de cas. Vas corrents cap al pati.\n\nEnsenyes les fotos als teus companys i mestres i els expliques tot el que has vist. Dos alumnes es desmaien.\n\nMentrestant, et fixes en les fotos: els vestits de protecció... potser ells també es poden intoxicar! Recordes el compàs de la motxilla.",
+      "choices": [
+        { "label": "Tornar dins l'escola amb el compàs per trencar els vestits", "nextNode": "final_victory" },
+        { "label": "Deixar que els mestres avisin la policia i els militars", "nextNode": "final5" }
+      ]
+    },
+    "final1": {
+      "text": "Et quedes a la classe sense fer res. El fum lila s'escampa per tota l'escola en silenci. Mors sense saber per què ni qui t'ha matat.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Mort en silenci"
+    },
+    "final2": {
+      "text": "Et venen a recollir i marxes a casa sense saber què ha passat. Al cap d'uns dies, veus a les notícies que això ha passat a totes les escoles del món. Els éssers han conquerit el planeta.\n\nTu estàs viu, però el món ja no és el mateix. Mai sabràs que podries haver-ho evitat.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Ignorància no és felicitat"
+    },
+    "final3": {
+      "text": "Obres la porta de cop. El fum lila et colpeja la cara. De sobte et trobes a terra i te n'adones que t'estàs morint.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "El fum lila"
+    },
+    "final4": {
+      "text": "Arribes al pati i tots et pregunten on estaves. Els expliques tot el que has vist, però ningú et creu.\n\nAl cap d'uns dies, veus per les notícies que ha passat això a totes les escoles del món. L'ésser ha aconseguit el seu objectiu i ha conquerit el planeta.\n\nTenies raó, però ningú et va escoltar.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Ningú et creu"
+    },
+    "final5": {
+      "text": "Els mestres avisen la policia i els militars. Arriben amb tot l'equipament, però no es pot fer res. El fum lila és massa potent i els éssers són massa avançats.\n\nEls éssers conquisten el món. La força bruta no era la solució.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "La força no és suficient"
+    },
+    "final_victory": {
+      "text": "Agafes el compàs i entres a la classe molt silenciosament, aguantant la respiració.\n\nT'apropes a un dels éssers i li trenques el vestit de protecció. El fum lila comença a afectar-lo. Fas el mateix amb tots els altres, un per un.\n\nEl fum els fa caure a terra. Veus com la llum dels seus ulls es va apagant lentament, un darrere l'altre.\n\nHo has aconseguit. Has salvat el planeta amb un compàs de mates.\n\nIrònic, oi? Tot va començar a classe de mates.",
+      "isEnding": true,
+      "endingType": "good",
+      "endingTitle": "L'heroi del compàs"
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "id": "jardi",
+  "title": "El Jardí de les Portes Impossibles",
+  "author": "Coquette2.0",
+  "startNode": "node0",
+  "nodes": {
+    "node0": {
+      "text": "Estàs en un jardí molt antic que ningú del poble s'atreveix a visitar. Diuen que al centre del jardí hi ha portes que donen a llocs impossibles.\n\nQuan entres, veus un camí ple de plantes salvatges. L'aire és tranquil, però hi ha alguna cosa estranya, com si el jardí estigués viu.\n\nAl fons hi ha tres portes estranyes que no estan connectades amb cap mur: simplement estan dretes al mig de l'herba.\n\nUna porta és blava i feta d'aigua que no es mou, una altra és de fusta molt antiga amb un pany, i la tercera és un marc buit amb una llum brillant a dins.",
+      "choices": [
+        { "label": "Travessar la porta d'aigua", "nextNode": "node1" },
+        { "label": "Provar d'obrir la porta de fusta", "nextNode": "node2" },
+        { "label": "Passar pel marc amb llum", "nextNode": "node3" }
+      ]
+    },
+    "node1": {
+      "text": "Travesses la porta d'aigua i apareixes dins d'un llac tranquil. Sorprenentment, pots respirar sota l'aigua.\n\nTot és silenciós. Les plantes es mouen lentament i la llum arriba suau des de la superfície.\n\nAl fons veus una clau platejada clavada a la sorra. A prop també hi ha una cova petita entre les roques amb una llum tènue.\n\nUn peix de colors et mira i comença a nedar lentament, com si volgués que el segueixis.",
+      "choices": [
+        { "label": "Nedar cap a la clau platejada", "nextNode": "node4" },
+        { "label": "Entrar a la cova", "nextNode": "node5" },
+        { "label": "Seguir el peix de colors", "nextNode": "node6" }
+      ]
+    },
+    "node2": {
+      "text": "La porta de fusta està tancada amb un pany antic. Sembla molt resistent.\n\nProves de moure-la, però no s'obre. Sense una clau, serà difícil passar.\n\nMires al teu voltant, però només hi ha branques i pedres. No sembla que puguis fer res més aquí per ara.",
+      "choices": [
+        { "label": "Anar a buscar alguna cosa al llac", "nextNode": "node1" },
+        { "label": "Provar el marc de llum", "nextNode": "node3" }
+      ]
+    },
+    "node3": {
+      "text": "Travesses el marc de llum i apareixes en un jardí igual, però amb el cel morat i una llum estranya.\n\nTot és molt silenciós. Al centre hi ha una porta negra i al costat una estàtua amb una ranura, com si hi faltés alguna cosa.\n\nSents una sensació estranya, com si aquest lloc fos més perillós.",
+      "choices": [
+        { "label": "Obrir la porta negra", "nextNode": "final1" },
+        { "label": "Tocar l'estàtua", "nextNode": "final2" },
+        { "label": "Tornar enrere", "nextNode": "node0" }
+      ]
+    },
+    "node4": {
+      "text": "Agafes la clau platejada del fons del llac.\n\nQuan la toques, brilla suaument i notes una energia estranya, com si fos màgica.\n\nDurant uns segons, l'aigua al teu voltant sembla més clara. Tens la sensació que aquesta clau és important per avançar.\n\nLa cova sembla més interessant ara, i el peix continua esperant.",
+      "choices": [
+        { "label": "Tornar a la porta de fusta amb la clau", "nextNode": "node2" },
+        { "label": "Entrar a la cova", "nextNode": "node5" },
+        { "label": "Seguir el peix de colors", "nextNode": "node6" }
+      ]
+    },
+    "node5": {
+      "text": "Entres a la cova i avances per un passadís estret amb parets que brillen lleugerament.\n\nAl final trobes una porta petita amb una ranura perfecta per una clau.\n\nPerò també notes un corrent fosc que es mou lentament per un costat. Fa mala espina.\n\nEl silenci és total. Has de decidir amb cura.",
+      "choices": [
+        { "label": "Obrir la porta amb la clau", "nextNode": "final3" },
+        { "label": "Seguir el corrent fosc", "nextNode": "final4" },
+        { "label": "Tornar enrere al llac", "nextNode": "node1" }
+      ]
+    },
+    "node6": {
+      "text": "Segueixes el peix de colors fins a un racó del llac on tot brilla amb una llum suau.\n\nAllà hi ha una porta petita flotant amb forma de cor. Sembla molt bonica... però també estranya.\n\nEl peix es queda quiet, mirant-te. És com si t'estigués avisant que triïs bé.",
+      "choices": [
+        { "label": "Obrir la porta amb forma de cor", "nextNode": "final5" },
+        { "label": "Tornar a la cova", "nextNode": "node5" },
+        { "label": "Tornar al jardí principal", "nextNode": "node2" }
+      ]
+    },
+    "final1": {
+      "text": "Obres la porta negra amb una mica de dubte. A dins, tot s'omple d'una llum càlida i suau que et fa sentir tranquil·la.\n\nEntres en una sala enorme plena de portes flotants que giren lentament a l'aire. Algunes brillen, altres xiuxiuegen, i totes semblen portar a llocs impossibles.\n\nUna veu suau ressona al teu voltant:\n\n«Has demostrat valentia i curiositat. Has trobat el veritable secret del Jardí.»\n\nSents que el jardí t'accepta i que ja formes part del seu misteri.",
+      "isEnding": true,
+      "endingType": "good",
+      "endingTitle": "El secret del Jardí"
+    },
+    "final2": {
+      "text": "T'acostes a l'estàtua i, sense pensar-ho massa, l'acaricies.\n\nDurant un instant no passa res... però de sobte el terra comença a tremolar sota els teus peus.\n\nAbans que puguis reaccionar, el terra s'obre i caus dins d'un forat fosc. Intentes agafar-te a alguna cosa, però tot rellisca.\n\nAcabes atrapada en una cavitat profunda, sense sortida i amb un silenci inquietant que ho omple tot.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "El parany de l'estàtua"
+    },
+    "final3": {
+      "text": "Col·loques la clau a la ranura i la porta s'obre lentament, com si feia anys que t'esperava.\n\nA l'altra banda hi ha una sala petita però plena de llum daurada. L'aire és càlid i tranquil.\n\nAl centre hi ha una mena de llum flotant que batega com un cor. Quan t'hi acostes, sents una pau estranya.\n\nUna veu et diu:\n\n«Has arribat al cor del jardí. Has triat bé.»\n\nSaps que has descobert un lloc que molt poca gent ha vist mai.",
+      "isEnding": true,
+      "endingType": "good",
+      "endingTitle": "El cor del Jardí"
+    },
+    "final4": {
+      "text": "Decideixes seguir el corrent fosc, tot i que alguna cosa et diu que no és bona idea.\n\nAl principi avances lentament, però de cop la força de l'aigua augmenta i t'arrossega sense control.\n\nTot es torna fosc i confús. Intentes tornar enrere, però és impossible.\n\nEl corrent et porta cada cop més profund, fins que ja no veus res més.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Arrossegada pel corrent"
+    },
+    "final5": {
+      "text": "T'acostes a la petita porta flotant i, tot i el dubte, decideixes obrir-la.\n\nNomés tocar-la, s'obre de cop i una força estranya t'absorbeix cap a dins.\n\nDe sobte et trobes en un lloc completament diferent: un espai buit, silenciós, sense camins ni sortides.\n\nMires al teu voltant, però no hi ha res... només foscor i quietud.\n\nEntens massa tard que aquesta porta no tenia retorn.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "La porta sense retorn"
+    }
+  }
+}

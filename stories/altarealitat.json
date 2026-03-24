@@ -1,0 +1,74 @@
+{
+  "id": "altarealitat",
+  "title": "L'Alta Realitat",
+  "author": "El Rumano",
+  "startNode": "node0",
+  "nodes": {
+    "node0": {
+      "text": "Un dia, en sortir del treball, trobes un portal invisible a la porta de casa teva. Sense pensar-ho, el creues.\n\nDe sobte ets en un altre món. Tot sembla diferent: el cel és vermellós, la vegetació és estranya i l'aire fa una olor metàl·lica. Penses que és la teva imaginació... però no ho és.\n\nAbans que puguis reaccionar, una criatura enorme et veu i comença a perseguir-te. És ràpida, molt ràpida.",
+      "choices": [
+        { "label": "Córrer tan ràpid com puguis", "nextNode": "final1" },
+        { "label": "Escalar un arbre proper", "nextNode": "final2" },
+        { "label": "Agafar una pedra grossa i llançar-li", "nextNode": "node1" }
+      ]
+    },
+    "node1": {
+      "text": "Li tires la pedra al cap amb tota la força! La criatura cau inconscient a terra.\n\nEt poses a córrer sense mirar enrere. Però saps que no la has matada, només aturada de moment.\n\nDesprés d'una bona estona corrent, arribes al peu d'una gran muntanya que bloqueja el camí. Darrere teu, a la llunyania, sents un rugit: la criatura s'ha despertat i et busca.",
+      "choices": [
+        { "label": "Quedar-te mirant la muntanya, sense saber què fer", "nextNode": "final3" },
+        { "label": "Escalar la muntanya ràpidament", "nextNode": "node2" },
+        { "label": "Anar per un altre camí rodejant la muntanya", "nextNode": "final4" }
+      ]
+    },
+    "node2": {
+      "text": "Escales la muntanya tan ràpid com pots! La criatura t'ha trobat i comença a escalar darrere teu.\n\nQuan arribes a dalt, veus una pedra enorme al caire. L'empenys amb totes les forces i la pedra cau rodant muntanya avall. La criatura no pot esquivar-la: la caiguda l'acaba.\n\nPero no hi ha temps per celebrar-ho. Una manada de criatures voladores apareix al cel i es dirigeix cap a tu. Són ràpides i venen de tots costats.\n\nAl cim de la muntanya hi ha unes ruïnes antigues. Entre les pedres, veus una mena d'arma estranya que brilla amb una llum blava.",
+      "choices": [
+        { "label": "Córrer muntanya avall amb totes les forces", "nextNode": "final5" },
+        { "label": "Agafar l'arma de les ruïnes i plantar cara", "nextNode": "final_victory" },
+        { "label": "Intentar amagar-te entre les ruïnes", "nextNode": "final6" }
+      ]
+    },
+    "final1": {
+      "text": "Corres tan ràpid com pots, però la criatura corre el triple que tu. Abans que te n'adonis, t'ha atrapat. No tens cap oportunitat.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Massa lent"
+    },
+    "final2": {
+      "text": "Escales un arbre alt i la criatura es queda a baix. Et poses content perquè no puja!\n\nPerò hi ha un petit problema: la criatura es queda esperant que baixis. Passes hores, dies... No se'n va mai. Et quedes atrapat per sempre dalt de l'arbre.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Atrapat a l'arbre"
+    },
+    "final3": {
+      "text": "Et quedes parat mirant la muntanya, sense saber què fer. Trigues massa.\n\nLa criatura t'ha seguit el rastre i t'alcança. Et mossega brutalment al costat de la muntanya. No sobrevius.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Indecisió fatal"
+    },
+    "final4": {
+      "text": "Intentes anar per un altre camí rodejant la muntanya, però el terreny obert no t'ofereix cap protecció.\n\nRecorda: la criatura corre el triple que tu. T'agafa pel peu, caus, quedes inconscient i no despertes mai més.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Sense escapatòria"
+    },
+    "final5": {
+      "text": "Baixes corrent la muntanya, però les criatures voladores són molt més ràpides que tu. T'atrapen abans d'arribar a baix.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Caçat pels voladors"
+    },
+    "final6": {
+      "text": "T'amagues entre les ruïnes, però les criatures voladores et troben ràpidament. No hi ha prou lloc per amagar-se.\n\nT'agafen i t'eleven pel cel. No tornes a tocar terra.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Endut pels voladors"
+    },
+    "final_victory": {
+      "text": "Agafes l'arma estranya de les ruïnes. Quan la toques, brilla amb força i sents una energia poderosa recórrer-te el cos.\n\nApuntes cap a les criatures voladores i dispara un raig de llum blava que les dispersa. Fugen espantades cap a l'horitzó.\n\nAmb l'arma a la mà, baixes la muntanya. A la llunyania, veus una escletxa de llum que reconèixes: és el portal de tornada a casa.\n\nEl creues sense dubtar-ho. Estàs de nou davant de la porta de casa teva. Tot és normal. El portal ha desaparegut.\n\nEntres a casa, tanques la porta amb clau, i decideixes que demà agafaràs un altre camí per tornar del treball.",
+      "isEnding": true,
+      "endingType": "good",
+      "endingTitle": "Tornada a casa"
+    }
+  }
+}

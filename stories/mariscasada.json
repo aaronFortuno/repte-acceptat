@@ -1,0 +1,94 @@
+{
+  "id": "mariscasada",
+  "title": "Misteri a la Casa Mariscasada",
+  "author": "El Pepe",
+  "startNode": "node0",
+  "nodes": {
+    "node0": {
+      "text": "És dimarts a la tarda, falten deu minuts perquè soni el timbre i, de sobte, les alarmes de l'escola comencen a xisclar amb una estridència ensordidora. Una onada de fum negre i espès irromp pel passadís. Hi ha un incendi a l'edifici i s'està escampant a una velocitat terrorífica.\n\nEts un professor que ja estava bastant cremat de la seva feina, però ara la cosa s'ha tornat literal.\n\nEls teus alumnes et miren amb els ulls esbatanats, plens de pànic, esperant que els diguis què han de fer. El foc ja bloqueja gairebé tota la sortida. És el moment de la veritat.",
+      "choices": [
+        { "label": "Fer d'heroi: posar-te la jaqueta a la cara i llançar-te a les flames", "nextNode": "final1" },
+        { "label": "Cridar «i qui pugui!» i sortir corrents per salvar el teu propi cul", "nextNode": "node1" },
+        { "label": "Llançar l'explosiu C4 que portes a la motxilla per obrir una via d'escapament", "nextNode": "final2" }
+      ]
+    },
+    "node1": {
+      "text": "Passes del foc i els deixes morir. Sobrevius, però els seus esperits et segueixen per venjar-se.\n\nA la nit següent vindran a buscar-te. Has de protegir la teva casa i fer-la a prova de fantasmes. Si no fas res, moriràs i et torturaran per l'eternitat.",
+      "choices": [
+        { "label": "Posar metall i pedres al voltant de casa i agafar l'aspiradora", "nextNode": "node2" },
+        { "label": "Quedar-te assegut al sofà jugant a la Play tot el dia", "nextNode": "final3" },
+        { "label": "Anar a un hotel amb seguretat", "nextNode": "final4" }
+      ]
+    },
+    "node2": {
+      "text": "Et salves! Aspires alguns fantasmes que han entrat i els altres fugen en veure que tens una arma que pot aspirar-los.\n\nPerò vindran més forts que abans. Has de preparar-te millor per a la pròxima nit.",
+      "choices": [
+        { "label": "Al matí següent, avisar la policia", "nextNode": "final5" },
+        { "label": "Entrar a la carnisseria del Paco buscant refugi", "nextNode": "final6" },
+        { "label": "Comprar una escopeta, un revòlver, menjar i aigua per la nit", "nextNode": "node3" }
+      ]
+    },
+    "node3": {
+      "text": "Sobrevius a la nit, però quasi mors perquè t'has oblidat de cobrir la casa!\n\nEls fantasmes cada cop vénen amb més força. Necessites un pla definitiu.",
+      "choices": [
+        { "label": "Anar al castell i demanar resguard als guàrdies", "nextNode": "final7" },
+        { "label": "Anar al psicòleg per saber si estàs boig", "nextNode": "final8" },
+        { "label": "Cobrir la casa i resguardar-te amb les armes i el menjar", "nextNode": "final_victory" }
+      ]
+    },
+    "final1": {
+      "text": "Et poses la jaqueta a la cara i et llances cap a les flames com un heroi de pel·lícula.\n\nPerò no ets un heroi de pel·lícula. Mors.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Heroi cremat"
+    },
+    "final2": {
+      "text": "Per algun motiu absurd portaves un explosiu C4 a la motxilla. El llances contra la paret per obrir una via d'escapament.\n\nAmb la teva mala punteria, l'explosiu rebota a la finestra i torna cap a tu.\n\nMors. De forma molt explosiva.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Mala punteria"
+    },
+    "final3": {
+      "text": "Et quedes al sofà jugant a la Play tot el dia. Estàs a mitja partida del FIFA quan arriba la nit.\n\nEls fantasmes entren en silenci mentre estàs concentrat en un penal. No els sents arribar.\n\nGame over. I no del FIFA.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Game Over al sofà"
+    },
+    "final4": {
+      "text": "Vas a un hotel amb seguretat. Et sents protegit darrere dels guàrdies.\n\nPerò els fantasmes maten la seguretat i després et maten a tu. Les parets d'un hotel no aturen els esperits.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Hotel maleït"
+    },
+    "final5": {
+      "text": "Vas a la policia i els expliques que et persegueixen fantasmes dels teus alumnes morts.\n\nCom que sembles completament boig, et guillotinen.\n\nPotser no era la millor idea explicar-ho a les autoritats.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Guillotinat per boig"
+    },
+    "final6": {
+      "text": "Entres a la carnisseria desesperat buscant refugi i li expliques al Paco, el carnisser, que et persegueixen fantasmes.\n\nEl Paco et mira de dalt a baix, mira el seu taulell buit i somriu sinistrament. Treu un ganivet de mig metre i diu:\n\n«Tranquil, profe, aquí estaràs segur... Dins d'unes botifarres!»\n\nL'endemà ets la nova oferta de carn picada al supermercat.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Botifarres de profe"
+    },
+    "final7": {
+      "text": "Corres desesperat fins al castell. Arribes ofegat, amb els cabells de punta, i trobes dos guàrdies a l'entrada. Els expliques la història sobre alumnes fantasma i venjances.\n\nEls guàrdies es miren l'un a l'altre. Et posen unes esposes per «alteració de l'ordre públic» i et tanquen en una cel·la.\n\nAl principi penses que estàs segur darrere de murs de pedra tan gruixuts. Però els murs aturen les persones, no els fantasmes.\n\nA la nit, els esperits travessen la paret de la cel·la somrient. Estàs tancat, sense sortida, sense l'escopeta i, el que és pitjor, sense l'aspiradora.\n\nMors atrapat i acabes castigat eternament copiant a la pissarra de direcció.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Tancat amb els fantasmes"
+    },
+    "final8": {
+      "text": "Arribes a la consulta d'un psicòleg d'urgència i li expliques tot: l'incendi, la fugida, els esperits i el pla de defensar-te amb una aspiradora.\n\nEl psicòleg s'ajusta les ulleres i et diu amb veu calmada:\n\n«Tot això són manifestacions de la teva culpa. Els fantasmes no existeixen. Si els ignores, desapareixeran.»\n\nFas cas a la ciència. Tornes a casa. A mitjanit, els esperits travessen les parets cridant. Tu, amb els ulls tancats i en posició de lotus, murmures somrient:\n\n«No sou reals, sou una projecció psicològica del meu trauma...»\n\nEls fantasmes es miren entre ells, desconcertats. S'esperaven una persecució èpica, però com que no oposes resistència, s'encongeixen d'espatlles i executen la venjança ràpidament.\n\nMors en un estat de relaxació absoluta i el teu fantasma acaba anant a teràpia per l'eternitat.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Teràpia eterna"
+    },
+    "final_victory": {
+      "text": "Aquesta vegada no comets el mateix error. Bloqueges portes i finestres amb taulons de fusta, mobles pesats i tires línies de sal a totes les entrades. Amb l'escopeta a una mà, el revòlver a prop, la vella aspiradora endollada al màxim de potència i un bon subministrament de begudes energètiques, t'asseus al mig del menjador. Ets una autèntica fortalesa humana.\n\nA mitjanit, l'horda de fantasmes arriba amb ganes de venjança. Criden i piquen contra les parets, però la barricada resisteix. Els pocs esperits que es colen per la xemeneia són rebuts amb un tret (que els atordeix) i una succió brutal de l'aspiradora.\n\nDesprés de tres hores de combat intens, el líder dels fantasmes s'atura en sec. Et mira, mira el teu arsenal i la teva cara de boig absolut. Fa un sospir fantasmal, aixeca una bandera blanca translúcida i ordena la retirada general: s'adonen que estàs massa boig fins i tot per a ells i decideixen que és millor tornar a l'escola cremada a espantar coloms.\n\nVICTÒRIA! Has sobreviscut a la maledicció i has descobert una nova vocació: ets el caçafantasmes no oficial del barri. Ara, per fi, pots treure els taulons i seure al sofà a jugar a la Play amb total tranquil·litat.",
+      "isEnding": true,
+      "endingType": "good",
+      "endingTitle": "El caçafantasmes del barri"
+    }
+  }
+}

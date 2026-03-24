@@ -1,0 +1,94 @@
+{
+  "id": "tresor",
+  "title": "El Tresor de l'Escola",
+  "author": "Caillou3000",
+  "startNode": "node0",
+  "nodes": {
+    "node0": {
+      "text": "Ets en Marc i t'han enviat a descobrir on s'amaga el tresor de l'escola.\n\nA la porta principal hi ha un minotaure dormint amb cara de pocs amics. Al costat, hi ha un cartell que posa: «Prohibit passar».",
+      "choices": [
+        { "label": "Intentar passar en silenci", "nextNode": "final1" },
+        { "label": "Despertar el minotaure i demanar-li permís", "nextNode": "final2" },
+        { "label": "Anar per la porta del darrere", "nextNode": "node1" }
+      ]
+    },
+    "node1": {
+      "text": "Arribes a la porta del darrere i trobes una armadura que parla! Custodia tres portes.\n\nL'armadura et diu:\n\n«No passis per cap d'elles. Vés-te'n a casa teva.»",
+      "choices": [
+        { "label": "Fer-li cas i anar a casa", "nextNode": "node2" },
+        { "label": "Ignorar-la i intentar passar per una porta", "nextNode": "final3" },
+        { "label": "Donar-li un cop de puny a l'armadura", "nextNode": "final4" }
+      ]
+    },
+    "node2": {
+      "text": "Fas cas a l'armadura i te'n vas a casa. Allà trobes un mapa que indica on és el tresor de l'escola!\n\nPerò el mapa està molt brut i gairebé no s'hi veu res. Què fas?",
+      "choices": [
+        { "label": "Anar a la biblioteca i estudiar el mapa amb cura", "nextNode": "node3" },
+        { "label": "Utilitzar-lo per sonar-te el nas", "nextNode": "final5" },
+        { "label": "Llençar-lo a les escombraries", "nextNode": "final6" }
+      ]
+    },
+    "node3": {
+      "text": "Vas a la biblioteca, estudies el mapa amb cura i aconsegueixes localitzar on és el tresor! Ara tens tota la informació que necessites.\n\nQuè fas amb el mapa?",
+      "choices": [
+        { "label": "Deixar-lo de banda i no fer res més", "nextNode": "final7" },
+        { "label": "Anar a buscar el tresor!", "nextNode": "final_victory" },
+        { "label": "Vendre'l a la biblioteca", "nextNode": "final8" }
+      ]
+    },
+    "final1": {
+      "text": "Intentes passar en silenci, sense fer ni un soroll. Però en creuar la porta, caus en un pou!\n\nEl soroll desperta el minotaure, que no està gens content.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "El pou del minotaure"
+    },
+    "final2": {
+      "text": "Despertes el minotaure i li preguntes educadament si pots passar.\n\nEl minotaure es molesta molt perquè l'has despertat. T'ataca sense pensar-s'ho dues vegades.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Mai despertis un minotaure"
+    },
+    "final3": {
+      "text": "No fas cas a l'armadura i intentes passar per una de les portes.\n\nUna serp verinosa et mossega. L'armadura t'havia avisat...",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "La serp de la porta"
+    },
+    "final4": {
+      "text": "Intentes donar-li un cop de puny a l'armadura per passar. Però l'armadura l'esquiva i et derrota amb un sol moviment.\n\nUna armadura parlant sap lluitar millor que tu.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "L'armadura guerrera"
+    },
+    "final5": {
+      "text": "Utilitzes el mapa per sonar-te el nas. Ara el mapa és totalment illegible.\n\nAdeu, tresor.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "El mocador més car del món"
+    },
+    "final6": {
+      "text": "Llences el mapa a les escombraries. Però el rei s'entera i t'atrapa.\n\nEt castiga per haver llençat un document tan valuós.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Document destruït"
+    },
+    "final7": {
+      "text": "Estudies el mapa, el deixes de banda i no fas res més. Passes de tot.\n\nEl rei no et dona els diners perquè no has fet la feina. Has vingut fins aquí per no res.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "La mandra"
+    },
+    "final8": {
+      "text": "Vens el mapa a la biblioteca per uns quants euros. Bon negoci!\n\nO no. El rei s'entera del que has fet i no li fa cap gràcia que hagis venut un document reial.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Negoci fatal"
+    },
+    "final_victory": {
+      "text": "Vas a buscar el tresor amb el mapa ben estudiat! Segueixes les indicacions i el trobes amagat sota les escales de l'escola.\n\nEl dones al rei, que et recompensa amb una bona quantitat de diners.\n\nMissió complerta, Marc! Has trobat el tresor de l'escola!",
+      "isEnding": true,
+      "endingType": "good",
+      "endingTitle": "El tresor trobat"
+    }
+  }
+}

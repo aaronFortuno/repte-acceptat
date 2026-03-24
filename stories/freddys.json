@@ -1,0 +1,127 @@
+{
+  "id": "freddys",
+  "title": "Una Nit a Freddy's",
+  "author": "Ritari23",
+  "startNode": "node0",
+  "nodes": {
+    "node0": {
+      "text": "Ets en Mike, tens 25 anys i estàs a l'atur. Tens una germana, l'Abby. Has de pagar el lloguer de la casa i si no el pagues et fan fora al carrer.\n\nT'han donat dos contractes de treball:\n\nUn per ser vigilant d'un centre comercial. Només treballes 4 hores al dia, però et paguen molt poc.\n\nL'altre és per ser guarda nocturn d'una pizzeria amb animatrònics antics. El teu horari és de les 12 de la nit a les 6 del matí. Però et paguen molts diners.",
+      "choices": [
+        { "label": "Acceptar treballar al centre comercial", "nextNode": "final1" },
+        { "label": "Acceptar ser guarda nocturn", "nextNode": "node1" }
+      ]
+    },
+    "node1": {
+      "text": "Elegeixes ser guarda nocturn. Demà comences el teu primer torn.\n\nAcabes de començar el teu primer torn. Mires les càmeres i hi veus un conill animatrònic de color blau fosc que mira la càmera dient que quan et trobi et clavar la seva guitarra al cap.\n\nTens molta por. Veus que tens dues portes, i per la porta esquerra veus el conill blau mirant-te fixament.",
+      "choices": [
+        { "label": "Tancar la porta esquerra", "nextNode": "node2" },
+        { "label": "Tancar la porta dreta", "nextNode": "final2" },
+        { "label": "No tancar cap porta", "nextNode": "final3" }
+      ]
+    },
+    "node2": {
+      "text": "Tanques la porta esquerra i et salves de ser aniquilat!\n\nEl cor et va a mil per hora i no et creus el que has vist. Penses en deixar les dues portes tancades, però veus a una pantalla que les portes consumeixen energia.",
+      "choices": [
+        { "label": "No obrir les portes i esperar", "nextNode": "final4" },
+        { "label": "Obrir les portes i vigilar les càmeres", "nextNode": "node3" },
+        { "label": "Obrir les portes i sortir corrents cap a la sortida", "nextNode": "final5" }
+      ]
+    },
+    "node3": {
+      "text": "Arriben les sis del matí! Ha acabat el teu torn. Surts de la pizzeria i veus la bonica matinada, amb un bonic to ataronjat i amb els núvols que semblen de color rosa.\n\nComences la teva segona nit. Abans de començar el teu torn, vas a parlar amb el teu cap perquè et paguin més per conviure amb uns animatrònics psicòpates que et volen matar.\n\nEl teu cap et revela que els animatrònics tenen fantasmes de nens dins. Li preguntes com ho sap i et revela que es diu William Afton. Et sorprens perquè en William Afton va matar cinc nens l'any 1987!\n\nEn William Afton agafa un ganivet per matar-te perquè saps massa coses. S'apropa a tu amb un somriure ESCALOFRIANT i està disposat a acabar amb tu!",
+      "choices": [
+        { "label": "Amagar-me dins d'un vestit buit d'animatrònic que hi ha al racó", "nextNode": "final6" },
+        { "label": "Llançar-me sota la taula de l'oficina de l'Afton i aguantar la respiració", "nextNode": "final7" },
+        { "label": "Entrar ràpidament al conducte de ventilació que hi ha a la paret", "nextNode": "node4" }
+      ]
+    },
+    "node4": {
+      "text": "T'escapes pel conducte de ventilació! És estret i brut, però aconsegueixes arribar a la sala de seguretat i bloquejar la reixa. Ara estàs tancat, però segur... de moment.\n\nEn Afton es fica dins de la ventilació. Sap que et trobes a la sala de seguretat, així que va arrossegant-se per les ventilacions dient:\n\n— Vaig a per tu...",
+      "choices": [
+        { "label": "Intentar electrocutar-lo amb els cables de la paret", "nextNode": "final8" },
+        { "label": "Intentar escapar pel sostre traient les plaques", "nextNode": "final9" },
+        { "label": "Prémer el botó de seguretat de la comporta", "nextNode": "node5" }
+      ]
+    },
+    "node5": {
+      "text": "Prems el botó de seguretat! La comporta baixa amb un soroll sec i sents un crit de ràbia de l'Afton a l'altre costat. Està bloquejat!\n\nAra et trobes segur, però l'Afton no es rendirà fàcilment. Pots fer tres coses:",
+      "choices": [
+        { "label": "Agafar un tros de ferro pesant i preparar-me per colpejar-lo cara a cara", "nextNode": "final10" },
+        { "label": "Agafar el telèfon fix de l'oficina i trucar a la policia", "nextNode": "final_victory" },
+        { "label": "Amagar-me dins del caseller de metall del racó", "nextNode": "final11" }
+      ]
+    },
+    "final1": {
+      "text": "Elegeixes treballar al centre comercial. Com et paguen molt poc, no et donen els diners per pagar la casa i et fan fora al carrer, amb la teva germana Abby, que està molt decepcionada.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Al carrer"
+    },
+    "final2": {
+      "text": "Tanques la porta dreta, però no l'esquerra, que és on es troba l'animatrònic! El conill entra a la sala de seguretat i t'aniquila.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Porta equivocada"
+    },
+    "final3": {
+      "text": "No tanques cap porta. L'animatrònic entra tranquil·lament a la sala de seguretat i t'aniquila sense pietat.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Sense defenses"
+    },
+    "final4": {
+      "text": "No obres les portes i et quedes sense energia. Veus per la porta dreta una guineu pirata animatrònica corrents cap a tu. No pots tancar la porta perquè no tens energia i l'animatrònic et mata amb el seu garfi.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "El garfi del Foxy"
+    },
+    "final5": {
+      "text": "Surts corrents cap a la sortida, però un home misteriós et travessa l'estómac amb un ganivet. Et dessagnes i finalment mors.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "L'home de les ombres"
+    },
+    "final6": {
+      "text": "Intentes amagar-te dins del vestit d'animatrònic, però el mecanisme de molles (springlocks) falla. El vestit s'aixafa amb tu a dins i mors de forma instantània abans que l'Afton t'arribi a tocar.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Springlock failure"
+    },
+    "final7": {
+      "text": "T'amagues sota la taula, però l'Afton somriu perquè sap perfectament on ets. T'agafa pel peu, t'arrossega cap a fora i acaba amb tu.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Amagat en va"
+    },
+    "final8": {
+      "text": "Intentes electrocutar-lo, però l'aigua d'una petita fuita al sostre fa que la descàrrega et torni a tu. Mors electrocutat abans que l'Afton t'arribi a tocar.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Curtcircuit mortal"
+    },
+    "final9": {
+      "text": "Intentes escapar pel sostre, però les plaques són massa febles. Cauen amb tu i et quedes a terra atordit. L'Afton surt de la ventilació i t'atrapa fàcilment.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Caiguda del sostre"
+    },
+    "final10": {
+      "text": "Intentes atacar-lo amb el ferro, però l'Afton és més ràpid i expert. Et treu l'arma de les mans amb un moviment brusc i t'apunyala sense pietat.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Combat desigual"
+    },
+    "final11": {
+      "text": "T'amagues al caseller, però t'oblides que l'Afton coneix cada racó d'aquesta pizzeria. Obre la porta del caseller amb un somriure sinistre i saps que és el teu final.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Sense escapatòria"
+    },
+    "final_victory": {
+      "text": "Truques a la policia! Mentre l'Afton intenta obrir la comporta, les sirenes comencen a sonar a prop.\n\nLes sirenes ressonen a l'exterior, trencant el silenci sepulcral de la pizzeria. En William Afton, en veure que els llums blaus i vermells ja il·luminen la façana a través de les càmeres, s'atura. Et mira fixament a través de l'escletxa del conducte, guarda el seu ganivet i desapareix entre les ombres de la cuina. Saps que ha escapat, però per ara, estàs fora de perill.\n\nArribes a casa amb l'Abby. Ella està molt preocupada perquè a les notícies deien que l'Afton va intentar matar en Mike. Aconsegueixes pagar el lloguer, així que no et fan fora al carrer.\n\nEt ofereixen una sol·licitud per treballar a un restaurant. Et paguen bé i t'agrada la feina. Acceptes i aconsegueixes tenir una vida molt bona.\n\nL'Abby et diu una cosa que et sorprèn: quan treballaves a la Freddy Fazbear Pizzeria, els animatrònics — Chica, Bonnie, Freddy i Foxy — van visitar-la per jugar amb ella.",
+      "isEnding": true,
+      "endingType": "good",
+      "endingTitle": "Sobrevivint a Freddy's"
+    }
+  }
+}

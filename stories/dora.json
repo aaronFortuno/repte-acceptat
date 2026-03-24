@@ -1,0 +1,114 @@
+{
+  "id": "dora",
+  "title": "Dora l'Explotadora",
+  "author": "Sr. Mistery",
+  "startNode": "node0",
+  "nodes": {
+    "node0": {
+      "text": "Ets la Dora, acabes d'arribar a una nova escola. El teu objectiu: ser la més popular i la reina de tots.\n\nJa has fet dos amics: en Guantaso i l'Otisak. Els expliques que tens una cabana secreta al bosc i, encantats, van amb tu.\n\nEn arribar, la il·lusió es trenca. En Guantaso i l'Otisak no paren de parlar de Minecraft i Steal A Brain Rot.\n\nGuantaso: «Uf, el meu nou skin de Creeper és brutal! Amb l'espasa de diamant encantada no em para ningú!»\nOtisak: «Sí, però has vist el nou mode de joc de Steal A Brain Rot? Cal robar els cervells abans que et capturin!»\nTu: (Pensant: «Buf, no paren...»)",
+      "choices": [
+        { "label": "Treure una dinamita de la motxilla perquè es callin", "nextNode": "final1" },
+        { "label": "Interrompre'ls amb fermesa: «Escolteu, nois! Us podeu callar?»", "nextNode": "node1" },
+        { "label": "Unir-te a la conversa: «Oh, sí! A mi també m'encanta Minecraft!»", "nextNode": "node3" }
+      ]
+    },
+    "node1": {
+      "text": "T'hi plantes i els dius que es callin d'una vegada. La teva autoritat és tan impactant que es queden de pedra.\n\nEn lloc d'enfadar-se, en Guantaso i l'Otisak et proclamen líder del seu grupet, al qual anomenen «La Màfia».\n\nL'endemà, la notícia corre per tota l'escola. Ja no ets una alumna més: ets la Cap. Tens 23 seguidors nous que esperen les teves ordres al pati.\n\nPerò el poder atrau problemes, i el Sr. Bigotis (el director) comença a sospitar que estàs muntant un imperi.",
+      "choices": [
+        { "label": "Ordenar als 23 amics que vigilin el pati. Ningú juga sense el teu permís", "nextNode": "final2" },
+        { "label": "Enviar en Guantaso i l'Otisak a posar pega a la cadira del director", "nextNode": "final3" },
+        { "label": "Declarar que «La Màfia» protegirà els nens petits dels matons de l'ESO", "nextNode": "node2" }
+      ]
+    },
+    "node2": {
+      "text": "Salves els nens de l'assetjament! Com a agraïment, tots els nens de 1r B d'ESO et donen 50 cèntims cadascun. Tens 15 euros!\n\nAra has de decidir què fer amb els diners:",
+      "choices": [
+        { "label": "Comprar la cartolina per als deures de demà", "nextNode": "final4" },
+        { "label": "Una targeta de PlayStation de 15 euros", "nextNode": "final5" },
+        { "label": "Comprar-te un entrepà de llom", "nextNode": "final_llom" }
+      ]
+    },
+    "node3": {
+      "text": "T'uneixes a la conversa i els parles tu també de Minecraft i de Steal A Brain Rot. La tarda a la cabana és un èxit de friquisme.\n\nPerò l'endemà, tornes a l'escola i t'adones que corre un rumor. En Guantaso i l'Otisak han escampat tot el que vas dir!\n\nUn grup de nens t'assenyala i riu. Et diuen que ets un «nen rata» perquè jugues a jocs de nens petits. La situació s'escalfa.",
+      "choices": [
+        { "label": "Fotre-li l'hòstia de l'any al líder dels matons", "nextNode": "final_punch" },
+        { "label": "No fer res", "nextNode": "node4" },
+        { "label": "Dir-ho als profes", "nextNode": "final6" }
+      ]
+    },
+    "node4": {
+      "text": "Les conseqüències són dures. Els matons no han parat de molestar-te en tot el curs.\n\nDues setmanes després, ja has començat 1r d'ESO. Mentre camines pels passadissos del nou institut, els tornes a veure. Sense que puguis reaccionar, t'empenyen i et tanquen en un lavabo fosc.\n\nDe cop, apareixen dues «Tortugues Ninja» (que en realitat són tortugues normals amb una cinta al cap i una espasa a la boca) amb intencions homicides.",
+      "choices": [
+        { "label": "Donar-li una patada", "nextNode": "final7" },
+        { "label": "Ignorar-les", "nextNode": "final8" },
+        { "label": "Trepitjar-li el caparasso", "nextNode": "final9" }
+      ]
+    },
+    "final1": {
+      "text": "Treus una dinamita de la motxilla i la llences al mig de la cabana. L'explosió és d'una magnitud gegantina, molt més del que esperaves.\n\nCom que ets un «pringui» nivell 11/10, no calcules bé la distància de seguretat. L'ona expansiva us atrapa a tots tres.\n\nEl bosc comença a cremar sense control. Les flames arriben fins a casa dels teus pares, que queda reduïda a cendres.\n\nHas destruït el bosc, la teva casa i has acabat amb la partida d'una forma explosiva.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Explosió pringui"
+    },
+    "final2": {
+      "text": "Els profes es donen compte del teu règim autoritari i et renyen davant de tothom. Plores davant de tots i et consideren una nena dèbil.\n\nJa no ets la líder. L'imperi ha caigut.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "La caiguda de l'imperi"
+    },
+    "final3": {
+      "text": "El director es dona compte del teu pla i envia més profes a buscar-te. Et pillen, et renyen davant de tothom i plores.\n\nEt consideren una nena dèbil i ja no ets la líder. La pega a la cadira no va ser tan bona idea.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "La pega traïdora"
+    },
+    "final4": {
+      "text": "No trobes cap cartolina a cap botiga! I això comptava el 60% de la teva nota.\n\nSuspens, plores davant de tots i et consideren una nena dèbil. Ja no ets la líder.\n\nHauries d'haver comprat l'entrepà.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Sense cartolina"
+    },
+    "final5": {
+      "text": "Canvies els 15 euros per una targeta de PlayStation. Però el teu germà t'agafa la Play i es gasta la targeta en el pitjor joc del món.\n\n15 euros llençats a les escombraries.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "El pitjor joc del món"
+    },
+    "final_llom": {
+      "text": "Et compres un entrepà de llom. Al dia següent, tothom et veu amb l'entrepà i et consideren el REI DE L'ENTREPÀ DE LLOM.\n\nHAS GUANYAT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+      "isEnding": true,
+      "endingType": "good",
+      "endingTitle": "El Rei de l'Entrepà de Llom"
+    },
+    "final_punch": {
+      "text": "Li fots una hòstia al matón més gran del grupet. Cau a terra desplomat, no pot fer res.\n\nEls teus companys et feliciten. Ja no et faran més assetjament ni a tu ni a ningú. Els companys dels matons volen unir-se al teu grup, però els dius que no els vols. Se'n van plorant.\n\nEts la més poderosa de tota l'escola.",
+      "isEnding": true,
+      "endingType": "good",
+      "endingTitle": "La més poderosa"
+    },
+    "final6": {
+      "text": "Has anat als professors, però no t'ha servit de res. Com que no tenen proves, s'han rentat les mans.\n\nEls matons t'han posat l'etiqueta de «xivata» i l'assetjament s'ha multiplicat per dos. T'encerclen en un racó i el líder et deixa les coses clares:\n\n«Ets una xivata. Ara sabràs el que és bo. Com se't acudeixi tornar a dir res, estàs avisada.»\n\nNingú et defensa. L'escola ja no és un lloc segur.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "La xivata"
+    },
+    "final7": {
+      "text": "Li fots una patada a la tortuga i xoca contra la paret. Vas a agafar-la, però de sobte muta i es converteix en una autèntica Tortuga Ninja.\n\nEt talla el cap amb la seva katana. No hauries d'haver provocat una tortuga amb una espasa.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "La venjança de la tortuga"
+    },
+    "final8": {
+      "text": "Ignores les tortugues. Greu error. Et mosseguen el bessó sense que te n'adonis i et fiquen un líquid verinós.\n\nAl cap de 2 minuts, el verí fa efecte. Mai ignoris una tortuga ninja.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Verí ninja"
+    },
+    "final9": {
+      "text": "Intentes trepitjar-li el caparàs, però està massa dur i no li fas res.\n\nMentrestant, l'altra tortuga et mossega i et fica un líquid verinós. Mors enverinada.\n\nEl caparàs era a prova de trepitjades.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Caparàs blindat"
+    }
+  }
+}

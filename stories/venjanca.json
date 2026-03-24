@@ -1,0 +1,73 @@
+{
+  "id": "venjanca",
+  "title": "Venjança a Freddy's",
+  "author": "El Pana Miguel",
+  "startNode": "node0",
+  "nodes": {
+    "node0": {
+      "text": "Ets un ex-treballador de Freddy Fazbear Pizza i et van despedir. Has decidit anar-hi per venjar-te.\n\nQuan arribes al restaurant, les tanques estan trencades i pots entrar. El cartell està ple de pols i una mica trencat.\n\nUn senyor et diu que no entris al restaurant. Què fas?",
+      "choices": [
+        { "label": "No fer-li cas i entrar", "nextNode": "node1" },
+        { "label": "Fer-li cas i tornar a casa", "nextNode": "final1" },
+        { "label": "Donar-li un cop de puny i sortir corrents", "nextNode": "final2" }
+      ]
+    },
+    "node1": {
+      "text": "Entres al restaurant ignorant el senyor. Recordes que mentre treballaves et vas trobar un paper que deia que els animatrònics es mouen sols. Et dóna un esgarrifó.\n\nTrobes els animatrònics apagats, però de repent les llums s'encenen i els animatrònics comencen el seu espectacle.",
+      "choices": [
+        { "label": "No donar-li importància i investigar", "nextNode": "final3" },
+        { "label": "Anar a la sala de fusibles i apagar-los", "nextNode": "node2" }
+      ]
+    },
+    "node2": {
+      "text": "Quan vas a la sala de fusibles, un animatrònic et troba! Tanques la porta just a temps.\n\nL'animatrònic està colpejant la porta i l'està mig trencant. No aguantarà gaire.",
+      "choices": [
+        { "label": "Posar un moble molt pesant perquè no entri", "nextNode": "node3" },
+        { "label": "Sortir corrents per l'altra porta", "nextNode": "final4" }
+      ]
+    },
+    "node3": {
+      "text": "Poses el moble contra la porta just a temps! Però RÀPID! Per l'altra porta apareix un altre animatrònic!\n\nEstàs atrapat entre dos animatrònics. Només tens uns segons per decidir.",
+      "choices": [
+        { "label": "Sortir per la finestra", "nextNode": "final_victory" },
+        { "label": "Quedar-te allà i acceptar el destí", "nextNode": "final5" }
+      ]
+    },
+    "final1": {
+      "text": "Te'n vas a casa. En dos dies estan construint un centre comercial on era el restaurant. La teva venjança ja no té sentit.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Enderrocat"
+    },
+    "final2": {
+      "text": "Li dones un cop de puny al senyor i surts corrents. Després de dos dies t'arriba una carta de denúncia. La venjança et surt cara.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Denunciat"
+    },
+    "final3": {
+      "text": "Mentre busques informació pel restaurant, un animatrònic comença a moure's. Et troba en un passadís fosc i no tens on escapar.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Caçat al passadís"
+    },
+    "final4": {
+      "text": "Surts corrents per l'altra porta, però a l'altre costat t'espera un animatrònic. No tens temps de reaccionar.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Emboscada"
+    },
+    "final5": {
+      "text": "Et quedes allà esperant. Per raons òbvies, els animatrònics t'atrapen. No va ser la millor decisió.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Rendició"
+    },
+    "final_victory": {
+      "text": "Saltes per la finestra just a temps! El vidre es trenca i caus a l'exterior.\n\nEt lleves, corres cap a la tanca trencada i no mires enrere. Estàs viu.\n\nPotser la venjança no valia la pena, però almenys has sobreviscut per explicar-ho.",
+      "isEnding": true,
+      "endingType": "good",
+      "endingTitle": "Escapada per la finestra"
+    }
+  }
+}

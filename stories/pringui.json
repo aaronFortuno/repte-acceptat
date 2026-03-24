@@ -1,0 +1,100 @@
+{
+  "id": "pringui",
+  "title": "La Pringui i la Reina Perduda",
+  "author": "Reina Cotilla",
+  "startNode": "node0",
+  "nodes": {
+    "node0": {
+      "text": "Ets l'Edna. Estàs a casa teva, cansada de que tothom et digui PRINGUI. Just veus que arriba una notificació:\n\n«Estimada pringui, t'escrivim des del país de Catalunya. Espera, Catalunya és un país? Bueno, és igual. El rei Agustín necessita la teva ajuda. T'escrivim a tu perquè hem anat a preguntar a totes les persones del món, i ningú ha volgut. Tu ets l'única persona que ens pot ajudar. Ha desaparegut la reina Maria. Esperem la teva resposta.»",
+      "choices": [
+        { "label": "Acceptar, perquè no tens res millor a fer", "nextNode": "node1" },
+        { "label": "No acceptar i seguir amb la teva vida", "nextNode": "node2" },
+        { "label": "Fer-te tu la nova reina de... Catalunya?", "nextNode": "node3" }
+      ]
+    },
+    "node1": {
+      "text": "Acceptes la proposta i envies un correu dient:\n\n«Estimat rei Agustín, sóc l'Edna. Ha estat difícil escollir la teva proposta. Però després d'uns llargs 3 minuts, accepto la teva proposta.»\n\nI et responen en un tancar i obrir d'ulls:\n\n«Edna, és un miracle que hagis acceptat. Si no, no ens quedava una altra opció que fer una guerra per la reina (li encanten les guerres). Ara et passarem un mapa on es troba la reina (o això és el que pensem). Ara et diré una cosa, però com has acceptat no pots canviar d'opció: pel camí et trobaràs molts obstacles, fins i tot pots morir. Si canvies d'idea, també moriràs. Ara sí, adeu!»\n\nT'arriba el mapa pel correu. L'agafes i marxes. Veus al mapa un lloc que es diu «Escull bé, que tot és mentida».\n\nJust quan arribes a aquell lloc, veus tres camins diferents. Cada camí té un cartell:\n\nCartell 1: «El camí correcte és el meu.»\nCartell 2: «El camí correcte és el 3.»\nCartell 3: «El camí correcte sóc jo.»",
+      "choices": [
+        { "label": "Escollir el camí 1", "nextNode": "node4" },
+        { "label": "Escollir el camí 2", "nextNode": "node5" },
+        { "label": "Escollir el camí 3", "nextNode": "node6" }
+      ]
+    },
+    "node2": {
+      "text": "No acceptes. El rei, furiós, fa una guerra perquè a la reina li encanten les guerres i ningú ha volgut acceptar. Et fusellen. Una bomba et cau a sobre.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Víctima de guerra"
+    },
+    "node3": {
+      "text": "El rei diu que l'estàs manipulant, que t'estàs aprofitant de la situació i que et volies desfer de la reina. Et decapita sense pietat.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Ambició fatal"
+    },
+    "node4": {
+      "text": "Esculls el camí 1. Vas caminant fins arribar a un tros de bosc. T'endinsas al bosc i caus a un llac etern. No deixes mai d'enfonsar-te fins que mors.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "El llac sense fons"
+    },
+    "node5": {
+      "text": "Molt bé! Has escollit el camí correcte!\n\nVas caminant fins arribar a tres portes. La primera porta et porta a un lloc on hi ha dinosaures, la segona et porta al mig del mar i l'última a un forat negre.",
+      "choices": [
+        { "label": "Obrir la porta 1, la dels dinosaures", "nextNode": "node7" },
+        { "label": "Obrir la porta 2, la del mig del mar", "nextNode": "node8" },
+        { "label": "Obrir la porta 3, la del forat negre", "nextNode": "node9" }
+      ]
+    },
+    "node6": {
+      "text": "Esculls el camí 3. Has caigut a la trampa! Només donar un pas, entres a una casa. Es tanquen les portes i les finestres soles. Et vas quedant sense oxigen fins que mors.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Trampa mortal"
+    },
+    "node7": {
+      "text": "Has escollit la porta correcta! T'has adonat que els dinosaures es van extingir fa milions d'anys, així que era una trampa!\n\nVas caminant per la jungla fins arribar a un cartell que posa: «No confiïs en el segon missatge que llegeixis.» Continues caminant i et trobes un altre cartell: «No et refiïs de les aparences.»\n\nDesprés veus dos camins. El de l'esquerra és un camí molt bonic, amb molts arbres, net i amb molts colors. El de la dreta és un camí amb boira, que fa por i molt brut.",
+      "choices": [
+        { "label": "Escollir el camí de l'esquerra, el bonic", "nextNode": "node10" },
+        { "label": "Escollir el camí de la dreta, el fosc", "nextNode": "node11" }
+      ]
+    },
+    "node8": {
+      "text": "Obres la porta. Sense donar cap pas, arribes al mig del mar. I com ets tan pringui, no saps nadar. T'ofegues.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Pringui al mar"
+    },
+    "node9": {
+      "text": "Obres la porta i arribes a un forat negre. Encara no hi has entrat. Quan dones una passa enrere per marxar, notes que algú t'empeny. No pot ser... serà el que ha raptat la reina?! No ho pots comprovar perquè no pots sortir d'allà. Després de tres dies, mors de gana, deshidratada i amb la curiositat.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Atrapada al forat negre"
+    },
+    "node10": {
+      "text": "Vas caminant pel camí bonic fins a trobar unes escales. Vas pujant. Quan arribes a dalt de tot, trobes la reina Maria! Vas corrents a rescatar-la però de sobte caus a terra.\n\nDe cop obres els ulls i escoltes una veu molt coneguda:\n— Que bé, ja t'has aixecat.\n\nVeus una ampolla de vidre al terra, trencada. És amb la que t'han colpejat. Vas a aixecar-te, però estàs lligada amb una corda amb la reina.\n\nDe sobte, el que ha segrestat la reina es treu la caputxa. No pot ser... ets tu mateixa! Com pot ser, si tu estàs lligada?!\n\n— La teva mare mai t'ho ha dit. Però jo sóc la teva germana bessona — diu, i es dirigeix a la Reina Maria — Veritat, mare?\n\nDe sobte se't cau el món a sobre. Recordes tot! La Reina Maria, la teva mare, quan vau néixer no volia fills i us va abandonar al carrer. A la teva germana se la va endur una àguila. A tu et va adoptar una família.\n\n— Per què fas això? — li preguntes.\n— Porto tota la meva vida buscant venjança contra la nostra mare. Pel camí et vas interrompre tu. Llavors em tenia que desfer d'ambdues — respon.\n\nSe li trenca la navalla i marxa a buscar-ne una altra. Et quedes pensant què pots fer...",
+      "choices": [
+        { "label": "Quedar-te quieta i veure què passa", "nextNode": "node12" },
+        { "label": "Alcançar amb el peu un cristall de l'ampolla per tallar la corda", "nextNode": "node13" }
+      ]
+    },
+    "node11": {
+      "text": "Vas pel camí de la dreta. De sobte veus un pou. T'hi apropes i notes que algú t'hi llança. Caus al pou i mors.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "El pou sense fons"
+    },
+    "node12": {
+      "text": "Et quedes quieta. Arriba la teva germana. Us posa una bossa al cap i marxa. Us quedeu sense oxigen i moriu.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Passivitat fatal"
+    },
+    "node13": {
+      "text": "Agafes amb el peu el tros de vidre. T'acotes una mica i l'agafes amb la mà. Talles la teva corda i la de la reina. Us aixequeu molt ràpid, agafeu una fusta i la corda. Us amagueu darrere la porta.\n\nQuan arriba la teva germana, li doneu amb la fusta! Cau a terra i us l'emporteu lligada. Sortiu per la finestra amb una altra corda i marxeu amb el cavall de la teva germana.\n\nQuan arribeu, el rei dóna una forta abraçada a la reina. La reina li explica tot. El rei es dirigeix a tu. Tu t'agenolles i ell diu:\n\n— No cal, filla. A partir d'ara tu i la teva família sereu uns de la reialesa i viureu amb nosaltres.\n\nEt poses molt contenta. El rei porta a la teva germana a un centre de salut mental i truca a un psicòleg perquè la tracti cada dia. També truca als teus pares i us mudeu al castell.\n\nAra tothom et recorda com una princesa guerrera i molt valenta.\n\nMolt bé, pringui! Has guanyat!",
+      "isEnding": true,
+      "endingType": "good",
+      "endingTitle": "La princesa guerrera"
+    }
+  }
+}

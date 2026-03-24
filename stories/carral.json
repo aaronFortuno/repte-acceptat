@@ -1,0 +1,105 @@
+{
+  "id": "carral",
+  "title": "Misteri a la Carral",
+  "author": "Peponcha Asada",
+  "startNode": "node0",
+  "nodes": {
+    "node0": {
+      "text": "Ets un nen que se'n va de colònies amb l'escola. No tens amics perquè ets un marginat.\n\nQuan estàs a l'autobús, tens una visió: veus que l'autobús s'estavella!",
+      "choices": [
+        { "label": "Avisar els teus companys", "nextNode": "node1" },
+        { "label": "No fer res", "nextNode": "final1" }
+      ]
+    },
+    "node1": {
+      "text": "Avises els teus companys, però no et fan cas perquè ets un marginat.\n\nPerò la teva visió fa que es creï un portal! En «estavellar-vos», entreu al portal que us transporta a... la Carral.\n\nEsteu tots en una mena de casa rural estranya. Pots anar a la teva habitació o al menjador.",
+      "choices": [
+        { "label": "Anar a la teva habitació", "nextNode": "final2" },
+        { "label": "Anar al menjador a dinar", "nextNode": "node2" }
+      ]
+    },
+    "node2": {
+      "text": "Vas a dinar perquè tens molta gana (i no saps per què).\n\nHi ha sopa de lletres. Quan agafes la cullera, et dones compte que les lletres formen un missatge:\n\n«MORIREU TOTS COM NO FACIS ALGUNA COSA»\n\nEt restreguès els ulls. Sí, és veritat el que posa allà.",
+      "choices": [
+        { "label": "No fer res i menjar-te la sopa", "nextNode": "final3" },
+        { "label": "Anar a la biblioteca a investigar", "nextNode": "node3" }
+      ]
+    },
+    "node3": {
+      "text": "Vas a la biblioteca. Allà hi ha un plat de galetes cookies.\n\nTens moltíssima gana perquè no t'has menjat la sopa...",
+      "choices": [
+        { "label": "Menjar-te les galetes (tens molta gana!)", "nextNode": "node4" },
+        { "label": "Passar de les galetes i investigar directament", "nextNode": "final4" }
+      ]
+    },
+    "node4": {
+      "text": "Et menges les galetes i, sorprenentment, ja no tens gana.\n\nComences a investigar llibre per llibre i descobreixes un passadís secret! Està fosc i a tu et fa por la foscor...",
+      "choices": [
+        { "label": "Abandonar, et fa massa por la foscor", "nextNode": "final5" },
+        { "label": "Superar la por i continuar investigant", "nextNode": "node5" }
+      ]
+    },
+    "node5": {
+      "text": "Entres al passadís i et dones compte que no passa res! Hi ha moltes habitacions i entres a totes.\n\nEn una d'elles trobes un aparador amb el llibre que estaves buscant. Però hi ha un cartell que avisa:\n\n«ALARMA: Si agafes el llibre, es tancaran les portes i no podràs sortir mai més.»",
+      "choices": [
+        { "label": "Agafar el llibre igualment", "nextNode": "node6" },
+        { "label": "Esperar a que passi alguna cosa", "nextNode": "final6" }
+      ]
+    },
+    "node6": {
+      "text": "Agafes el llibre i et dones compte que... ERA MENTIDA! El cartell era per espantar la gent i que ningú l'agafés!\n\nSurts de l'habitació i comences a llegir. A la tercera pàgina descobreixes la veritat:\n\nEls responsables de tot són GREMLINS XXL (gegants!) que van posant trampes a la gent.\n\nEl llibre diu que si vas deixant un rastre de formatge amb fragància de Louis Vuitton, els gremlins moriran i et deixaran en pau. Però ALERTA: mai, MAI, lluiteu amb ells.",
+      "choices": [
+        { "label": "No fer cas del llibre i lluitar contra els gremlins", "nextNode": "final7" },
+        { "label": "Fer el rastre de formatge Louis Vuitton", "nextNode": "final_victory" }
+      ]
+    },
+    "final1": {
+      "text": "No fas res. L'autobús s'estavella i tots moriu.\n\nTorna a començar, PRINGUI.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "L'autobús"
+    },
+    "final2": {
+      "text": "Vas a la teva habitació i et dones compte que la comparteixes amb el teu arxienemic: el noi que et margina.\n\nEt mors allà, marginat.\n\nTorna a començar, PRINGUI.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "El company d'habitació"
+    },
+    "final3": {
+      "text": "Et menges la sopa de lletres tranquil·lament. Estava bona!\n\nPerò al cap d'uns minuts et dones compte que estava enverinada. Mors enverinat.\n\nTorna a començar, PRINGUI.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "La sopa enverinada"
+    },
+    "final4": {
+      "text": "Passes de les galetes i intentes investigar directament, però no has menjat res en tot el dia.\n\nEt mors de gana a la biblioteca.\n\nTorna a començar, PRINGUI.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Mort de gana"
+    },
+    "final5": {
+      "text": "Abandones perquè la foscor et fa massa por. Tornes a la llum... però el que et volia matar et troba i t'elimina.\n\nTorna a començar, PRINGUI.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "La por a la foscor"
+    },
+    "final6": {
+      "text": "Esperes a que passi alguna cosa.\n\nPassen els segons. Els minuts. Les hores. Els dies. Les setmanes. Els mesos. Els anys.\n\nEt mors d'avorriment.\n\nTorna a començar, PRINGUI.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Mort d'avorriment"
+    },
+    "final7": {
+      "text": "No fas cas del llibre i decides lluitar contra els gremlins.\n\nPerò el llibre ho deia ben clar: MAI lluiteu amb ells. Són gremlins XXL gegants i tu ets un nen marginat.\n\nEt mors per no fer cas.\n\nTorna a començar, PRINGUI.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Gremlins XXL"
+    },
+    "final_victory": {
+      "text": "Fas cas del llibre i deixes un rastre de formatge amb fragància de Louis Vuitton pels passadissos.\n\nEls gremlins XXL segueixen el rastre, olorant l'aroma de luxe irresistible. Un per un, van caient.\n\nTot surt com esperaves! Has salvat tothom a la Carral.\n\nEls teus companys per fi et fan cas i ja no ets un marginat. Ets l'heroi del formatge Louis Vuitton.\n\nHas guanyat!!!!",
+      "isEnding": true,
+      "endingType": "good",
+      "endingTitle": "L'heroi del formatge"
+    }
+  }
+}

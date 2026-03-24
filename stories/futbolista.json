@@ -1,0 +1,66 @@
+{
+  "id": "futbolista",
+  "title": "El Gran Futbolista",
+  "author": "El Juárez",
+  "startNode": "node0",
+  "nodes": {
+    "node0": {
+      "text": "Ets en Manolo, la decepció humana del futbol. Has de demostrar a la humanitat que tens talent (és mentida, ets malíssim). Cada dia vas al McDonald's a atipar-te.\n\nEl teu entrenador et diu:\n\n«Sóc el teu entrenador i et recomano ENTRENAR. Deixa el McDonald's, home!»",
+      "choices": [
+        { "label": "Seguir anant al McDonald's i no fer cas", "nextNode": "final1" },
+        { "label": "Fer cas a l'entrenador i posar-te a entrenar", "nextNode": "node1" }
+      ]
+    },
+    "node1": {
+      "text": "Fas cas al teu entrenador i millores un munt! Des d'aquell dia comences a demostrar que pots ser titular.\n\nDe camí a casa, et trobes una persona encaputxada que et diu:\n\n«Tingues fe en tu i segueix amb aquest ritme. Calcom.»\n\nNo saps qui és, però les seves paraules se't queden gravades.",
+      "choices": [
+        { "label": "No donar-li importància i jugar a la Play tota la nit", "nextNode": "node2" },
+        { "label": "Fer-li cas i anar a dormir d'hora per al partit de demà", "nextNode": "node3" }
+      ]
+    },
+    "node2": {
+      "text": "T'has passat tota la nit jugant al Rocket League i cridant pel micròfon.\n\nArriba el dia del partit. L'entrenador et posa de titular per sorpresa, però surts al camp que sembles un zombi.\n\nQuan sona el xiulet inicial, et penses que encara estàs jugant amb el comandament de la Play. En lloc de córrer cap a la pilota, comences a saltar intentant fer un «double jump» amb els peus i crides: «NECESSITO TURBO!»\n\nLa grada es queda en silenci sepulcral. En un contraatac, la pilota et pica a la cara, rebota i entra a la teva pròpia porteria. T'adorms allà mateix, a la línia de gol, fent servir la xarxa d'hamaca.",
+      "choices": [
+        { "label": "Aixecar-te i intentar salvar el que queda de partit", "nextNode": "final2" },
+        { "label": "Si he de caure, cauré amb estil", "nextNode": "final3" }
+      ]
+    },
+    "node3": {
+      "text": "Surts de titular i, com que has descansat, dones la talla! La gent no s'ho esperava. No paren de cridar el teu nom com si fossis un heroi perquè has marcat el gol de la victòria!\n\nResulta que era un partit decisiu per veure qui guanya la lliga. Ets un heroi!\n\nAl vestidor, reps una trucada: és el Barça, que et vol fitxar. No estàs decidit perquè et distanciaries dels teus companys i de la teva família.\n\nEl mateix noi encaputxat apareix de nou i et recomana que acceptis l'oferta.",
+      "choices": [
+        { "label": "Acceptar l'oferta del Barça", "nextNode": "node4" },
+        { "label": "Rebutjar l'oferta i quedar-te amb la teva gent", "nextNode": "final4" }
+      ]
+    },
+    "node4": {
+      "text": "Fas les maletes cap a la Masia convençut que aquesta oportunitat només passa una vegada a la vida. Promets a la teva família i amics que no els oblidaràs i que els convidaràs a tots a la teva futura llotja VIP al Camp Nou.\n\nEls veterans del Barça et diuen que la nova temporada és molt potent i que esperen molt de tu. Menys Play i més entrenar!\n\nDe camí a casa, estàs pensant en tot això, però no veus que dues persones encaputxades s'acosten per darrere. T'agafen i t'apunyalen.\n\nSobrevius, però estàs a l'hospital. No podràs tornar a jugar al futbol mai més.",
+      "isEnding": true,
+      "endingType": "good",
+      "endingTitle": "El preu de la fama"
+    },
+    "final1": {
+      "text": "Segueixes anant al McDonald's cada dia sense fer cas a ningú. Acabes explotant.\n\nTens ganes d'anar al lavabo i... bueno, no entrarem en detalls. Només direm que no va acabar bé.\n\nPotser hauries d'haver entrenat una mica.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "L'últim McMenu"
+    },
+    "final2": {
+      "text": "T'aixeques d'un salt i et dones dues bufetades per despertar-te. Intentes convèncer tothom que el cop de pilota a la cara formava part d'una estratègia psicològica magistral per desconcertar l'adversari.\n\nCorres cap a la banqueta a demanar aigua (o «poció de vida»). Ningú et creu i l'entrenador et fa fora del camp.\n\nLa teva carrera ha acabat abans de començar.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Estratègia psicològica"
+    },
+    "final3": {
+      "text": "T'aixeques i comences a córrer fent moviments erràtics, cridant que el teu «ping» és massa alt i que el camp té «lag».\n\nQuan l'àrbitre s'apropa per treure't targeta, intentes fer-li un trade de la teva bota per la seva targeta vermella, convençut que és un objecte cosmètic llegendari.\n\nEt treuen del camp entre aplaudiments... però no dels bons.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "El ping és massa alt"
+    },
+    "final4": {
+      "text": "Rebutges l'oferta del Barça. Prefereixes quedar-te al teu club de tota la vida, a prop de la teva gent, celebrant el títol de lliga amb els teus companys de debò.\n\nEl noi que t'aconsella es queda de pedra, però tu sents que la felicitat no té preu.\n\nEt converteixes en una llegenda local i en un símbol del romanticisme futbolístic. Cada dia la gent et saluda pel carrer i els nens volen ser com tu.\n\nI de tant en tant, encara vas al McDonald's. Però només els diumenges.",
+      "isEnding": true,
+      "endingType": "good",
+      "endingTitle": "Llegenda local"
+    }
+  }
+}

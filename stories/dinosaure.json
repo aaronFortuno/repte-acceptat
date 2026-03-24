@@ -1,0 +1,73 @@
+{
+  "id": "dinosaure",
+  "title": "El Dinosaure i el Penjoll Màgic",
+  "author": "Elsa",
+  "startNode": "node0",
+  "nodes": {
+    "node0": {
+      "text": "Hi havia un dinosaure que jugava a la pilota amb els seus amics. Un dia van venir uns nens i el dinosaure els va preguntar si volien jugar amb ells. Els nens van dir que sí!\n\nEstaven tots jugant molt contents, però de sobte el dinosaure es fa mal a la pota.",
+      "choices": [
+        { "label": "Ajudar el dinosaure", "nextNode": "node1" },
+        { "label": "No fer res i mirar com pateix", "nextNode": "final1" },
+        { "label": "Espantar el dinosaure", "nextNode": "final2" }
+      ]
+    },
+    "node1": {
+      "text": "Els nens ajuden el dinosaure i ell es posa molt content! Com a agraïment, el dinosaure els dona un penjoll màgic amb superpoders.\n\nPerò de sobte se sent un soroll terrible: és un tsunami que s'acosta! Les onades són enormes i venen cap aquí!",
+      "choices": [
+        { "label": "Posar-se el penjoll ràpidament", "nextNode": "node2" },
+        { "label": "No fer res i quedar-se quiet de por", "nextNode": "final3" }
+      ]
+    },
+    "node2": {
+      "text": "Els nens es posen el penjoll i una llum els protegeix del tsunami! L'aigua ho destrossa tot al voltant, però ells estan fora de perill.\n\nQuan el tsunami s'acaba, veuen que hi ha un forat molt gran al terra. Està molt fosc. El dinosaure hi veu a la foscor, així que entren junts.\n\nA dins troben un tresor increïble! El comparteixen entre tots.\n\nDe sobte, el penjoll comença a brillar amb una llum intensíssima de color blau marí. Una veu que surt de les joies els diu que el tresor té un últim poder màgic que només es pot fer servir una vegada.",
+      "choices": [
+        { "label": "Fer servir el poder per salvar el món", "nextNode": "node3" },
+        { "label": "No fer res i guardar-se el tresor", "nextNode": "final4" }
+      ]
+    },
+    "node3": {
+      "text": "Fan servir el poder del tresor per reconstruir tot el poble en un segon i fer-lo immune als tsunamis per sempre!\n\nEl poble torna a ser bonic i segur. Però encara queda una mica de màgia al penjoll... només per una última cosa.",
+      "choices": [
+        { "label": "Usar el que queda per fer un refugi per als dinosaures i animals", "nextNode": "final_victory" },
+        { "label": "Guardar el poder per si ve un perill més gran en el futur", "nextNode": "final_good2" }
+      ]
+    },
+    "final1": {
+      "text": "No fas res per ajudar el dinosaure. Després d'una estona, el dinosaure es queda sol i trist amb la pota ferida. Els seus amics marxen.\n\nPodries haver fet un amic increïble, però no vas fer res.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "El dinosaure trist"
+    },
+    "final2": {
+      "text": "Espantes el dinosaure i ell marxa corrents, molt espantat i trist. No el tornes a veure mai més.\n\nEls altres nens et miren decepcionats. No era un dinosaure dolent, només volia jugar.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "Un amic perdut"
+    },
+    "final3": {
+      "text": "Et quedes quiet de por i el tsunami arriba amb tota la força. Sense el poder del penjoll, no hi ha res que us protegeixi.\n\nSort que el dinosaure és prou gran per carregar els nens i córrer cap a la muntanya! Sobreviviu, però el poble queda destrossat i el penjoll es perd entre les onades.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "El penjoll perdut"
+    },
+    "final4": {
+      "text": "Decidiu no fer res amb el poder i guardar-vos el tresor. Però sense ajudar el poble, tothom queda trist i el lloc queda destrossat pel tsunami.\n\nEl penjoll perd la seva llum poc a poc. La màgia s'esgota si no la fas servir per ajudar els altres.",
+      "isEnding": true,
+      "endingType": "bad",
+      "endingTitle": "La màgia que es va apagar"
+    },
+    "final_victory": {
+      "text": "Useu l'últim poder del penjoll per construir un refugi gegant per a tots els dinosaures i animals!\n\nEl refugi és preciós, amb arbres, llacs i menjar per a tothom. El dinosaure i els seus amics hi viuen feliços.\n\nEls nens i els dinosaures es converteixen en millors amics per sempre. Cada dia juguen junts a la pilota, i el penjoll brilla suaument per recordar-los que la màgia de veritat és l'amistat.",
+      "isEnding": true,
+      "endingType": "good",
+      "endingTitle": "El refugi dels dinosaures"
+    },
+    "final_good2": {
+      "text": "Decidiu guardar el poder del penjoll per si en un futur torna a venir un perill més gran. Mentrestant, munten un refugi per als dinosaures i animals amb les seves pròpies mans.\n\nÉs feina dura, però ho fan junts i el resultat és increïble. El dinosaure i els nens treballen colze a colze cada dia.\n\nPotser la veritable màgia no era el penjoll, sinó el treball en equip.",
+      "isEnding": true,
+      "endingType": "good",
+      "endingTitle": "El poder de l'equip"
+    }
+  }
+}
